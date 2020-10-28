@@ -1,5 +1,19 @@
 # covivre_flutter
 
+git clone https://github.com/flutter/flutter.git
+
+export PATH="$PATH:`pwd`/flutter/bin"
+
+flutter precache
+
+ flutter doctor
+
+сделай этот пункт -  https://flutter.dev/docs/get-started/install/macos#update-your-path
+
+установи flutter плагин в андроид студио
+
+открой проект в андроид студио
+
 A new Flutter project.
 
 ## Getting Started
