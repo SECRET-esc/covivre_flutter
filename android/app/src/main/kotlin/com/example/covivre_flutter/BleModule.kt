@@ -30,7 +30,7 @@ class BleModule() : AppCompatActivity() {
     private var REQUEST_ENABLE_BT = 1
     var scanPeriod: Long = 5000
     var strengthThreshold = -60
-    private lateinit var context: Activity
+    private lateinit var context: MainActivity
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun scanLeDevice() {
@@ -53,6 +53,7 @@ class BleModule() : AppCompatActivity() {
             val name = result.device.name
             if (name!==null) {
                 getResult(name)
+                context.sendResult(name)
             }
             btLeScanner.startScan(callBackStop)
 
@@ -63,6 +64,7 @@ class BleModule() : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun onScanResult(callbackType:Int, result: ScanResult) {
             super.onScanResult(callbackType, result)
+            context.sendResult("scanning was stopped!")
             Log.d(TAG,"scanning was stopped!")
         }
     }
@@ -104,7 +106,7 @@ class BleModule() : AppCompatActivity() {
 
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun startScan(a: String, context: Activity){
+    fun startScan(a: String, context: MainActivity){
         Log.d(TAG, "In startScan")
         this.context = context
         checkLocationPermission()

@@ -1,10 +1,5 @@
 package com.example.covivre_flutter
 
-import androidx.annotation.NonNull
-import io.flutter.embedding.android.FlutterActivity
-import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.plugin.common.MethodChannel
-
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -12,15 +7,21 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
+import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
     private val CHANNEL = "samples.flutter.dev/battery"
+    private lateinit var methodChannel: MethodChannel
 
     @RequiresApi(VERSION_CODES.LOLLIPOP)
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
+        this.methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
+        this.methodChannel.setMethodCallHandler {
             // Note: this method is invoked on the main thread.
             call, result ->
             if (call.method == "getBatteryLevel") {
@@ -35,6 +36,23 @@ class MainActivity: FlutterActivity() {
                 result.notImplemented()
             }
         }
+
+    }
+
+    fun sendResult(arguments: String){
+        this.methodChannel.invokeMethod("result", arguments, object : MethodChannel.Result {
+            override fun success(result: Any?) {
+//                TODO("Not yet implemented")
+            }
+
+            override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun notImplemented() {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     @RequiresApi(VERSION_CODES.LOLLIPOP)

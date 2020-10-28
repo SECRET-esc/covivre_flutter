@@ -54,6 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
   // Get battery level.
   String _batteryLevel = 'Unknown battery level.';
   String _infoFromApp = 'Unknown info';
+  initState(){
+    super.initState();
+    platform.setMethodCallHandler((call) => myUtilsHandler(call));
+  }
 
   Future<void> _getBatteryLevel() async {
     String batteryLevel;
@@ -72,7 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<dynamic> myUtilsHandler(MethodCall methodCall) async {
     switch (methodCall.method) {
       case 'result':
-        _infoFromApp = methodCall.arguments.toString();
+        setState(() {
+          _infoFromApp = methodCall.arguments.toString();
+        });
         return "1";
       default:
         throw MissingPluginException('notImplemented');
