@@ -1,8 +1,7 @@
-package com.example.covivre_flutter
+package com.example.covivre
 
 
 import android.Manifest
-import android.app.Activity
 import android.app.AlertDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.le.BluetoothLeScanner
@@ -13,11 +12,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.covivre.MainActivity
 
 
 class BleModule() : AppCompatActivity() {

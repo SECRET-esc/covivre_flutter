@@ -1,14 +1,13 @@
-package com.example.covivre_flutter
+package com.example.covivre
 
 import android.R
 import android.app.*
-import android.app.Service.START_NOT_STICKY
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
+import com.example.covivre.MainActivity
 
 
 class ForegroundService : Service() {

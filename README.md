@@ -1,5 +1,5 @@
 
-# covivre_flutter
+# covivre
 
 git clone https://github.com/flutter/flutter.git
 
@@ -13,9 +13,10 @@ flutter precache
 
 установи flutter плагин в андроид студио
 
-открой проект в андроид студио
-=======
-# covivre
+открой проект в андроид студи
+
+=============================
+
 
 A new Flutter project.
 
