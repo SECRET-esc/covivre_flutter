@@ -20,6 +20,24 @@ class _StaySafeState extends State<StaySafe> {
     recentState = false;
   }
 
+  _onTopNowState() {
+    setState(() {
+      if (nowState == false) {
+        nowState = true;
+        recentState = false;
+      }
+    });
+  }
+
+  _onTopRecentState() {
+    setState(() {
+      if (recentState == false) {
+        recentState = true;
+        nowState = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -30,71 +48,98 @@ class _StaySafeState extends State<StaySafe> {
         child: Flex(direction: Axis.vertical, children: [
           Header(title: "stay safe"),
           Expanded(
-              flex: 1,
-              child: Container(
-                  // color: Colors.amber,
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: nowState ? 2 : 0,
-                                  color: nowState
-                                      ? Theme.of(context).colorScheme.base
-                                      : Colors.transparent))),
-                      child: Text(
-                        "now".toUpperCase(),
-                        style: TextStyle(
-                            fontFamily: "FaturaMedium",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 25,
-                            decoration: TextDecoration.none,
-                            color: nowState == true
-                                ? Theme.of(context).colorScheme.base
-                                : Theme.of(context).colorScheme.switchCircle),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: recentState ? 2 : 0,
-                                  color: recentState
-                                      ? Theme.of(context).colorScheme.base
-                                      : Colors.transparent))),
-                      child: Text(
-                        "recent".toUpperCase(),
-                        style: TextStyle(
-                            fontFamily: "FaturaMedium",
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.none,
-                            fontSize: 25,
-                            color: recentState == true
-                                ? Theme.of(context).colorScheme.base
-                                : Theme.of(context).colorScheme.switchCircle),
-                      ),
-                    ),
-                  ),
-                ],
-              ))),
-          Expanded(
-              flex: 6,
-              child: Container(
-                color: Colors.black,
-              )),
-          Expanded(
-            flex: 3,
+            flex: 1,
             child: Container(
-              color: Colors.blue,
-            ),
+                // color: Colors.amber,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                  Flexible(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        _onTopNowState();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: nowState ? 2 : 0,
+                                    color: nowState
+                                        ? Theme.of(context).colorScheme.base
+                                        : Colors.transparent))),
+                        child: Text(
+                          "now".toUpperCase(),
+                          style: TextStyle(
+                              fontFamily: "FaturaMedium",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 25,
+                              decoration: TextDecoration.none,
+                              color: nowState == true
+                                  ? Theme.of(context).colorScheme.base
+                                  : Theme.of(context).colorScheme.switchCircle),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        _onTopRecentState();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: recentState ? 2 : 0,
+                                    color: recentState
+                                        ? Theme.of(context).colorScheme.base
+                                        : Colors.transparent))),
+                        child: Text(
+                          "recent".toUpperCase(),
+                          style: TextStyle(
+                              fontFamily: "FaturaMedium",
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.none,
+                              fontSize: 25,
+                              color: recentState == true
+                                  ? Theme.of(context).colorScheme.base
+                                  : Theme.of(context).colorScheme.switchCircle),
+                        ),
+                      ),
+                    ),
+                  )
+                ])),
           ),
+          nowState
+              ? Expanded(
+                  flex: 9,
+                  child: Flex(
+                    direction: Axis.vertical,
+                    children: [
+                      Expanded(
+                          flex: 6,
+                          child: Container(
+                            color: Colors.black,
+                          )),
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Expanded(
+                  flex: 9,
+                  child: Container(
+                    color: Colors.amber,
+                  ),
+                )
         ]),
       ),
     );
