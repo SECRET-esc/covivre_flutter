@@ -3,7 +3,6 @@ import '../components/Header.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// import '../constants/Theme.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
@@ -20,10 +19,10 @@ class _HomePageState extends State<HomePage> {
 
   _incrementInit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('FirstLunch') == false) {
+    if (prefs.getBool('FirstLunch') == true) {
       // if app was lunched in the first time, we should be create this
       //SharedPreferences and reload statment if
-      await prefs.setBool('FirstLunch', true);
+
       await prefs.setBool('risk', false);
       await prefs.setBool('positive', false);
       await prefs.setBool('closeContact', false);
@@ -41,7 +40,14 @@ class _HomePageState extends State<HomePage> {
 
   _furstLanchCencelation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('FirstLunch', false);
+
+    var name = prefs.getBool('FirstLunch');
+    if (name == null) {
+      await prefs.setBool('FirstLunch', true);
+    } else {
+      await prefs.setBool('FirstLunch', false);
+    }
+    print("First lunch is:$name");
   }
 
   @override
@@ -153,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => print('Width $width'),
+                          onTap: () => Navigator.pushNamed(context, 'StaySafe'),
                           child: Container(
                               // color: Colors.amber,
                               width: height * 0.17,

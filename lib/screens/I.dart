@@ -2,7 +2,6 @@ import 'package:covivre/components/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class I extends StatefulWidget {
   const I({Key key}) : super(key: key);

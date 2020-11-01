@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
-class Header extends StatelessWidget {
+// ignore: must_be_immutable
+class Header extends StatefulWidget {
   Header({Key key, this.title}) : super(key: key);
   String title;
+
+  @override
+  _HeaderState createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -18,7 +25,7 @@ class Header extends StatelessWidget {
               child: Container(
                   // color: Colors.red,
                   alignment: Alignment.center,
-                  child: (this.title == null
+                  child: (this.widget.title == null
                       ? GestureDetector(
                           onTap: () => print("Was tapped!"),
                           child: Container(
@@ -45,11 +52,12 @@ class Header extends StatelessWidget {
                               ),
                               Flexible(
                                   child: Text(
-                                title,
+                                widget.title,
                                 style: TextStyle(
                                     fontFamily: "Heaters",
                                     fontSize: 40,
-                                    height: title.length > 10 ? 0.6 : null,
+                                    height:
+                                        widget.title.length > 10 ? 0.6 : null,
                                     color: Theme.of(context).colorScheme.base),
                                 textWidthBasis: TextWidthBasis.longestLine,
                               ))

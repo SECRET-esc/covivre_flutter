@@ -58,7 +58,6 @@ class _SwitchCustomState extends State<SwitchCustom> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return FlutterSwitch(
       width: width * 0.16,
       height: 30,
