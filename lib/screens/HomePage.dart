@@ -26,6 +26,9 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('risk', false);
       await prefs.setBool('positive', false);
       await prefs.setBool('closeContact', false);
+      await prefs.setBool('show at risk', false);
+      await prefs.setBool('show meeting rooms', false);
+
       print("Was in the first lunch statment");
     } else {
       var closeContact = prefs.getBool('closeContact');

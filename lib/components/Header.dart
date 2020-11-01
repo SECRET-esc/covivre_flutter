@@ -55,7 +55,8 @@ class _HeaderState extends State<Header> {
                                 widget.title,
                                 style: TextStyle(
                                     fontFamily: "Heaters",
-                                    fontSize: 40,
+                                    fontSize: 42,
+                                    fontWeight: FontWeight.w500,
                                     height:
                                         widget.title.length > 10 ? 0.6 : null,
                                     color: Theme.of(context).colorScheme.base),

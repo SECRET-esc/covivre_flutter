@@ -2,10 +2,9 @@ import 'package:covivre/screens/CovidUpdates.dart';
 import 'package:covivre/screens/StaySafe.dart';
 import 'package:covivre/screens/I.dart';
 import 'package:covivre/screens/Fight.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import './screens/HomePage.dart';
 
 void main() {
@@ -16,6 +15,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(backgroundColor: Color.fromRGBO(31, 28, 50, 1.0)),
@@ -57,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Get battery level.
   String _batteryLevel = 'Unknown battery level.';
   String _infoFromApp = 'Unknown info';
-  initState(){
+  initState() {
     super.initState();
     platform.setMethodCallHandler((call) => myUtilsHandler(call));
   }
@@ -87,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
         throw MissingPluginException('notImplemented');
     }
   }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
