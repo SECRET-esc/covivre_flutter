@@ -13,8 +13,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  path_provider: 1.6.22
+
+  flutter_switch: ^0.1.4
 
   cupertino_icons: ^1.0.0
+
+  shared_preferences: ^0.5.8
 
 dev_dependencies:
   flutter_test:
@@ -29,4 +34,7 @@ flutter:
     - family: Heaters
       fonts:
         - asset: lib/assets/fonts/Heaters.otf
+    - family: FaturaMedium
+      fonts:
+        - asset: lib/assets/fonts/futura-pt-medium.otf
   
