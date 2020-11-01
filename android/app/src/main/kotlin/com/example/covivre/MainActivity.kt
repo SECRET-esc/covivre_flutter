@@ -1,79 +1,93 @@
 package com.example.covivre
 
-import android.content.ContextWrapper
-import android.content.Intent
-import android.content.IntentFilter
-import android.os.BatteryManager
+import android.Manifest
+import android.app.AlertDialog
+import android.content.*
+import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
+import android.os.IBinder
+import android.util.Log
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.plugin.common.MethodChannel
 
 class MainActivity: FlutterActivity() {
-    private val CHANNEL = "samples.flutter.dev/battery"
-    private lateinit var methodChannel: MethodChannel
+
+    private val MY_PERMISSIONS_REQUEST_FOR_LOCATION = 1
+    var myService: ForegroundService? = null
+    var isBound = false
+    private lateinit var flutterEngine1: FlutterEngine
+
+    private val myConnection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName,
+                                        service: IBinder) {
+            val binder = service as ForegroundService.MyLocalBinder
+            myService = binder.getService()
+            myService!!.configureFlatterChanel(flutterEngine1);
+            isBound = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            isBound = false
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        this.methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
-        this.methodChannel.setMethodCallHandler {
-            // Note: this method is invoked on the main thread.
-            call, result ->
-            if (call.method == "getBatteryLevel") {
-                val batteryLevel = getBatteryLevel()
+        this.flutterEngine1 = flutterEngine
+        startServiceForScan()
+    }
 
-                if (batteryLevel != -1) {
-                    result.success(batteryLevel)
-                } else {
-                    result.error("UNAVAILABLE", "Battery level not available.", null)
-                }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val intent = Intent(this, ForegroundService::class.java)
+        bindService(intent, myConnection, Context.BIND_AUTO_CREATE)
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun startServiceForScan() {
+
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+
             } else {
-                result.notImplemented()
+
+                // No explanation needed, we can request the permission.
+                AlertDialog.Builder(this)
+                        .setMessage("Allow use location.")
+                        .setPositiveButton("Allow")
+                        { _, _ -> requestLocationPermission() }
+                        .setNegativeButton("Deny") { _, _ -> }
+                        .show()
+
             }
-        }
-
-    }
-
-    fun sendResult(arguments: String){
-        this.methodChannel.invokeMethod("result", arguments, object : MethodChannel.Result {
-            override fun success(result: Any?) {
-//                TODO("Not yet implemented")
-            }
-
-            override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun notImplemented() {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun getBatteryLevel(): Int {
-        val batteryLevel: Int
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val batteryManager = getSystemService(BATTERY_SERVICE) as BatteryManager
-            batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
         } else {
-            val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-            batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+            startServiceForScanWithPermissions()
         }
-        startScan()
-        return batteryLevel
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun startScan() {
+    private fun startServiceForScanWithPermissions(){
         val i = Intent(context, ForegroundService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent)
+            Log.d(ContentValues.TAG, "startForegroundService")
+            startForegroundService(i)
         } else {
-            startService(intent)
+            Log.d(ContentValues.TAG, "startService")
+            startService(i)
         }
+    }
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MY_PERMISSIONS_REQUEST_FOR_LOCATION)
     }
 }
