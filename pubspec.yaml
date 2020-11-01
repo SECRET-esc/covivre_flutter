@@ -1,4 +1,4 @@
-name: covivre_flutter
+name: covivre
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -33,16 +33,19 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/assets/img/arrow.png
+  fonts:
+    - family: Heaters
+      fonts:
+        - asset: lib/assets/fonts/Heaters.otf
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
-flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
-  uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.covivre_flutter">
+    package="com.example.covivre">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -7,8 +7,9 @@
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
-    <application
-        android:label="covivre_flutter"
+   <application
+        package="com.example.covivre"
+        android:label="covivre"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
