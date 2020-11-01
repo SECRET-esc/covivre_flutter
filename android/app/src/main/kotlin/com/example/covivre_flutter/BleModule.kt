@@ -64,8 +64,8 @@ class BleModule() : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun onScanResult(callbackType:Int, result: ScanResult) {
             super.onScanResult(callbackType, result)
-            context.sendResult("scanning was stopped!")
-            Log.d(TAG,"scanning was stopped!")
+            context.sendResult("scanning was stopped! - $result")
+            Log.d(TAG, "scanning was stopped!$result")
         }
     }
 
