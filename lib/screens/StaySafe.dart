@@ -123,12 +123,66 @@ class _StaySafeState extends State<StaySafe> {
                       Expanded(
                           flex: 6,
                           child: Container(
-                            color: Colors.black,
+                            // color: Colors.black,
+                            child: Flex(
+                              direction: Axis.vertical,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    // color: Colors.pink,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Last scan: 24 Oct, 9:28 PM",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          decoration: TextDecoration.none,
+                                          fontSize: 22,
+                                          fontFamily: "FaturaMedium",
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 6,
+                                  child: Container(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
                           )),
                       Expanded(
                         flex: 3,
                         child: Container(
-                          color: Colors.blue,
+                          // color: Colors.blue,
+                          child: Flex(
+                            direction: Axis.vertical,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Container(color: Colors.amber),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Container(color: Colors.blue),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Container(color: Colors.green),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(color: Colors.amber),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
