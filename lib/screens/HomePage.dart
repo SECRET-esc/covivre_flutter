@@ -1,14 +1,60 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../components/Header.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// import '../constants/Theme.dart';
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    _incrementInit();
+  }
+
+  _incrementInit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('FirstLunch') == true) {
+      // if app was lunched in the first time, we should be create this
+      //SharedPreferences and reload statment if
+
+      await prefs.setBool('risk', false);
+      await prefs.setBool('positive', false);
+      await prefs.setBool('closeContact', false);
+      print("Was in the first lunch statment");
+    } else {
+      var closeContact = prefs.getBool('closeContact');
+      print("closeContact is $closeContact");
+      var risk = prefs.getBool('risk');
+      print("risk is $risk");
+      var positive = prefs.getBool('positive');
+      print("positive is $positive");
+      print(prefs.getBool('FirstLunch'));
+    }
+  }
+
+  _furstLanchCencelation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var name = prefs.getBool('FirstLunch');
+    if (name == null) {
+      await prefs.setBool('FirstLunch', true);
+    } else {
+      await prefs.setBool('FirstLunch', false);
+    }
+    print("First lunch is:$name");
+  }
+
+  @override
   Widget build(BuildContext context) {
+    setState(() {
+      _furstLanchCencelation();
+    });
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     var value = 39;
@@ -84,7 +130,7 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         GestureDetector(
-                          onTap: () => print("Was tapped!"),
+                          onTap: () => Navigator.pushNamed(context, 'I'),
                           child: Container(
                             alignment: Alignment.center,
                             // color: Colors.amber,
@@ -113,9 +159,9 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => print('Width $width'),
+                          onTap: () => Navigator.pushNamed(context, 'StaySafe'),
                           child: Container(
-                              color: Colors.amber,
+                              // color: Colors.amber,
                               width: height * 0.17,
                               // height: width * 0.3,
                               alignment: Alignment.center,
@@ -134,7 +180,8 @@ class HomePage extends StatelessWidget {
                                       // constraints: BoxConstraints(maxWidth: 90),
                                     ),
                                     Container(
-                                      width: width * 0.3,
+                                      width: height * 0.17,
+                                      // color: Colors.black12,
                                       alignment: Alignment.center,
                                       child: Text(
                                         "Stay safe".toUpperCase(),
