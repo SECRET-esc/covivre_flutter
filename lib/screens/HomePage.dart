@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/Header.dart';
+import '../components/PercentageProgress.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,7 +61,6 @@ class _HomePageState extends State<HomePage> {
     });
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var value = 39;
     return Container(
       color: Theme.of(context).backgroundColor,
       child: SafeArea(
@@ -82,33 +82,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       color: Theme.of(context).colorScheme.insteadImg,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('$value%',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: width < 376 ? 50 : 60,
-                                  decoration: TextDecoration.none)),
-                          Text(
-                            "Contraction".toUpperCase(),
-                            style: TextStyle(
-                                fontSize: width < 376 ? 13 : 16,
-                                color: Colors.grey[400],
-                                decoration: TextDecoration.none),
-                          ),
-                          Text(
-                            "Risk".toUpperCase(),
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.base,
-                                decoration: TextDecoration.none,
-                                fontSize: width < 376 ? 40 : 45),
-                          ),
-                        ],
-                      ),
-                    )
+                    PercentageProgress()
                   ],
                 ),
               ),
