@@ -43,6 +43,10 @@ flutter:
   uses-material-design: true
   assets:
     - lib/assets/img/arrow.png
+    - lib/assets/img/Calque34.png
+    - lib/assets/img/Calque33.png
+    - lib/assets/img/Location.png
+
   fonts:
     - family: Heaters
       fonts:

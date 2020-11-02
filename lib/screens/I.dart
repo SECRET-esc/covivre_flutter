@@ -82,8 +82,8 @@ class _IState extends State<I> {
                     Flexible(
                       flex: 5,
                       child: Container(
-                        // color: Colors.orange
                         decoration: BoxDecoration(
+                            // color: Colors.orange,
                             border: Border(
                                 top:
                                     BorderSide(color: Colors.white, width: 0.3),
@@ -163,12 +163,12 @@ class _IState extends State<I> {
                       child: Container(
                         width: width,
                         decoration: BoxDecoration(
+                            // color: Colors.yellow,
                             border: Border(
                                 bottom: BorderSide(
                                     color: Colors.white, width: 0.3))),
                         height: height * 0.2,
                         constraints: BoxConstraints(minHeight: height * 0.1),
-                        // color: Colors.yellow,
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: width * 0.1),
                           child: Row(

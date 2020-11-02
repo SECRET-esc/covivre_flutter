@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                                   ])),
                         ),
                         GestureDetector(
-                          onTap: () => print("Was tapped!"),
+                          onTap: () => Navigator.pushNamed(context, 'Fight'),
                           child: Container(
                             alignment: Alignment.center,
                             // color: Colors.amber,
