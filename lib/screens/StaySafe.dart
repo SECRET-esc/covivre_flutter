@@ -22,7 +22,7 @@ class _StaySafeState extends State<StaySafe> {
     recentState = false;
   }
 
-  _onTopNowState() {
+  _onTapNowState() {
     setState(() {
       if (nowState == false) {
         nowState = true;
@@ -31,7 +31,7 @@ class _StaySafeState extends State<StaySafe> {
     });
   }
 
-  _onTopRecentState() {
+  _onTapRecentState() {
     setState(() {
       if (recentState == false) {
         recentState = true;
@@ -60,7 +60,7 @@ class _StaySafeState extends State<StaySafe> {
                     flex: 1,
                     child: GestureDetector(
                       onTap: () {
-                        _onTopNowState();
+                        _onTapNowState();
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -93,7 +93,7 @@ class _StaySafeState extends State<StaySafe> {
                     flex: 1,
                     child: GestureDetector(
                       onTap: () {
-                        _onTopRecentState();
+                        _onTapRecentState();
                       },
                       child: Container(
                         alignment: Alignment.center,

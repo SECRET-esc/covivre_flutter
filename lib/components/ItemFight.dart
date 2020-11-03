@@ -1,3 +1,4 @@
+import 'package:covivre/components/CheckBox.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
@@ -135,17 +136,7 @@ class _ItemFightState extends State<ItemFight> {
                   width: 30,
                   height: 30,
                   color: Colors.black,
-                  // child: Checkbox(
-                  //   value: checkbox,
-                  //   onChanged: (bool val) {
-                  //     setState(() {
-                  //       checkbox = val;
-                  //     });
-                  //   },
-                  //   materialTapTargetSize: MaterialTapTargetSize.padded,
-                  //   activeColor: Theme.of(context).colorScheme.base,
-                  //   checkColor: Theme.of(context).colorScheme.buttonText,
-                  // ),
+                  child: CheckBox(),
                 )),
           ],
         ),

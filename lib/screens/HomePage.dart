@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             flex: 1,
             child: Container(
               alignment: Alignment.center,
-              // color: Colors.amber
+              // color: Colors.amber,
               child: Container(
                 width: width * 0.5,
                 height: width * 0.5,

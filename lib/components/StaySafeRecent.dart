@@ -114,7 +114,9 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  'Nomber of days you stayed away from COVID risk.\nWell done!',
+                                  width < 376
+                                      ? 'Nomber of days you stayed away from COVID risk.Well done!'
+                                      : 'Nomber of days you stayed away from COVID risk.Well done!',
                                   style: TextStyle(
                                       decoration: TextDecoration.none,
                                       color: Theme.of(context)
@@ -133,7 +135,8 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                   ),
                   Flexible(
                     child: Container(
-                      margin: EdgeInsets.only(top: height * 0.01),
+                      margin: EdgeInsets.only(
+                          top: width > 376 ? height * 0.01 : height * 0.02),
                       // color: Colors.pink,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

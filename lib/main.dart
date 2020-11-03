@@ -1,11 +1,11 @@
 import 'package:covivre/screens/CovidUpdates.dart';
+import 'package:covivre/screens/HomePage.dart';
 import 'package:covivre/screens/StaySafe.dart';
 import 'package:covivre/screens/I.dart';
 import 'package:covivre/screens/Fight.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import './screens/HomePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         'StaySafe': (context) => StaySafe(),
         'I': (context) => I(),
         'Fight': (context) => Fight(),
-        'CovidUpdates': (context) => CovidUpdates(),
+        'CovidUpdates': (context) => Scaffold(body: CovidUpdates()),
       },
-      home: MyHomePage(title: 'Covivre'),
+      home: HomePage(),
     );
   }
 }
