@@ -96,14 +96,14 @@ class _IState extends State<I> {
                               flex: 1,
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: width * 0.1),
+                                    horizontal: width * 0.08),
                                 // color: Colors.amber,
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '"At-risk"'.toUpperCase(),
+                                      'vulnerable'.toUpperCase(),
                                       style: TextStyle(
                                           fontFamily: "FaturaMedium",
                                           fontWeight: FontWeight.w500,
@@ -127,14 +127,16 @@ class _IState extends State<I> {
                                     GestureDetector(
                                       onTap: () => print(height * 0.05),
                                       child: Container(
-                                        width: width * 0.5,
+                                        width: width * 0.85,
                                         height: height * 0.05,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'am i  "at-risk"?'.toUpperCase(),
+                                          'am i more vulnerable to covid?'
+                                              .toUpperCase(),
                                           style: TextStyle(
-                                              fontSize: 16,
-                                              // fontFamily: "FaturaMedium",
+                                              fontSize: 17,
+                                              fontFamily: "FaturaBold",
+                                              fontWeight: FontWeight.w600,
                                               decoration: TextDecoration.none,
                                               color: Theme.of(context)
                                                   .colorScheme
@@ -170,7 +172,8 @@ class _IState extends State<I> {
                         height: height * 0.2,
                         constraints: BoxConstraints(minHeight: height * 0.1),
                         child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: width * 0.1),
+                          margin:
+                              EdgeInsets.symmetric(horizontal: width * 0.08),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -198,7 +201,7 @@ class _IState extends State<I> {
                         // color: Colors.blue,
                         height: height * 0.2,
                         constraints: BoxConstraints(minHeight: height * 0.1),
-                        margin: EdgeInsets.symmetric(horizontal: width * 0.1),
+                        margin: EdgeInsets.symmetric(horizontal: width * 0.08),
                         // color: Colors.yellow,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

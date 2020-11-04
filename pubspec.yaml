@@ -46,6 +46,12 @@ flutter:
     - lib/assets/img/Calque34.png
     - lib/assets/img/Calque33.png
     - lib/assets/img/Location.png
+    - lib/assets/img/DeadVirusBackground.png
+    - lib/assets/img/FightIcon.png
+    - lib/assets/img/IAmIcon.png
+    - lib/assets/img/BackgroundImage.png
+    - lib/assets/img/Info.png
+    - lib/assets/img/CoVivre.png
 
   fonts:
     - family: Heaters
@@ -54,6 +60,15 @@ flutter:
     - family: FaturaMedium
       fonts:
         - asset: lib/assets/fonts/futura-pt-medium.otf
+    - family: FaturaBold
+      fonts:
+        - asset: lib/assets/fonts/fatura-pt-bold.ttf
+    - family: FaturaBoldOBbli
+      fonts:
+        - asset: lib/assets/fonts/futura-pt-bold-oblique.otf
+    - family: FaturaExtraBold
+      fonts:
+        - asset: lib/assets/fonts/futura-pt-extrabold.otf
 
 
 # For information on the generic Dart part of this file, see the

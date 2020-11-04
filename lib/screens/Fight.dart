@@ -13,6 +13,16 @@ class Fight extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Container(
       color: Theme.of(context).backgroundColor,
+      // decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //         begin: Alignment.bottomCenter,
+      //         end: Alignment.topCenter,
+      //         colors: [
+      //       Color.fromRGBO(11, 8, 29, 1),
+      //       Color.fromRGBO(11, 8, 29, 1),
+      //       Color.fromRGBO(52, 47, 80, 1),
+      //       Color.fromRGBO(52, 47, 80, 1)
+      //     ])),
       child: SafeArea(
         child: Flex(
           direction: Axis.vertical,

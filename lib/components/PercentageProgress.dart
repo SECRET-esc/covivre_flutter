@@ -43,8 +43,10 @@ class _PercentageProgressState extends State<PercentageProgress>
     double height = MediaQuery.of(context).size.height;
 
     return Container(
+      // color: Colors.black,
       alignment: Alignment.center,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('$i%',
@@ -52,13 +54,6 @@ class _PercentageProgressState extends State<PercentageProgress>
                   color: Colors.white,
                   fontSize: width < 376 ? 40 : 50,
                   decoration: TextDecoration.none)),
-          Text(
-            "Contraction".toUpperCase(),
-            style: TextStyle(
-                fontSize: width < 376 ? 11 : 13,
-                color: Colors.grey[400],
-                decoration: TextDecoration.none),
-          ),
           Text(
             "Risk".toUpperCase(),
             style: TextStyle(

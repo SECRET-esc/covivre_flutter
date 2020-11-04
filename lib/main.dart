@@ -20,8 +20,9 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      showSemanticsDebugger: false,
       title: 'Flutter Demo',
-      theme: ThemeData(backgroundColor: Color.fromRGBO(31, 28, 50, 1.0)),
+      theme: ThemeData(backgroundColor: Color.fromRGBO(30, 27, 48, 1.0)),
       initialRoute: 'HomePage',
       routes: {
         'HomePage': (context) => HomePage(),

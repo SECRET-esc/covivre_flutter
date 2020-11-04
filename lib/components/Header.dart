@@ -37,7 +37,7 @@ class _HeaderState extends State<Header> {
           child: Icon(
             Icons.bluetooth_rounded,
             color: Theme.of(context).colorScheme.background,
-            size: width * 0.05,
+            size: width * 0.06,
           ),
         );
       } else {
@@ -56,7 +56,7 @@ class _HeaderState extends State<Header> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(100))),
                   child: Icon(
-                    Icons.bluetooth_rounded,
+                    Icons.bluetooth_disabled,
                     color: Theme.of(context).colorScheme.background,
                     size: width * 0.06,
                   ),
@@ -86,15 +86,30 @@ class _HeaderState extends State<Header> {
           Flexible(
               child: Container(
                   // color: Colors.red,
-                  alignment: Alignment.bottomRight,
+                  alignment: Alignment.center,
                   child: (this.widget.title == null
-                      ? GestureDetector(
-                          onTap: () => print("Was tapped!"),
-                          child: Container(
-                              margin: EdgeInsets.only(right: width * 0.08),
-                              width: width * 0.4,
-                              height: height * 0.2,
-                              color: Theme.of(context).colorScheme.insteadImg))
+                      ? Stack(alignment: Alignment.center, children: [
+                          // GestureDetector(
+                          //   onTap: () => print("Was tapped!"),
+                          //   child: Container(
+                          //     margin: EdgeInsets.only(right: width * 0.08),
+                          //     width: width * 0.5,
+                          //     height: height * 0.35,
+                          //   ),
+                          // ),
+                          // ),
+                          Positioned(
+                            right: width * 0.03,
+                            child: Container(
+                              // color: Colors.amber,
+                              child: Image.asset(
+                                'lib/assets/img/CoVivre.png',
+                                fit: BoxFit.cover,
+                                width: width * 0.65,
+                              ),
+                            ),
+                          ),
+                        ])
                       : Container(
                           // color: Colors.black,
                           height: height * 0.08,
@@ -104,9 +119,7 @@ class _HeaderState extends State<Header> {
                               GestureDetector(
                                 onTap: () => Navigator.pop(context),
                                 child: Container(
-                                    margin: EdgeInsets.only(
-                                        right: width * 0.05,
-                                        left: width * 0.05),
+                                    margin: EdgeInsets.only(left: width * 0.05),
                                     // color: Colors.amber,
                                     width: width * 0.12,
                                     child: Icon(Icons.west_rounded,
@@ -115,16 +128,20 @@ class _HeaderState extends State<Header> {
                                     ),
                               ),
                               Flexible(
-                                  child: Text(
-                                widget.title,
-                                style: TextStyle(
-                                    fontFamily: "Heaters",
-                                    fontSize: 48,
-                                    fontWeight: FontWeight.w500,
-                                    height:
-                                        widget.title.length > 10 ? 0.6 : null,
-                                    color: Theme.of(context).colorScheme.base),
-                                textWidthBasis: TextWidthBasis.longestLine,
+                                  child: Container(
+                                margin: EdgeInsets.only(left: width * 0.03),
+                                child: Text(
+                                  widget.title,
+                                  style: TextStyle(
+                                      fontFamily: "Heaters",
+                                      fontSize: 48,
+                                      fontWeight: FontWeight.w500,
+                                      height:
+                                          widget.title.length > 10 ? 0.6 : null,
+                                      color:
+                                          Theme.of(context).colorScheme.base),
+                                  textWidthBasis: TextWidthBasis.longestLine,
+                                ),
                               ))
                             ],
                           ))))),
@@ -148,22 +165,20 @@ class _HeaderState extends State<Header> {
                           onTap: () =>
                               Navigator.pushNamed(context, 'CovidUpdates'),
                           child: Container(
-                              alignment: Alignment.center,
-                              width: width * 0.10,
-                              height: width * 0.10,
-                              decoration: (BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(100))),
-                              child: Text(
-                                "i",
-                                style: TextStyle(
-                                    fontFamily: "Arial",
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontSize: 20,
-                                    decoration: TextDecoration.none),
-                              )),
+                            alignment: Alignment.center,
+                            width: width * 0.1,
+                            // color: Colors.black,
+                            height: width * 0.1,
+                            // decoration: (BoxDecoration(
+                            //     color: Colors.white,
+                            //     borderRadius: BorderRadius.circular(100))
+                            // ),
+                            child: Image.asset(
+                              "lib/assets/img/Info.png",
+                              width: width * 0.1,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         )
                       ],
                     ),
