@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider: 1.6.22
-
+  percent_indicator: "^2.1.7+2"
   flutter_switch: ^0.1.4
 
 
@@ -69,6 +69,12 @@ flutter:
     - family: FaturaExtraBold
       fonts:
         - asset: lib/assets/fonts/futura-pt-extrabold.otf
+    - family: FaturaHeavy
+      fonts:
+        - asset: lib/assets/fonts/FuturaPT-Heavy.ttf
+    - family: FaturaDemi
+      fonts:
+        - asset: lib/assets/fonts/futura-pt-demi.ttf
 
 
 # For information on the generic Dart part of this file, see the

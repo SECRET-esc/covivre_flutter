@@ -35,9 +35,9 @@ class _HeaderState extends State<Header> {
           decoration: (BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(100))),
           child: Icon(
-            Icons.bluetooth_rounded,
+            Icons.bluetooth_audio,
             color: Theme.of(context).colorScheme.background,
-            size: width * 0.06,
+            size: width * 0.064,
           ),
         );
       } else {

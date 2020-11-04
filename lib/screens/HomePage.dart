@@ -1,8 +1,11 @@
+import 'package:covivre/components/BaseButton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../components/Header.dart';
 import '../components/PercentageProgress.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:covivre/screens/FirstLunch.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -12,10 +15,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int firstLunchCounter = 1;
+  bool firstLunch = true;
+  bool showAlertTour = true;
+  bool showTour = false;
+
   @override
   void initState() {
     super.initState();
     _incrementInit();
+  }
+
+  _nextSlideFirstLunch() {
+    firstLunchCounter++;
+    print(firstLunchCounter);
   }
 
   _incrementInit() async {
@@ -29,6 +42,12 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('closeContact', false);
       await prefs.setBool('show at risk', false);
       await prefs.setBool('show meeting rooms', false);
+
+      setState(() {
+        firstLunch = true;
+        showTour = true;
+        showAlertTour = true;
+      });
 
       print("Was in the first lunch statment");
     } else {
@@ -44,7 +63,6 @@ class _HomePageState extends State<HomePage> {
 
   _furstLanchCencelation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     var name = prefs.getBool('FirstLunch');
     if (name == null) {
       await prefs.setBool('FirstLunch', true);
@@ -63,16 +81,26 @@ class _HomePageState extends State<HomePage> {
     double height = MediaQuery.of(context).size.height;
     return Container(
       color: Theme.of(context).backgroundColor,
+      // color: Colors.white,
       child: Stack(alignment: Alignment.center, children: [
         Positioned(
           top: height * 0.6,
           // right: ,
-          child: Container(
-              width: width * 1.3,
-              child: Image.asset(
-                "lib/assets/img/BackgroundImage.png",
-                width: width * 1.1,
-              )),
+          child: firstLunch
+              ? firstLunchCounter == 2 || firstLunchCounter == 5
+                  ? Container()
+                  : Container(
+                      width: width * 1.3,
+                      child: Image.asset(
+                        "lib/assets/img/BackgroundImage.png",
+                        width: width * 1.1,
+                      ))
+              : Container(
+                  width: width * 1.3,
+                  child: Image.asset(
+                    "lib/assets/img/BackgroundImage.png",
+                    width: width * 1.1,
+                  )),
         ),
         Opacity(
           opacity: 0.8,
@@ -84,167 +112,309 @@ class _HomePageState extends State<HomePage> {
           children: [
             Header(),
             Expanded(
-              flex: 1,
-              child: Container(
-                alignment: Alignment.center,
-                // color: Colors.amber,
-                child: Container(
-                  width: width * 0.6,
-                  height: width * 0.6,
-                  // color: Colors.amber,
-                  child: Stack(
-                    children: [
-                      Container(
+                flex: 1,
+                child: firstLunch
+                    ? firstLunchCounter >= 1
+                        ? Container()
+                        : Container(
+                            alignment: Alignment.center,
+                            // color: Colors.amber,
+                            width: width * 0.6,
+                            height: width * 0.6,
+                            child: PercentageProgress())
+                    : Container(
                         alignment: Alignment.center,
-                        // color: Theme.of(context).colorScheme.insteadImg,
-                        child: Positioned(
-                          top: 0,
-                          child: Opacity(
-                            opacity: 0.7,
-                            child: Container(
-                              child: Image.asset(
-                                "lib/assets/img/DeadVirusBackground.png",
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      PercentageProgress()
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                        // color: Colors.amber,
+                        width: width * 0.6,
+                        height: width * 0.6,
+                        child: PercentageProgress())),
             Expanded(
               flex: 1,
               child: Container(
                 // color: Colors.yellow,
-                child: Stack(
-                  children: [
-                    Container(
-                      height: height * 0.17,
-                      alignment: Alignment.bottomCenter,
-                      constraints: BoxConstraints(minHeight: height * 0.14),
-                      // color: Colors.amber,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: firstLunchCounter == 2 && firstLunch ||
+                        firstLunchCounter == 5 && firstLunch
+                    ? Container()
+                    : Stack(
                         children: [
-                          GestureDetector(
-                            onTap: () => Navigator.pushNamed(context, 'I'),
-                            child: Container(
-                              alignment: Alignment.center,
-                              // color: Colors.amber,
-                              width: width * 0.14,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width: width * 0.14,
-                                      height: width * 0.14,
-                                      // color:
-                                      //     Theme.of(context).colorScheme.insteadImg,
-                                      child: Image.asset(
-                                          "lib/assets/img/IAmIcon.png")),
-                                  Container(
-                                    margin: EdgeInsets.only(top: height * 0.01),
-                                    child: Text(
-                                      "I am...".toUpperCase(),
-                                      style: TextStyle(
-                                          fontFamily: "FaturaMedium",
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                          decoration: TextDecoration.none,
-                                          fontSize: width < 376 ? 14 : 18),
+                          Container(
+                            height: height * 0.17,
+                            alignment: Alignment.bottomCenter,
+                            constraints:
+                                BoxConstraints(minHeight: height * 0.14),
+                            // color: Colors.amber,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () =>
+                                      Navigator.pushNamed(context, 'I'),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    // color: Colors.amber,
+                                    width: width * 0.14,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            width: width * 0.14,
+                                            height: width * 0.14,
+                                            // color:
+                                            //     Theme.of(context).colorScheme.insteadImg,
+                                            child: Image.asset(
+                                                "lib/assets/img/IAmIcon.png")),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              top: height * 0.01),
+                                          child: Text(
+                                            "I am...".toUpperCase(),
+                                            style: TextStyle(
+                                                fontFamily: "FaturaMedium",
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                                fontSize:
+                                                    width < 412 ? 14 : 18),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () =>
-                                Navigator.pushNamed(context, 'StaySafe'),
-                            child: Container(
-                                // color: Colors.amber,
-                                width: height * 0.17,
-                                // height: width * 0.3,
-                                alignment: Alignment.center,
-                                child: Stack(
-                                    alignment: Alignment.centerLeft,
-                                    children: [
-                                      Container(
-                                        width: height * 0.16,
-                                        height: height * 0.16,
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .base,
-                                            borderRadius:
-                                                BorderRadius.circular(100)),
-                                        // constraints: BoxConstraints(maxWidth: 90),
-                                      ),
-                                      Container(
-                                        width: height * 0.16,
-                                        // color: Colors.black12,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Stay\nsafe".toUpperCase(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .buttonText,
-                                              fontSize: width < 376.0 ? 20 : 30,
-                                              fontFamily: "FaturaExtraBold",
-                                              height: 0.9,
-                                              decoration: TextDecoration.none),
-                                        ),
-                                      )
-                                    ])),
-                          ),
-                          GestureDetector(
-                            onTap: () => Navigator.pushNamed(context, 'Fight'),
-                            child: Container(
-                              alignment: Alignment.center,
-                              // color: Colors.amber,
-                              width: width * 0.14,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: width * 0.12,
-                                    height: width * 0.12,
-                                    // color:
-                                    //     Theme.of(context).colorScheme.insteadImg,
-                                    child: Image.asset(
-                                        "lib/assets/img/FightIcon.png"),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(top: height * 0.01),
-                                    child: Text(
-                                      "Fight".toUpperCase(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: "FaturaMedium",
-                                          fontWeight: FontWeight.w500,
-                                          decoration: TextDecoration.none,
-                                          fontSize: width < 376 ? 14 : 18),
+                                ),
+                                GestureDetector(
+                                  onTap: () =>
+                                      Navigator.pushNamed(context, 'StaySafe'),
+                                  child: Container(
+                                      // color: Colors.amber,
+                                      width: height * 0.17,
+                                      // height: width * 0.3,
+                                      alignment: Alignment.center,
+                                      child: Stack(
+                                          alignment: Alignment.centerLeft,
+                                          children: [
+                                            Container(
+                                              width: height * 0.16,
+                                              height: height * 0.16,
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .base,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100)),
+                                              // constraints: BoxConstraints(maxWidth: 90),
+                                            ),
+                                            Container(
+                                              width: height * 0.16,
+                                              // color: Colors.black12,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "Stay\nsafe".toUpperCase(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .buttonText,
+                                                    fontSize:
+                                                        width < 412.0 ? 27 : 30,
+                                                    fontFamily:
+                                                        "FaturaExtraBold",
+                                                    height: 0.9,
+                                                    decoration:
+                                                        TextDecoration.none),
+                                              ),
+                                            )
+                                          ])),
+                                ),
+                                GestureDetector(
+                                  onTap: () =>
+                                      Navigator.pushNamed(context, 'Fight'),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    // color: Colors.amber,
+                                    width: width * 0.14,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width * 0.12,
+                                          height: width * 0.12,
+                                          // color:
+                                          //     Theme.of(context).colorScheme.insteadImg,
+                                          child: Image.asset(
+                                              "lib/assets/img/FightIcon.png"),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              top: height * 0.01),
+                                          child: Text(
+                                            "Fight".toUpperCase(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "FaturaMedium",
+                                                fontWeight: FontWeight.w500,
+                                                decoration: TextDecoration.none,
+                                                fontSize:
+                                                    width < 412 ? 14 : 18),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                          )
                         ],
                       ),
-                    )
-                  ],
-                ),
               ),
             )
           ],
         )),
+        if (showAlertTour)
+          Container(
+            // color: Colors.red,
+            alignment: Alignment.center,
+            child: Stack(alignment: Alignment.center, children: [
+              Container(
+                color:
+                    Theme.of(context).colorScheme.background.withOpacity(0.8),
+                width: width,
+                height: height,
+              ),
+              Container(
+                width: width * 0.9,
+                height: height * 0.5,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(102, 99, 141, 1),
+                    borderRadius: BorderRadius.circular(25)),
+                child: Flex(
+                  direction: Axis.vertical,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        // color: Colors.black,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned(
+                              top: 20,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Welcome to",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      decoration: TextDecoration.none,
+                                      fontFamily: "FaturaHeavy",
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: -width * 0.1,
+                              bottom: -height * 0.15,
+                              child: Container(
+                                // alignment: Alignment.centerLeft,
+                                // color: Colors.amber,
+                                width: width * 0.9,
+                                child: Image.asset(
+                                  "lib/assets/img/CoVivre.png",
+                                  width: width * 0.6,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        // color: Colors.yellow,
+                        margin: EdgeInsets.symmetric(horizontal: width * 0.1),
+                        child: Column(
+                          children: [
+                            Text(
+                              "The prevention app that helps you fight the virus and stay safe and healthy.\n\nLet me show you around! It will only take a minute.",
+                              style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.white,
+                                  fontFamily: "FaturaDemi",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        // color: Colors.green,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: height * 0.03),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BaseButton(
+                                title: "get started",
+                                width: 0.4,
+                                onTap: () {
+                                  setState(() {
+                                    showTour = true;
+                                    showAlertTour = false;
+                                  });
+                                },
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showTour = false;
+                                    firstLunch = false;
+                                    showAlertTour = false;
+                                  });
+                                },
+                                child: Text(
+                                  "Skip the tour",
+                                  style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: Colors.white,
+                                      fontFamily: "FaturaDemi",
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          )
+        else
+          Container(),
+        showTour && firstLunch
+            ? FirstLunch(
+                onTapNext: () {
+                  setState(() {
+                    _nextSlideFirstLunch();
+                  });
+                },
+                finishTour: () {
+                  setState(() {
+                    firstLunch = false;
+                  });
+                },
+              )
+            : Container()
       ]),
     );
   }
