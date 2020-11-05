@@ -28,8 +28,9 @@ class _FifthPageState extends State<FifthPage> {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                margin:
-                    EdgeInsets.only(top: height * 0.0570, left: width * 0.36),
+                margin: EdgeInsets.only(
+                    top: width > 412 ? height * 0.0570 : height * 0.0300,
+                    left: width * 0.36),
                 height: width * 0.15,
                 width: width * 0.15,
                 decoration: BoxDecoration(
@@ -53,7 +54,7 @@ class _FifthPageState extends State<FifthPage> {
             ),
           ),
           Expanded(
-            flex: 7,
+            flex: width > 412 ? 7 : 9,
             child: Container(
               width: width,
               height: height * 0.4,
@@ -75,7 +76,7 @@ class _FifthPageState extends State<FifthPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaBold",
-                                  fontSize: 22,
+                                  fontSize: width > 412 ? 22 : 18,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.none),
                             ),
@@ -87,7 +88,7 @@ class _FifthPageState extends State<FifthPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaMedium",
-                                  fontSize: 20,
+                                  fontSize: width > 412 ? 22 : 18,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none),
                             ),
@@ -143,36 +144,36 @@ class _FifthPageState extends State<FifthPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100)),

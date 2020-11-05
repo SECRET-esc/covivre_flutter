@@ -81,7 +81,7 @@ class _SecondPageState extends State<SecondPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaBold",
-                                  fontSize: 22,
+                                  fontSize: width > 412 ? 22 : 18,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.none),
                             ),
@@ -93,7 +93,7 @@ class _SecondPageState extends State<SecondPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaMedium",
-                                  fontSize: 20,
+                                  fontSize: width > 412 ? 20 : 18,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none),
                             ),
@@ -139,36 +139,36 @@ class _SecondPageState extends State<SecondPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),

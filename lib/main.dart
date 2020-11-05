@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       showSemanticsDebugger: false,
       title: 'Flutter Demo',
       theme: ThemeData(backgroundColor: Color.fromRGBO(30, 27, 48, 1.0)),

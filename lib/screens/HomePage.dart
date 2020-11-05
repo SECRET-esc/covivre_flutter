@@ -310,18 +310,19 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.white,
                                       decoration: TextDecoration.none,
                                       fontFamily: "FaturaHeavy",
-                                      fontSize: 25,
+                                      fontSize: width > 412 ? 25 : 20,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),
                             Positioned(
-                              left: -width * 0.1,
-                              bottom: -height * 0.15,
+                              left: width > 412 ? -width * 0.1 : width * 0.03,
+                              bottom:
+                                  width > 412 ? -height * 0.15 : -height * 0.15,
                               child: Container(
                                 // alignment: Alignment.centerLeft,
                                 // color: Colors.amber,
-                                width: width * 0.9,
+                                width: width > 412 ? width * 0.9 : width * 0.7,
                                 child: Image.asset(
                                   "lib/assets/img/CoVivre.png",
                                   width: width * 0.6,
@@ -345,7 +346,7 @@ class _HomePageState extends State<HomePage> {
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
                                   fontFamily: "FaturaDemi",
-                                  fontSize: 18,
+                                  fontSize: width > 412 ? 18 : 14,
                                   fontWeight: FontWeight.w500),
                             )
                           ],
@@ -385,7 +386,7 @@ class _HomePageState extends State<HomePage> {
                                       decoration: TextDecoration.none,
                                       color: Colors.white,
                                       fontFamily: "FaturaDemi",
-                                      fontSize: 25,
+                                      fontSize: width > 412 ? 25 : 20,
                                       fontWeight: FontWeight.w500),
                                 ),
                               )

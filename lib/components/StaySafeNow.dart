@@ -1,3 +1,4 @@
+import 'package:covivre/components/BaseButton.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
@@ -118,29 +119,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            print('was tapped!');
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: width * 0.44,
-                            height: 40,
-                            child: Text(
-                              "scan now".toUpperCase(),
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Theme.of(context).colorScheme.buttonText,
-                                fontSize: 16,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.base,
-                                borderRadius: BorderRadius.circular(15)),
-                          ),
-                        )
-                      ],
+                      children: [BaseButton(title: "scan now", width: 0.44)],
                     ),
                   ),
                 ),

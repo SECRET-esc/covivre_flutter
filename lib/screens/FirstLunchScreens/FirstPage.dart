@@ -28,9 +28,10 @@ class _FirstPageState extends State<FirstPage> {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                margin: EdgeInsets.only(top: height * 0.5150),
-                height: width * 0.5,
-                width: width * 0.5,
+                margin: EdgeInsets.only(
+                    top: width > 412 ? height * 0.5150 : height * 0.53),
+                height: width > 412 ? width * 0.5 : width * 0.4,
+                width: width > 412 ? width * 0.5 : width * 0.4,
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(100),
@@ -74,7 +75,7 @@ class _FirstPageState extends State<FirstPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaBold",
-                                  fontSize: 22,
+                                  fontSize: width > 412 ? 22 : 18,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.none),
                             ),
@@ -86,7 +87,7 @@ class _FirstPageState extends State<FirstPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaMedium",
-                                  fontSize: 20,
+                                  fontSize: width > 412 ? 22 : 16,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none),
                             ),
@@ -140,36 +141,36 @@ class _FirstPageState extends State<FirstPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),
                     ),
                     Container(
-                      width: 20,
-                      height: 20,
+                      width: width > 412 ? 20 : 15,
+                      height: width > 412 ? 20 : 15,
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(92, 91, 108, 1),
                           borderRadius: BorderRadius.circular(100)),

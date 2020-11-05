@@ -1,3 +1,4 @@
+import 'package:covivre/components/BaseButton.dart';
 import 'package:covivre/components/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
@@ -124,34 +125,9 @@ class _IState extends State<I> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () => print(height * 0.05),
-                                      child: Container(
-                                        width: width * 0.85,
-                                        height: height * 0.05,
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'am i more vulnerable to covid?'
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontFamily: "FaturaBold",
-                                              fontWeight: FontWeight.w600,
-                                              decoration: TextDecoration.none,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .buttonText),
-                                        ),
-                                        constraints: BoxConstraints(
-                                            maxHeight: 42.2, minHeight: 40.2),
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .base,
-                                            borderRadius:
-                                                BorderRadius.circular(16)),
-                                      ),
-                                    )
+                                    BaseButton(
+                                        title: 'am i more vulnerable to covid?',
+                                        width: 0.85)
                                   ],
                                 ),
                               ),
