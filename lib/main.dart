@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'HomePage': (context) => HomePage(),
         'StaySafe': (context) => StaySafe(),
-        'I': (context) => I(),
+        'I': (context) => Scaffold(body: I()),
         'Fight': (context) => Fight(),
         'CovidUpdates': (context) => Scaffold(body: CovidUpdates()),
       },

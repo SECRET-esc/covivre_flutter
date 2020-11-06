@@ -1,8 +1,9 @@
 import 'package:covivre/components/BaseButton.dart';
 import 'package:covivre/components/Header.dart';
+import 'package:covivre/components/SliderFilling.dart';
 import 'package:flutter/material.dart';
-import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
+import 'package:covivre/constants/ColorsTheme.dart';
 
 class I extends StatefulWidget {
   const I({Key key}) : super(key: key);
@@ -32,18 +33,9 @@ class _IState extends State<I> {
                   child: Column(
                 children: [
                   Flexible(
-                    flex: 1,
-                    child: Container(
-                      alignment: Alignment.center,
-                      // color: Colors.black,
-                      child: Container(
-                        width: width < 376 ? width * 0.9 : width * 0.75,
-                        height: height * 0.09,
-                        color: Colors.pink,
-                        // child: ,
-                      ),
-                    ),
-                  ),
+                      flex: 1,
+                      //thiscobtainer
+                      child: SliderFilling()),
                   Flexible(
                     flex: 1,
                     child: Container(

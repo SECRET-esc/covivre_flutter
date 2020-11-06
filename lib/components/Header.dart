@@ -89,15 +89,6 @@ class _HeaderState extends State<Header> {
                   alignment: Alignment.center,
                   child: (this.widget.title == null
                       ? Stack(alignment: Alignment.center, children: [
-                          // GestureDetector(
-                          //   onTap: () => print("Was tapped!"),
-                          //   child: Container(
-                          //     margin: EdgeInsets.only(right: width * 0.08),
-                          //     width: width * 0.5,
-                          //     height: height * 0.35,
-                          //   ),
-                          // ),
-                          // ),
                           Positioned(
                             right: width * 0.03,
                             child: Container(

@@ -89,7 +89,38 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                           Container(
                             width: width * 0.2,
                             height: height * 0.1,
-                            color: Theme.of(context).colorScheme.insteadImg,
+                            // color: Theme.of(context).colorScheme.insteadImg,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Stack(children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  // color: Colors.black,
+                                  child: Image.asset(
+                                    "lib/assets/img/safe-shield-protection2.png",
+                                  ),
+                                ),
+                                Positioned(
+                                  top: width * 0.01,
+                                  left: width * 0.045,
+                                  child: Container(
+                                    // alignment: Alignment.center,
+                                    // color: Colors.amberAccent,
+                                    child: Text(
+                                      "2",
+                                      style: TextStyle(
+                                          decoration: TextDecoration.none,
+                                          fontSize: 35,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                          fontFamily: "FaturaBold",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            ),
                           ),
                           Container(
                             width: width * 0.02,
@@ -144,7 +175,38 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                           Container(
                             width: width * 0.2,
                             height: height * 0.1,
-                            color: Theme.of(context).colorScheme.insteadImg,
+                            // color: Theme.of(context).colorScheme.insteadImg,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Stack(children: [
+                                Container(
+                                  alignment: Alignment.center,
+                                  // color: Colors.black,
+                                  child: Image.asset(
+                                    "lib/assets/img/safe-shield-protection.png",
+                                  ),
+                                ),
+                                Positioned(
+                                  top: width * 0.01,
+                                  left: width * 0.045,
+                                  child: Container(
+                                    // alignment: Alignment.center,
+                                    // color: Colors.amberAccent,
+                                    child: Text(
+                                      "1",
+                                      style: TextStyle(
+                                          decoration: TextDecoration.none,
+                                          fontSize: 35,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                          fontFamily: "FaturaBold",
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            ),
                           ),
                           Container(
                             width: width * 0.02,

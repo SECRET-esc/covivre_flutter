@@ -26,6 +26,9 @@ dependencies:
   path_provider: 1.6.22
   percent_indicator: "^2.1.7+2"
   flutter_switch: ^0.1.4
+  syncfusion_flutter_sliders: ^18.3.47-beta
+  charts_flutter: ^0.9.0
+  syncfusion_flutter_charts: ^18.1.48
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,7 +54,14 @@ flutter:
     - lib/assets/img/IAmIcon.png
     - lib/assets/img/BackgroundImage.png
     - lib/assets/img/Info.png
+    - lib/assets/img/Bad.png
+    - lib/assets/img/Good.png
+    - lib/assets/img/Hard.png
+    - lib/assets/img/Middle.png
     - lib/assets/img/CoVivre.png
+    - lib/assets/img/IamFillOff.png
+    - lib/assets/img/safe-shield-protection.png
+    - lib/assets/img/safe-shield-protection2.png
 
   fonts:
     - family: Heaters
@@ -75,6 +85,9 @@ flutter:
     - family: FaturaDemi
       fonts:
         - asset: lib/assets/fonts/futura-pt-demi.ttf
+    - family: FaturaBook
+      fonts:
+        - asset: lib/assets/fonts/futura-pt-book.ttf
 
 
 # For information on the generic Dart part of this file, see the

@@ -29,6 +29,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0-nullsafety.2"
+  charts_common:
+    dependency: transitive
+    description:
+      name: charts_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0"
+  charts_flutter:
+    dependency: "direct main"
+    description:
+      name: charts_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0"
   clock:
     dependency: transitive
     description:
@@ -107,6 +121,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3-nullsafety.2"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.4"
   matcher:
     dependency: transitive
     description:
@@ -163,6 +184,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.4+1"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.2"
   percent_indicator:
     dependency: "direct main"
     description:
@@ -266,6 +294,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0-nullsafety.2"
+  syncfusion_flutter_charts:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_charts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "18.3.47"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "18.3.47"
+  syncfusion_flutter_sliders:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_sliders
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "18.3.47-beta"
   term_glyph:
     dependency: transitive
     description:
