@@ -4,8 +4,11 @@ import android.R
 import android.app.*
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.content.*
+import android.content.BroadcastReceiver
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
@@ -81,6 +84,7 @@ class ForegroundService : Service() {
 
 
     private fun startScan(): Int {
+        makeCheck()
         bleModule.startScan(this)
         return 0
     }
@@ -145,9 +149,13 @@ class ForegroundService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(mBroadcastReceiver1)
-        unregisterReceiver(mBroadcastReceiver2)
-        unregisterReceiver(mBroadcastReceiver3)
+        try {
+            unregisterReceiver(mBroadcastReceiver1)
+            unregisterReceiver(mBroadcastReceiver2)
+            unregisterReceiver(mBroadcastReceiver3)
+            unregisterReceiver(mSamsungScreenOffReceiver)
+        } catch (e: IllegalArgumentException) {
+        }
         Log.d(TAG, "stop scanning!")
         bleModule.cancelDiscovery()
         stopSelf()
@@ -185,53 +193,71 @@ class ForegroundService : Service() {
     }
 
 
-
-// Device scan callback.
-private val mBroadcastReceiver3: BroadcastReceiver = object : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent1: Intent) {
-        val action = intent1.action
-        Log.d(TAG, "onReceive: ACTION FOUND.")
-        val rssi = intent1.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE).toInt()
-        Log.d(TAG, "RSSI:$rssi")
-        if (action == BluetoothDevice.ACTION_FOUND) {
-            val device = intent1.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-            val name = if (device?.name != null) device.name else "none"
-            Log.d(TAG, "onReceive: " + name + ": " + device?.address)
-            Log.d(TAG, name)
-            if (name !== "none") {
-                if (name.length > 3) {
-                    if (name.substring(name.length - 3) == "x34") {
-                        val device_name: Boolean = s?.contains(name)!!
-                        if (!device_name) {
-                            if (rssi > -69) {
-                                //TODO: write logic
-                            } else {
-                                val meters: Double = getMeters(rssi)
-                                if (meters < signal) {
-                                    signal = meters
+    // Device scan callback.
+    private val mBroadcastReceiver3: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent1: Intent) {
+            val action = intent1.action
+            Log.d(TAG, "onReceive: ACTION FOUND.")
+            val rssi = intent1.getShortExtra(BluetoothDevice.EXTRA_RSSI, Short.MIN_VALUE).toInt()
+            Log.d(TAG, "RSSI:$rssi")
+            if (action == BluetoothDevice.ACTION_FOUND) {
+                val device = intent1.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                val name = if (device?.name != null) device.name else "none"
+                Log.d(TAG, "onReceive: " + name + ": " + device?.address)
+                Log.d(TAG, name)
+                if (name !== "none") {
+                    if (name.length > 3) {
+                        if (name.substring(name.length - 3) == "x34") {
+                            val device_name: Boolean = s?.contains(name)!!
+                            if (!device_name) {
+                                if (rssi > -69) {
+                                    //TODO: write logic
                                 } else {
-                                    Log.i(TAG, "Signal val:" + signal.toString() + "Meters:" + meters)
+                                    val meters: Double = getMeters(rssi)
+                                    if (meters < signal) {
+                                        signal = meters
+                                    } else {
+                                        Log.i(TAG, "Signal val:" + signal.toString() + "Meters:" + meters)
+                                    }
                                 }
+                                sick++
+                                Log.d(TAG, "Sick:$sick")
+                                s!!.add(name)
                             }
-                            sick++
-                            Log.d(TAG, "Sick:$sick")
-                            s!!.add(name)
                         }
+                    } else {
+                        Log.d(TAG, "Name lower 3")
                     }
-                } else {
-                    Log.d(TAG, "Name lower 3")
-                }
-                Log.d(TAG, """Device Name: ${device?.name} Address: ${device?.address}
+                    Log.d(TAG, """Device Name: ${device?.name} Address: ${device?.address}
 """)
+                }
             }
         }
     }
-}
 
     fun getMeters(rssi: Int): Double {
         Log.d(TAG, "Calculate meters...")
         val i = Math.pow(10.0, (-69.0 - rssi) / (10 * 2))
         Log.d(TAG, "Meters = $i")
         return i
+    }
+
+    private val mSamsungScreenOffReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d(TAG, "Screen has gone off while using a wildcard scan filter on Samsung.  Restarting scanner with non-empty filters.")
+            bleModule.scanLeDevice()
+        }
+    }
+
+    fun makeCheck() {
+        if (Build.MANUFACTURER.equals("samsung", ignoreCase = true)) {
+            Log.d(TAG, "Using a wildcard scan filter on Samsung because the screen is on.  We will switch to a non-empty filter if the screen goes off")
+            // if this is samsung, as soon as the screen goes off we will need to start a different scan
+            // that has scan filters
+            val filter = IntentFilter(Intent.ACTION_SCREEN_OFF)
+            registerReceiver(mSamsungScreenOffReceiver, filter)
+            Log.d(TAG, "registering SamsungScreenOffReceiver $mSamsungScreenOffReceiver")
+        }
     }
 }
