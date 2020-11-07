@@ -12,6 +12,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.reflect.Method
+import java.nio.ByteBuffer
 import java.util.*
 
 
@@ -75,15 +76,26 @@ class BleModule() : AppCompatActivity() {
         } else {
             TODO("VERSION.SDK_INT < LOLLIPOP")
         }
+// use if not working
+//        val manufacturerData = ByteBuffer.allocate(23)
+//        val manufacturerDataMask = ByteBuffer.allocate(23)
+//        val uuidBytes = getByteArrayFromGuid(uuidIll())!!
+//
+//        for (i in 2..17) {
+//            manufacturerData.put(i, uuidBytes[i - 2])
+//            manufacturerDataMask.put(i, 0x01)
+//        }
+
+        builder.setManufacturerData(0x004C,  null, null)
         val serviceUuidMaskString = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
-        var parcelUuid = ParcelUuid.fromString(uuidIllAndOld.toString())
+        var parcelUuid = ParcelUuid(uuidIllAndOld)
         val parcelUuidMask = ParcelUuid.fromString(serviceUuidMaskString)
         builder.setServiceUuid(parcelUuid, parcelUuidMask)
         val filters = Collections.singletonList(builder.build())
-        parcelUuid = ParcelUuid.fromString(uuidIll.toString())
+        parcelUuid = ParcelUuid(uuidIll)
         builder.setServiceUuid(parcelUuid, parcelUuidMask)
         filters.add(builder.build())
-        parcelUuid = ParcelUuid.fromString(uuidOld.toString())
+        parcelUuid = ParcelUuid(uuidOld)
         builder.setServiceUuid(parcelUuid, parcelUuidMask)
         filters.add(builder.build())
         return filters
@@ -194,7 +206,10 @@ class BleModule() : AppCompatActivity() {
         val data = AdvertiseData.Builder()
                 .setIncludeDeviceName(true)
                 .setIncludeTxPowerLevel(false)
+                .addManufacturerData(0x004C,null)
                 .addServiceUuid(ParcelUuid(uuidIllAndOld))
+                .addServiceUuid(ParcelUuid(uuidIll))
+                .addServiceUuid(ParcelUuid(uuidOld))
                 .build()
         advertiser!!
                 .startAdvertising(settings, data, mAdvertiseCallback)
