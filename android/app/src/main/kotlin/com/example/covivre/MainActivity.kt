@@ -1,6 +1,7 @@
 package com.example.covivre
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.*
 import android.content.pm.PackageManager
@@ -15,12 +16,35 @@ import androidx.core.content.ContextCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 
+
 class MainActivity: FlutterActivity() {
 
+    val TAG = "Covivre"
     private val MY_PERMISSIONS_REQUEST_FOR_LOCATION = 1
     var myService: ForegroundService? = null
     var isBound = false
     private lateinit var flutterEngine1: FlutterEngine
+
+    val PARAM_TASK = "task"
+    val PARAM_SCAN = "scan"
+    val ACTION_FIND_SICK = "device"
+    val PARAM_SICK = "SICK"
+    val ACTION_METERS = "METERS"
+    private val work = false
+    val TASK_CODE = 1
+    val FOUND_SICK = 1
+    val GET_METERS = 2
+    var SCAN_CODE = 0
+    val BROADCAST_ACTION = "covivre.p096111servicebackbroadcast"
+    var br: BroadcastReceiver? = null
+
+    companion object {
+        lateinit var instance: MainActivity
+    }
+
+    init {
+        instance = this
+    }
 
     private val myConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName,
@@ -47,6 +71,64 @@ class MainActivity: FlutterActivity() {
         super.onCreate(savedInstanceState)
         val intent = Intent(this, ForegroundService::class.java)
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE)
+        createListener()
+    }
+
+    private fun createListener(){
+        br = object : BroadcastReceiver() {
+            // действия при получении сообщений
+            override fun onReceive(context: Context?, intent: Intent) {
+                val status = intent.getIntExtra(ACTION_FIND_SICK, 0)
+                Log.d(TAG, "STATUS = = = $status")
+                // Ловим сообщения о старте задач
+                if (FOUND_SICK == status) {
+                    val people_sick = intent.getStringExtra(PARAM_SICK)
+//                    view.setText(people_sick)
+                    // TODO: send people_sick to front
+                } else if (status == 3) {
+                    // TODO: send meters and people sick 0 to front
+                }
+                if (status == GET_METERS) {
+                    val meter = intent.getDoubleExtra(ACTION_METERS, 0.0)
+                    val roundMeter = String.format("%.1f", meter)
+                    Log.d(TAG, "Meters:$roundMeter")
+                    // TODO: send meters to front
+                }
+            }
+        }
+        // создаем фильтр для BroadcastReceiver
+        val intFilt = IntentFilter(BROADCAST_ACTION)
+        // регистрируем (включаем) BroadcastReceiver
+        registerReceiver(br, intFilt)
+
+        val sharedPreferences = getSharedPreferences("save", MODE_PRIVATE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(br)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart")
+    }
+
+
+    override fun onResume() {
+        Log.d(TAG, "onResume ")
+        super.onResume()
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
     }
 
 
