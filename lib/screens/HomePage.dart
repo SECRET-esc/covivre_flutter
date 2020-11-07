@@ -16,8 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int firstLunchCounter = 1;
-  bool firstLunch = true;
-  bool showAlertTour = true;
+  bool firstLunch = false;
+  bool showAlertTour = false;
   bool showTour = false;
 
   @override

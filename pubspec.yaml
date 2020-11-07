@@ -62,6 +62,12 @@ flutter:
     - lib/assets/img/IamFillOff.png
     - lib/assets/img/safe-shield-protection.png
     - lib/assets/img/safe-shield-protection2.png
+    - lib/assets/img/PopupImage.png
+    - lib/assets/img/map_Fond.png
+    - lib/assets/img/VirusLightGreen.png
+    - lib/assets/img/RiskArrow.png
+    - lib/assets/img/VulnerableArrow.png
+
 
   fonts:
     - family: Heaters

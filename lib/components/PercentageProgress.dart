@@ -14,7 +14,7 @@ class PercentageProgress extends StatefulWidget {
 
 class _PercentageProgressState extends State<PercentageProgress>
     with SingleTickerProviderStateMixin {
-  double value = 0;
+  double value = 70;
   Animation<double> animation;
   AnimationController _controller;
   String i;
@@ -26,7 +26,7 @@ class _PercentageProgressState extends State<PercentageProgress>
     }
     _controller =
         AnimationController(duration: const Duration(seconds: 2), vsync: this);
-    animation = Tween<double>(begin: 0, end: value == null ? 0 : value)
+    animation = Tween<double>(begin: 0, end: value == 0 ? 0 : value)
         .animate(_controller)
           ..addListener(() {
             setState(() {
