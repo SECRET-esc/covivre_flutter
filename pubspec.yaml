@@ -94,6 +94,9 @@ flutter:
     - family: FaturaBook
       fonts:
         - asset: lib/assets/fonts/futura-pt-book.ttf
+    - family: FaturaLight
+      fonts:
+        - asset: lib/assets/fonts/Futura-Light.ttf
 
 
 # For information on the generic Dart part of this file, see the
