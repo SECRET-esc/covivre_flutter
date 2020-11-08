@@ -65,8 +65,9 @@ flutter:
     - lib/assets/img/PopupImage.png
     - lib/assets/img/map_Fond.png
     - lib/assets/img/VirusLightGreen.png
-    - lib/assets/img/RiskArrow.png
+    - lib/assets/img/RiskArrow.png 
     - lib/assets/img/VulnerableArrow.png
+    - lib/assets/img/circleCovid.png
 
 
   fonts:

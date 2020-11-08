@@ -6,20 +6,47 @@ import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:flutter/rendering.dart';
 
 class I extends StatefulWidget {
-  const I({Key key}) : super(key: key);
+  I({Key key, this.height}) : super(key: key);
+  final double height;
 
   @override
   _IState createState() => _IState();
 }
 
 class _IState extends State<I> {
-  double _value = 50.0;
+  double a;
+
+  bool cyrcleCovid = false;
+
+  bool symptomsList = false;
+  double valueHeight = 0.13;
+  double valueHeightPerent = 0.45;
+
+  double _value;
   double indicatior = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    cyrcleCovid = false;
+    symptomsList = false;
+
+    _value = 66.6;
+    this.a = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    if (a == 0) {
+      setState(() {
+        this.a = height;
+        this.valueHeight = a * 0.13;
+        this.valueHeightPerent = a * 0.45;
+      });
+    }
+
     return Container(
       color: Theme.of(context).backgroundColor,
       child: SafeArea(
@@ -33,7 +60,7 @@ class _IState extends State<I> {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   Container(
-                    height: height * 0.45,
+                    height: valueHeightPerent,
                     child: Container(
                         // color: Colors.red,
                         child: Column(
@@ -213,7 +240,7 @@ class _IState extends State<I> {
                           flex: 1,
                           child: Container(
                             width: width < 376 ? width * 0.9 : width * 0.85,
-                            height: height * 0.13,
+                            height: valueHeight,
                             decoration: BoxDecoration(
                                 // color: Colors.blue,
                                 border: Border.all(
@@ -233,31 +260,39 @@ class _IState extends State<I> {
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
                                           horizontal: width * 0.05),
-                                      child: Row(
+                                      child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              "SYMPTOMS OF COVID".toUpperCase(),
-                                              style: TextStyle(
-                                                  fontFamily: "FaturaLight",
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  "SYMPTOMS OF COVID"
+                                                      .toUpperCase(),
+                                                  style: TextStyle(
+                                                      fontFamily: "FaturaLight",
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                      letterSpacing: 2,
+                                                      decoration:
+                                                          TextDecoration.none,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                              Container(
+                                                child: Icon(
+                                                  Icons.keyboard_arrow_down,
                                                   color: Colors.white,
-                                                  fontSize: 16,
-                                                  letterSpacing: 2,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
+                                                  size: 40,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                          Container(
-                                            child: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              color: Colors.white,
-                                              size: 40,
-                                            ),
-                                          )
                                         ],
                                       ),
                                     ),
@@ -265,38 +300,85 @@ class _IState extends State<I> {
                                 ),
                                 Flexible(
                                   flex: 1,
-                                  child: Container(
-                                    // color: Colors.red,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        cyrcleCovid = !cyrcleCovid;
+                                        print(valueHeightPerent);
+                                        if (cyrcleCovid) {
+                                          setState(() {
+                                            valueHeight =
+                                                valueHeight + height * 0.15;
+                                            valueHeightPerent =
+                                                valueHeightPerent +
+                                                    height * 0.2;
+                                          });
+                                        } else
+                                          setState(() {
+                                            valueHeight =
+                                                valueHeight - height * 0.15;
+                                            valueHeightPerent =
+                                                valueHeightPerent +
+                                                    height * 0.2;
+                                          });
+                                      });
+                                    },
                                     child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: width * 0.05),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              "LIFE CYCLE OF COVID"
-                                                  .toUpperCase(),
-                                              style: TextStyle(
-                                                  fontFamily: "FaturaLight",
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  letterSpacing: 2,
-                                                  decoration:
-                                                      TextDecoration.none,
-                                                  fontWeight: FontWeight.w500),
+                                      // color: Colors.red,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: width * 0.05),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Text(
+                                                    "LIFE CYCLE OF COVID"
+                                                        .toUpperCase(),
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "FaturaLight",
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                        letterSpacing: 2,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Icon(
+                                                    !cyrcleCovid
+                                                        ? Icons
+                                                            .keyboard_arrow_down
+                                                        : Icons
+                                                            .keyboard_arrow_up,
+                                                    color: Colors.white,
+                                                    size: 40,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          ),
-                                          Container(
-                                            child: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              color: Colors.white,
-                                              size: 40,
-                                            ),
-                                          )
-                                        ],
+                                            cyrcleCovid
+                                                ? Flexible(
+                                                    child: Container(
+                                                      height: height * 0.2,
+                                                      child: Image.asset(
+                                                          "lib/assets/img/circleCovid.png"),
+                                                    ),
+                                                  )
+                                                : Container()
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

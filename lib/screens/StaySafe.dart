@@ -14,12 +14,54 @@ class StaySafe extends StatefulWidget {
 class _StaySafeState extends State<StaySafe> {
   bool nowState = true;
   bool recentState = false;
+  PageController _controller;
+
+  var currentPageValue = 0.0;
+
+  void nextPage() {
+    _controller.animateToPage(_controller.page.toInt() + 1,
+        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+    setState(() {
+      nowState = false;
+      recentState = true;
+    });
+  }
+
+  void previousPage() {
+    _controller.animateToPage(_controller.page.toInt() - 1,
+        duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+    setState(() {
+      recentState = false;
+      nowState = true;
+    });
+  }
+
+  _initController() {
+    _controller = PageController()
+      ..addListener(() {
+        currentPageValue = _controller.page;
+        if (currentPageValue == 0.0) {
+          print("currentPageValue is 0.0");
+          setState(() {
+            nowState = true;
+            recentState = false;
+          });
+        } else if (currentPageValue == 1.0) {
+          print("currentPageValue is $currentPageValue");
+          setState(() {
+            recentState = true;
+            nowState = false;
+          });
+        }
+      });
+  }
 
   @override
   void initState() {
     super.initState();
     nowState = true;
     recentState = false;
+    _initController();
   }
 
   _onTapNowState() {
@@ -27,6 +69,8 @@ class _StaySafeState extends State<StaySafe> {
       if (nowState == false) {
         nowState = true;
         recentState = false;
+        print("now state is: $currentPageValue");
+        if (currentPageValue == 1.0) previousPage();
       }
     });
   }
@@ -36,6 +80,8 @@ class _StaySafeState extends State<StaySafe> {
       if (recentState == false) {
         recentState = true;
         nowState = false;
+        print("state recent is: $currentPageValue");
+        if (currentPageValue == 0.0) nextPage();
       }
     });
   }
@@ -122,9 +168,16 @@ class _StaySafeState extends State<StaySafe> {
                   )
                 ])),
           ),
-          nowState
-              ? Expanded(flex: 9, child: StaySafeNow())
-              : Expanded(flex: 9, child: StaySafeRecent())
+          // nowState
+          //     ? Expanded(flex: 9, child: StaySafeNow())
+          //     : Expanded(flex: 9, child: StaySafeRecent())
+          Expanded(
+            flex: 9,
+            child: PageView(
+              controller: _controller,
+              children: [StaySafeNow(), StaySafeRecent()],
+            ),
+          )
         ]),
       ),
     );
