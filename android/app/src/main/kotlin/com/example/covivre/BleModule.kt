@@ -4,8 +4,7 @@ package com.example.covivre
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.*
-import android.content.ContentValues
-import android.content.Intent
+import android.content.*
 import android.os.Build
 import android.os.Handler
 import android.os.ParcelUuid
@@ -13,6 +12,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.reflect.Method
+import java.nio.ByteBuffer
 import java.util.*
 
 
@@ -34,7 +34,9 @@ class BleModule() : AppCompatActivity() {
     var btManager: BluetoothManager? = null
     var advertiser: BluetoothLeAdvertiser? = null
     var idChannel = "my_channel_01"
-    private val uuid = UUID.fromString("10000000-0000-0000-0000-000000000001")
+    private val uuidIllAndOld = UUID.fromString("10000000-0000-0000-0000-000000000003")
+    private val uuidIll = UUID.fromString("10000000-0000-0000-0000-000000000001")
+    private val uuidOld = UUID.fromString("10000000-0000-0000-0000-000000000002")
 
 
     companion object {
@@ -47,8 +49,9 @@ class BleModule() : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun scanLeDevice() {
+//        btLeScanner.stopScan(callBack)
         if (!isScan) {
-        btLeScanner.startScan(callBack)
+        btLeScanner.startScan(buildFilters(), buildSettings(), callBack)
             this.isScan = true
             if (!this::handler.isInitialized){
                 handler = Handler()
@@ -59,6 +62,45 @@ class BleModule() : AppCompatActivity() {
             }, scanPeriod)
         }
     }
+
+    fun buildSettings(): ScanSettings? {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            return ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_POWER).build()
+        }
+        return null
+    }
+
+    fun buildFilters(): List<ScanFilter>? {
+        val builder = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ScanFilter.Builder()
+        } else {
+            TODO("VERSION.SDK_INT < LOLLIPOP")
+        }
+// use if not working
+//        val manufacturerData = ByteBuffer.allocate(23)
+//        val manufacturerDataMask = ByteBuffer.allocate(23)
+//        val uuidBytes = getByteArrayFromGuid(uuidIll())!!
+//
+//        for (i in 2..17) {
+//            manufacturerData.put(i, uuidBytes[i - 2])
+//            manufacturerDataMask.put(i, 0x01)
+//        }
+
+        builder.setManufacturerData(0x004C,  null, null)
+        val serviceUuidMaskString = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
+        var parcelUuid = ParcelUuid(uuidIllAndOld)
+        val parcelUuidMask = ParcelUuid.fromString(serviceUuidMaskString)
+        builder.setServiceUuid(parcelUuid, parcelUuidMask)
+        val filters = Collections.singletonList(builder.build())
+        parcelUuid = ParcelUuid(uuidIll)
+        builder.setServiceUuid(parcelUuid, parcelUuidMask)
+        filters.add(builder.build())
+        parcelUuid = ParcelUuid(uuidOld)
+        builder.setServiceUuid(parcelUuid, parcelUuidMask)
+        filters.add(builder.build())
+        return filters
+    }
+
     // LOLLIPOP - android 5.1.1
     private val callBack: ScanCallback = @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     object : ScanCallback(){
@@ -164,7 +206,10 @@ class BleModule() : AppCompatActivity() {
         val data = AdvertiseData.Builder()
                 .setIncludeDeviceName(true)
                 .setIncludeTxPowerLevel(false)
-                .addServiceUuid(ParcelUuid(uuid))
+                .addManufacturerData(0x004C,null)
+                .addServiceUuid(ParcelUuid(uuidIllAndOld))
+                .addServiceUuid(ParcelUuid(uuidIll))
+                .addServiceUuid(ParcelUuid(uuidOld))
                 .build()
         advertiser!!
                 .startAdvertising(settings, data, mAdvertiseCallback)
@@ -188,6 +233,8 @@ class BleModule() : AppCompatActivity() {
     fun cancelDiscovery(){
         btAdapter.cancelDiscovery()
     }
+
+
 
 
 }
