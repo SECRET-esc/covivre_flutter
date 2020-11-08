@@ -8,7 +8,7 @@ class AlertDialogCovid extends StatefulWidget {
   final String titleText;
   final String text;
   final VoidCallback hideDialog;
-
+  final bool getSwitchState = CheckBox().stateCheck;
   @override
   _AlertDialogCovidState createState() => _AlertDialogCovidState();
 }
@@ -78,6 +78,9 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                         CheckBox(
                           isChecked: false,
                           backgroundColor: Colors.white,
+                          onChange: () {
+                            setState(() {});
+                          },
                         ),
                         Container(
                           margin: EdgeInsets.only(left: width * 0.05),

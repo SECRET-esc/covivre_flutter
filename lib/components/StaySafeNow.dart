@@ -15,8 +15,6 @@ class _StauSafeNowState extends State<StaySafeNow> {
   final int value = 5;
   final int valueVulnerable = 1;
 
-  bool showAlertDialog = true;
-
   RangeValues _currentRangeValues = const RangeValues(25, 75);
   String text =
       "Your symptoms might be those of COVID. Let’s monitor that closely and don’t take any chance with your loved ones.";
@@ -461,17 +459,22 @@ class _StauSafeNowState extends State<StaySafeNow> {
           ),
         ],
       ),
-      showAlertDialog
-          ? AlertDialogCovid(
-              titleText: "YOU’RE FEELING A BIT DOWN?".toUpperCase(),
-              text: text,
-              hideDialog: () {
-                setState(() {
-                  this.showAlertDialog = false;
-                });
-              },
-            )
-          : Container(),
+      // showAlertDialog
+      //     ? Container(
+      //         color: Theme.of(context).colorScheme.background.withOpacity(0.8),
+      //         width: width,
+      //         height: height,
+      //       )
+      //     : Container(),
+      // showAlertDialog
+      //     ? AlertDialogCovid(
+      //         titleText: "YOU’RE FEELING A BIT DOWN?".toUpperCase(),
+      //         text: text,
+      //         hideDialog: () {
+      //           setState(() {});
+      //         },
+      //       )
+      //     : Container(),
     ]);
   }
 }
