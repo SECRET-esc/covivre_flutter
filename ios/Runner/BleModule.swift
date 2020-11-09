@@ -17,7 +17,9 @@ class BleModule: NSObject, CBPeripheralManagerDelegate, CBCentralManagerDelegate
     var bluetoothServices:CBMutableService?
     var nameCharacteristic:CBMutableCharacteristic?
     var service: CBMutableService!
-    let uuid:CBUUID = CBUUID(string: "10000000-0000-0000-0000-000000000001")
+    let uuidIll:CBUUID = CBUUID(string: "10000000-0000-0000-0000-000000000001")
+    let uuidIllAndOld:CBUUID = CBUUID(string: "10000000-0000-0000-0000-000000000003")
+    let uuidOld:CBUUID = CBUUID(string: "10000000-0000-0000-0000-000000000002")
     
     let dispatchQueue = DispatchQueue(label: "QueueIdentification", qos: .background)
     
@@ -84,7 +86,7 @@ class BleModule: NSObject, CBPeripheralManagerDelegate, CBCentralManagerDelegate
 //[self.uuid]
     func StartInspect() {
         dispatchQueue.async{
-            self.centralManager.scanForPeripherals(withServices: nil , options: nil)
+            self.centralManager.scanForPeripherals(withServices: [self.uuidIllAndOld, self.uuidIll, self.uuidOld] , options: nil)
             self.startAdvertising()
         }
         print("was clicked")
@@ -99,7 +101,7 @@ class BleModule: NSObject, CBPeripheralManagerDelegate, CBCentralManagerDelegate
     }
     
     func startAdvertising() {
-    peripheral.startAdvertising([CBAdvertisementDataLocalNameKey : name, CBAdvertisementDataServiceUUIDsKey :     [uuid]])
+    peripheral.startAdvertising([CBAdvertisementDataLocalNameKey : name, CBAdvertisementDataServiceUUIDsKey :     [uuidIllAndOld]])
     
     }
 

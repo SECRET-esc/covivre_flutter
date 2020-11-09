@@ -1,7 +1,10 @@
 import 'package:covivre/components/BaseButton.dart';
+import 'package:covivre/components/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StaySafeNow extends StatefulWidget {
   StaySafeNow({Key key}) : super(key: key);
@@ -11,9 +14,62 @@ class StaySafeNow extends StatefulWidget {
 }
 
 class _StauSafeNowState extends State<StaySafeNow> {
-  final int value = 5;
-  final int valueVulnerable = 1;
+  int value = 0;
+  int valueVulnerable = 0;
   RangeValues _currentRangeValues = const RangeValues(40, 80);
+
+  String _scanResult = '0';
+  static const platform = const MethodChannel('covivre/scan');
+
+  initState() {
+    super.initState();
+    platform.setMethodCallHandler((call) => myUtilsHandler(call));
+  }
+
+  Future<void> _startScan() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool risk = sharedPreferences.getBool('risk');
+    bool positive = sharedPreferences.getBool('positive');
+    bool closeContact = sharedPreferences.getBool('closeContact');
+    bool showAtRisk = sharedPreferences.getBool('showAtRisk');
+    bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+
+    print(
+        "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
+
+    var map = {
+      "risk": risk,
+      "positive": positive,
+      "closeContact": closeContact,
+      "showAtRisk": showAtRisk,
+      "showMeetingRooms": showMeetingRooms
+    };
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('startScan', map);
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+
+    setState(() {
+      _scanResult = scanStartResult;
+    });
+  }
+
+  Future<dynamic> myUtilsHandler(MethodCall methodCall) async {
+    switch (methodCall.method) {
+      case 'result':
+        setState(() {
+          valueVulnerable = methodCall.arguments["old"];
+          value = methodCall.arguments["ill"];
+          _scanResult = methodCall.arguments.toString();
+        });
+        return "1";
+      default:
+        throw MissingPluginException('notImplemented');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -395,7 +451,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SwitchCustom(nameState: "show at risk"),
+                        SwitchCustom(nameState: "showAtRisk"),
                       ],
                     ),
                   ),
@@ -420,7 +476,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SwitchCustom(nameState: "show meeting rooms"),
+                        SwitchCustom(nameState: "showMeetingRooms"),
                       ],
                     ),
                   ),
@@ -432,7 +488,13 @@ class _StauSafeNowState extends State<StaySafeNow> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [BaseButton(title: "scan now", width: 0.44)],
+                      children: [
+                        BaseButton(
+                          title: "scan now",
+                          width: 0.44,
+                          onTap: _startScan,
+                        )
+                      ],
                     ),
                   ),
                 ),
