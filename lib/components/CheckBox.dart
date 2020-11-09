@@ -8,13 +8,18 @@ class CheckBox extends StatefulWidget {
       this.size,
       this.iconSize,
       this.selectedColor,
-      this.selectedIconColor})
+      this.selectedIconColor,
+      this.backgroundColor,
+      this.onChange})
       : super(key: key);
   final bool isChecked;
   final double size;
   final double iconSize;
   final Color selectedColor;
   final Color selectedIconColor;
+  final Color backgroundColor;
+  final VoidCallback onChange;
+  final bool stateCheck = _CheckBoxState()._isSelected;
 
   @override
   _CheckBoxState createState() => _CheckBoxState();
@@ -34,20 +39,29 @@ class _CheckBoxState extends State<CheckBox> {
     return Container(
       width: widget.size ?? 30,
       height: widget.size ?? 30,
-      color: Theme.of(context).colorScheme.background,
+      color: widget.backgroundColor == null
+          ? Theme.of(context).colorScheme.background
+          : widget.backgroundColor,
       child: GestureDetector(
         onTap: () {
           setState(() {
             _isSelected = !_isSelected;
+            widget.onChange != null ? widget.onChange() : null;
           });
         },
         child: AnimatedContainer(
           duration: Duration(milliseconds: 600),
           curve: Curves.fastLinearToSlowEaseIn,
           decoration: BoxDecoration(
-              color: _isSelected
-                  ? widget.selectedColor ?? Theme.of(context).colorScheme.base
-                  : Theme.of(context).colorScheme.background,
+              color: widget.backgroundColor == null
+                  ? _isSelected
+                      ? widget.selectedColor ??
+                          Theme.of(context).colorScheme.base
+                      : Theme.of(context).colorScheme.background
+                  : _isSelected
+                      ? widget.selectedColor ??
+                          Theme.of(context).colorScheme.base
+                      : widget.backgroundColor,
               borderRadius: BorderRadius.circular(10),
               border: _isSelected
                   ? null

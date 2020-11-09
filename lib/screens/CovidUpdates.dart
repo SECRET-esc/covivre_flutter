@@ -12,17 +12,34 @@ class CovidUpdates extends StatefulWidget {
 
 class _CovidUpdatesState extends State<CovidUpdates> {
   TextEditingController _controller;
-
   bool forYou = true;
   bool latest = false;
   bool popular = false;
-
+  PageController controller;
   void initState() {
     super.initState();
     _controller = TextEditingController();
     forYou = true;
     latest = false;
     popular = false;
+    _initController();
+  }
+
+  var currentPageValue = 0.0;
+
+  void firstPage() {
+    controller.jumpToPage(0);
+    _onTapForYouState();
+  }
+
+  void secondPage() {
+    controller.jumpToPage(1);
+    _onTapLatestState();
+  }
+
+  void thirdPage() {
+    controller..jumpToPage(2);
+    _onTapPopularState();
   }
 
   void dispose() {
@@ -36,6 +53,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
         forYou = true;
         latest = false;
         popular = false;
+        if (currentPageValue != 0.0) firstPage();
       }
     });
   }
@@ -46,6 +64,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
         latest = true;
         forYou = false;
         popular = false;
+        if (currentPageValue != 1.0) secondPage();
       }
     });
   }
@@ -56,22 +75,52 @@ class _CovidUpdatesState extends State<CovidUpdates> {
         popular = true;
         latest = false;
         forYou = false;
+        if (currentPageValue != 2.0) thirdPage();
       }
     });
   }
 
-  _getStateUpdates() {
-    if (forYou) {
-      print("CovidUpdatesListViewForYou");
-      return CovidUpdatesListViewForYou();
-    } else if (popular) {
-      print("CovidUpdatesListViewPopular");
-      return CovidUpdatesListViewPopular();
-    } else {
-      print("CovidUpdatesListViewLatest");
-      return CovidUpdatesListViewLatest();
-    }
+  _initController() {
+    controller = PageController()
+      ..addListener(() {
+        currentPageValue = controller.page;
+        if (currentPageValue == 0.0) {
+          print("currentPageValue is 0.0");
+          setState(() {
+            forYou = true;
+            latest = false;
+            popular = false;
+          });
+        } else if (currentPageValue == 1.0) {
+          print("currentPageValue is $currentPageValue");
+          setState(() {
+            latest = true;
+            forYou = false;
+            popular = false;
+          });
+        } else if (currentPageValue == 2.0) {
+          print("currentPageValue is $currentPageValue");
+          setState(() {
+            latest = false;
+            forYou = false;
+            popular = true;
+          });
+        }
+      });
   }
+
+  // _getStateUpdates() {
+  //   if (forYou) {
+  //     print("CovidUpdatesListViewForYou");
+  //     return CovidUpdatesListViewForYou();
+  //   } else if (popular) {
+  //     print("CovidUpdatesListViewPopular");
+  //     return CovidUpdatesListViewPopular();
+  //   } else {
+  //     print("CovidUpdatesListViewLatest");
+  //     return CovidUpdatesListViewLatest();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +284,15 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             ),
             Expanded(
               flex: 7,
-              child: _getStateUpdates(),
+              // child: _getStateUpdates(),
+              child: PageView(
+                controller: controller,
+                children: [
+                  CovidUpdatesListViewForYou(),
+                  CovidUpdatesListViewLatest(),
+                  CovidUpdatesListViewPopular()
+                ],
+              ),
             ),
           ],
         ),

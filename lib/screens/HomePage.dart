@@ -42,10 +42,9 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('closeContact', false);
       await prefs.setBool('show at risk', false);
       await prefs.setBool('show meeting rooms', false);
-
+      await prefs.setBool('feeling a bit down', false);
       setState(() {
         firstLunch = true;
-        showTour = true;
         showAlertTour = true;
       });
 
