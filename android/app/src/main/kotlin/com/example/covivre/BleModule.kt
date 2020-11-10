@@ -42,6 +42,7 @@ class BleModule() : AppCompatActivity() {
     val ill = mutableListOf<String>()
     var turnScanOn = false
     var lastScanResults: Long = 0
+    var scan: Boolean? = null
 
     companion object {
         lateinit var instance: BleModule
@@ -82,8 +83,8 @@ class BleModule() : AppCompatActivity() {
         checkIfNeedClearing()
     }
 
-    fun checkIfNeedClearing(){
-        if (lastScanResults-(System.currentTimeMillis() / 1000)>15){
+    fun checkIfNeedClearing() {
+        if (lastScanResults - (System.currentTimeMillis() / 1000) > 15) {
             context.sendResult(mapOf("ill" to 0, "old" to 0))
         }
     }
@@ -203,9 +204,10 @@ class BleModule() : AppCompatActivity() {
     }
 
 
-    fun startScan(context: ForegroundService) {
+    fun startScan(context: ForegroundService, scan: Boolean?) {
         Log.d(TAG, "In startScan")
         this.context = context
+        this.scan = scan
         checkLocationPermission()
     }
 
@@ -234,8 +236,11 @@ class BleModule() : AppCompatActivity() {
             MainActivity.instance.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
         }
         if (btAdapter.isEnabled) {
-            scanLeDevice()
-            startAdvertising()
+            if (this.scan!!) {
+                scanLeDevice()
+            } else {
+                startAdvertising()
+            }
         }
     }
 

@@ -42,6 +42,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
         "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
 
     var map = {
+      "scan": true,
       "risk": risk,
       "positive": positive,
       "closeContact": closeContact,

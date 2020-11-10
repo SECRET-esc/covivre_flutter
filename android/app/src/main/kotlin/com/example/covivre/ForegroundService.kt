@@ -31,6 +31,7 @@ class ForegroundService : Service() {
     var sick = 0
     private val DELAY = 2
     private var signal = 100.0
+    var scan: Boolean? = null
     var risk: Boolean? = null
     var positive: Boolean? = null
     var closeContact: Boolean? = null
@@ -59,6 +60,7 @@ class ForegroundService : Service() {
             // Note: this method is invoked on the main thread.
             call, result ->
             if (call.method == "startScan") {
+                this.scan = call.argument("scan")
                 this.risk = call.argument("risk")
                 this.positive = call.argument("positive")
                 this.closeContact = call.argument("closeContact")
@@ -171,7 +173,7 @@ class ForegroundService : Service() {
 
     private fun startScan(): Int {
         makeCheck()
-        bleModule.startScan(this)
+        bleModule.startScan(this, this.scan)
         return 0
     }
 
