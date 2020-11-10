@@ -14,8 +14,8 @@ class _CovidUpdatesListViewLatestState
   @override
   Widget build(BuildContext context) {
     return Container(
-      //  child: child,
-      color: Colors.green,
-    );
+        //  child: child,
+        // color: Colors.green,
+        );
   }
 }

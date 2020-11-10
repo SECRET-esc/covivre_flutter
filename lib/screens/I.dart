@@ -17,10 +17,11 @@ class I extends StatefulWidget {
 
 class _IState extends State<I> {
   double a;
-  bool showAlert = true;
+  bool showAlert = false;
   bool cyrcleCovid = false;
   bool scrollState = false;
   bool symptomsList = false;
+  bool stateShow = false;
   double valueHeight = 0.13;
   double valueHeightPerent = 0.45;
   double defaultHeight = 0;
@@ -36,22 +37,48 @@ class _IState extends State<I> {
     cyrcleCovid = false;
     symptomsList = false;
     scrollState = false;
-    _initPreferences();
-    _value = 66.6;
+    _value = 0.0;
+    // _init();
     this.a = 0;
+  }
+
+  _getSync() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      bool state = prefs.getBool("show alert feeling a bit down");
+      print('show alert is $state');
+      this.showAlert = state;
+    });
+  }
+
+  _init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("show alert feeling a bit down", true);
+    print('Bool was changed!');
   }
 
   _initPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    this.showAlert = prefs.getBool("feeling a bit down");
+    bool state = prefs.getBool("show alert feeling a bit down");
+    print('show alert is $state');
+    return prefs.getBool("show alert feeling a bit down");
   }
 
   _notShowAgain() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool("feeling a bit down") == null) {
-      await prefs.setBool("feeling a bit down", true);
+    print("_notShowAgain");
+    if (prefs.getBool("show alert feeling a bit down") == null) {
+      await prefs.setBool("show alert feeling a bit down", true);
     }
-    await prefs.setBool("feeling a bit down", true);
+    await prefs.setBool("show alert feeling a bit down", false);
+  }
+
+  _getStateShow(bool value) async {
+    print("_getStateShow");
+    print(value);
+    setState(() {
+      this.stateShow = value;
+    });
   }
 
   @override
@@ -271,6 +298,14 @@ class _IState extends State<I> {
                                               _value = value;
                                             });
                                           },
+                                          onChangeEnd: (value) {
+                                            print('value $value');
+                                            if (value ==
+                                                value.roundToDouble()) {
+                                              print('value is $value');
+                                              _getSync();
+                                            }
+                                          },
                                         ),
                                       ),
                                     ]),
@@ -283,7 +318,7 @@ class _IState extends State<I> {
                               width: width < 376 ? width * 0.9 : width * 0.85,
                               height: valueHeight,
                               decoration: BoxDecoration(
-                                  color: Colors.blue,
+                                  // color: Colors.blue,
                                   border: Border.all(
                                       color: Colors.white,
                                       width: 1,
@@ -599,18 +634,16 @@ class _IState extends State<I> {
               ? AlertDialogCovid(
                   titleText: "YOU’RE FEELING A BIT DOWN?",
                   text: text,
+                  getStateShow: _getStateShow,
                   hideDialog: () {
-                    setState(() {
-                      showAlertDialog = false;
-                      print(
-                          'covid switch state is ${AlertDialogCovid().getSwitchState}');
-                    });
-                    if (AlertDialogCovid().getSwitchState) {
-                      print(
-                          'covid switch state is ${AlertDialogCovid().getSwitchState}');
+                    if (this.stateShow) {
                       _notShowAgain();
                     }
-                  })
+                    setState(() {
+                      showAlert = false;
+                    });
+                  },
+                )
               : Container()
         ]),
       ),

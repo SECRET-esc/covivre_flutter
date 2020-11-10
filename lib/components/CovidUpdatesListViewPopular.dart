@@ -20,7 +20,7 @@ class _CovidUpdatesListViewPopularState
         Container(
           width: width,
           height: height * 0.2,
-          color: Colors.amber,
+          // color: Colors.amber,
         )
       ],
     );

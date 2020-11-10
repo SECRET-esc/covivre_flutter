@@ -14,7 +14,7 @@ class PercentageProgress extends StatefulWidget {
 
 class _PercentageProgressState extends State<PercentageProgress>
     with SingleTickerProviderStateMixin {
-  double value = 70;
+  double value = 0;
   Animation<double> animation;
   AnimationController _controller;
   String i;

@@ -101,8 +101,12 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                   ),
                                 ),
                                 Positioned(
-                                  top: width * 0.01,
-                                  left: width * 0.045,
+                                  top: width > 412
+                                      ? width * 0.01
+                                      : width * 0.001,
+                                  left: width > 412
+                                      ? width * 0.045
+                                      : width * 0.05,
                                   child: Container(
                                     // alignment: Alignment.center,
                                     // color: Colors.amberAccent,
@@ -110,7 +114,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                       "2",
                                       style: TextStyle(
                                           decoration: TextDecoration.none,
-                                          fontSize: 35,
+                                          fontSize: width > 412 ? 35 : 25,
                                           color: Theme.of(context)
                                               .colorScheme
                                               .background,
@@ -187,8 +191,12 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                   ),
                                 ),
                                 Positioned(
-                                  top: width * 0.01,
-                                  left: width * 0.045,
+                                  top: width > 412
+                                      ? width * 0.01
+                                      : width * 0.001,
+                                  left: width > 412
+                                      ? width * 0.045
+                                      : width * 0.05,
                                   child: Container(
                                     // alignment: Alignment.center,
                                     // color: Colors.amberAccent,
@@ -196,7 +204,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                       "1",
                                       style: TextStyle(
                                           decoration: TextDecoration.none,
-                                          fontSize: 35,
+                                          fontSize: width > 412 ? 35 : 25,
                                           color: Theme.of(context)
                                               .colorScheme
                                               .background,
