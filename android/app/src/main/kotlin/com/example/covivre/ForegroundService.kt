@@ -15,6 +15,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.lang.Math.random
@@ -30,6 +31,14 @@ class ForegroundService : Service() {
     var sick = 0
     private val DELAY = 2
     private var signal = 100.0
+    var risk: Boolean? = null
+    var positive: Boolean? = null
+    var closeContact: Boolean? = null
+    var showAtRisk: Boolean? = null
+    var showMeetingRooms: Boolean? = null
+    val NOTIFICATION_ID = 1988
+    var illPersonsNum = 0
+    var oldPersonsNum = 0
 
     companion object {
         lateinit var instance: ForegroundService
@@ -50,6 +59,12 @@ class ForegroundService : Service() {
             // Note: this method is invoked on the main thread.
             call, result ->
             if (call.method == "startScan") {
+                this.risk = call.argument("risk")
+                this.positive = call.argument("positive")
+                this.closeContact = call.argument("closeContact")
+                this.showAtRisk = call.argument("showAtRisk")
+                this.showMeetingRooms = call.argument("showMeetingRooms")
+
                 if (startScan() != -1) {
                     result.success(0)
                 } else {
@@ -61,8 +76,9 @@ class ForegroundService : Service() {
         }
     }
 
-    fun sendResult(arguments: String) {
+    fun sendResult(arguments: Any?) {
         print("sendResult = $arguments")
+        checkIfNotificationNeeded(arguments)
         if (this::methodChannel.isInitialized) {
             this.methodChannel.invokeMethod("result", arguments, object : MethodChannel.Result {
                 override fun success(result: Any?) {
@@ -79,6 +95,76 @@ class ForegroundService : Service() {
             })
         } else {
             print("this::methodChannel.isInitialized not init")
+        }
+    }
+
+    private fun checkIfNotificationNeeded(arguments: Any?){
+        val params = arguments as Map<*, *>
+        if (params["ill"] as Int > 0) {
+            if (illPersonsNum < params["ill"] as Int) {
+                illPersonsNum = params["ill"] as Int
+                sendIllNotification()
+            }
+        }else {
+            illPersonsNum = params["ill"] as Int
+        }
+        if (params["old"] as Int > 0) {
+            if (oldPersonsNum < params["old"] as Int) {
+                oldPersonsNum = params["old"] as Int
+                sendOldNotification()
+            }
+        }else{
+            oldPersonsNum = params["old"] as Int
+        }
+        if (illPersonsNum==0 && oldPersonsNum==0){
+            clearNotification()
+        }
+    }
+
+    private fun clearNotification() {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(NOTIFICATION_ID)
+    }
+
+    private fun sendIllNotification() {
+        // Create an explicit intent for an Activity in your app
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_dialog_alert)
+                .setContentTitle("Covivre")
+                .setContentText("detect covid19 ill ${this.illPersonsNum} person near you")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(NOTIFICATION_ID, builder.build())
+        }
+    }
+
+    private fun sendOldNotification() {
+        // Create an explicit intent for an Activity in your app
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_dialog_alert)
+                .setContentTitle("Covivre")
+                .setContentText("detect ${this.oldPersonsNum} vulnerable person near you")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(NOTIFICATION_ID, builder.build())
         }
     }
 
@@ -246,7 +332,7 @@ class ForegroundService : Service() {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d(TAG, "Screen has gone off while using a wildcard scan filter on Samsung.  Restarting scanner with non-empty filters.")
-            bleModule.scanLeDevice()
+            //bleModule.scanLeDevice()
         }
     }
 
