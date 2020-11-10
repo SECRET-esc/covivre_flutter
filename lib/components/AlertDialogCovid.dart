@@ -3,17 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
 class AlertDialogCovid extends StatefulWidget {
-  AlertDialogCovid({Key key, this.titleText, this.text, this.hideDialog})
+  AlertDialogCovid(
+      {Key key, this.titleText, this.text, this.hideDialog, this.getStateShow})
       : super(key: key);
   final String titleText;
   final String text;
   final VoidCallback hideDialog;
-  final bool getSwitchState = CheckBox().stateCheck;
+  final Function getStateShow;
   @override
   _AlertDialogCovidState createState() => _AlertDialogCovidState();
 }
 
 class _AlertDialogCovidState extends State<AlertDialogCovid> {
+  bool valueBool = false;
+  getValue(bool value) {
+    setState(() {
+      this.valueBool = value;
+      print(value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -78,9 +87,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                         CheckBox(
                           isChecked: false,
                           backgroundColor: Colors.white,
-                          onChange: () {
-                            setState(() {});
-                          },
+                          getValue: getValue,
                         ),
                         Container(
                           margin: EdgeInsets.only(left: width * 0.05),
@@ -98,6 +105,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      widget.getStateShow(this.valueBool);
                       widget.hideDialog();
                     },
                     child: Container(

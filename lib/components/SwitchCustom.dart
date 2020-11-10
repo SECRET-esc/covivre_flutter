@@ -5,8 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class SwitchCustom extends StatefulWidget {
-  SwitchCustom({Key key, @required this.nameState}) : super(key: key);
+  SwitchCustom({Key key, @required this.nameState, this.returnState})
+      : super(key: key);
   var nameState;
+  final Function returnState;
 
   @override
   _SwitchCustomState createState() => _SwitchCustomState(nameState: nameState);
@@ -74,6 +76,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
           _incrementEdit(val);
           status = val;
           print("Val in increment is : $status");
+          widget.returnState == null ? print("") : widget.returnState(val);
         });
       },
     );

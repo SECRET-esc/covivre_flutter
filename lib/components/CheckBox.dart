@@ -10,7 +10,8 @@ class CheckBox extends StatefulWidget {
       this.selectedColor,
       this.selectedIconColor,
       this.backgroundColor,
-      this.onChange})
+      this.onChange,
+      this.getValue})
       : super(key: key);
   final bool isChecked;
   final double size;
@@ -19,8 +20,7 @@ class CheckBox extends StatefulWidget {
   final Color selectedIconColor;
   final Color backgroundColor;
   final VoidCallback onChange;
-  final bool stateCheck = _CheckBoxState()._isSelected;
-
+  final Function getValue;
   @override
   _CheckBoxState createState() => _CheckBoxState();
 }
@@ -46,7 +46,7 @@ class _CheckBoxState extends State<CheckBox> {
         onTap: () {
           setState(() {
             _isSelected = !_isSelected;
-            widget.onChange != null ? widget.onChange() : null;
+            widget.getValue == null ? print("") : widget.getValue(_isSelected);
           });
         },
         child: AnimatedContainer(
