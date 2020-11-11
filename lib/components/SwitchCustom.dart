@@ -2,6 +2,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class SwitchCustom extends StatefulWidget {
@@ -16,12 +17,54 @@ class SwitchCustom extends StatefulWidget {
 
 class _SwitchCustomState extends State<SwitchCustom> {
   _SwitchCustomState({this.nameState});
+
   var nameState;
+  static const platform = const MethodChannel('covivre/scan');
   bool status = true;
+
   @override
   void initState() {
     super.initState();
     _incrementInit();
+  }
+
+  Future<void> _startAdvertise() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool risk = sharedPreferences.getBool('risk');
+    bool positive = sharedPreferences.getBool('positive');
+    bool closeContact = sharedPreferences.getBool('closeContact');
+    bool showAtRisk = sharedPreferences.getBool('showAtRisk');
+    bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+
+    print(
+        "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
+
+    var map = {
+      "risk": risk,
+      "positive": positive,
+      "closeContact": closeContact,
+      "showAtRisk": showAtRisk,
+      "showMeetingRooms": showMeetingRooms
+    };
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('startAdvertise', map);
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+    print(scanStartResult);
+  }
+
+  Future<void> _stopAdvertise() async {
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('stopAdvertise');
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+    print(scanStartResult);
   }
 
   _incrementInit() async {
@@ -53,8 +96,17 @@ class _SwitchCustomState extends State<SwitchCustom> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setBool(nameState, val);
     var name = sharedPreferences.getBool(nameState);
+    var risk = sharedPreferences.getBool("risk");
+    var positive = sharedPreferences.getBool("positive");
+    var closeContact = sharedPreferences.getBool("closeContact");
     print('Name is $name');
     status = val;
+    if (risk || positive || closeContact) {
+      _stopAdvertise();
+      _startAdvertise();
+    } else if (!risk && !positive && !closeContact) {
+      _stopAdvertise();
+    }
   }
 
   @override

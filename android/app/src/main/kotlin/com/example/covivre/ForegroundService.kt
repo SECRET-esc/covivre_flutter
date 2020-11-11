@@ -31,7 +31,6 @@ class ForegroundService : Service() {
     var sick = 0
     private val DELAY = 2
     private var signal = 100.0
-    var scan: Boolean? = null
     var risk: Boolean? = null
     var positive: Boolean? = null
     var closeContact: Boolean? = null
@@ -60,7 +59,6 @@ class ForegroundService : Service() {
             // Note: this method is invoked on the main thread.
             call, result ->
             if (call.method == "startScan") {
-                this.scan = call.argument("scan")
                 this.risk = call.argument("risk")
                 this.positive = call.argument("positive")
                 this.closeContact = call.argument("closeContact")
@@ -68,6 +66,24 @@ class ForegroundService : Service() {
                 this.showMeetingRooms = call.argument("showMeetingRooms")
 
                 if (startScan() != -1) {
+                    result.success(0)
+                } else {
+                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                }
+            }else if (call.method == "startAdvertise") {
+                this.risk = call.argument("risk")
+                this.positive = call.argument("positive")
+                this.closeContact = call.argument("closeContact")
+                this.showAtRisk = call.argument("showAtRisk")
+                this.showMeetingRooms = call.argument("showMeetingRooms")
+
+                if (startAdvertise() != -1) {
+                    result.success(0)
+                } else {
+                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                }
+            }else if (call.method == "stopAdvertise") {
+                if (stopAdvertise() != -1) {
                     result.success(0)
                 } else {
                     result.error("UNAVAILABLE", "Battery level not available.", null)
@@ -173,7 +189,18 @@ class ForegroundService : Service() {
 
     private fun startScan(): Int {
         makeCheck()
-        bleModule.startScan(this, this.scan)
+        bleModule.startScan(this)
+        return 0
+    }
+
+    private fun startAdvertise(): Int {
+        makeCheck()
+        bleModule.startAdvertise(this)
+        return 0
+    }
+
+    private fun stopAdvertise(): Int {
+        bleModule.stopAdvertise()
         return 0
     }
 

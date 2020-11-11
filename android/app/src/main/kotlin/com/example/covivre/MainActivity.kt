@@ -107,6 +107,9 @@ class MainActivity: FlutterActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(br)
+        if(isBound){
+            unbindService(myConnection)
+        }
     }
 
     override fun onPause() {
