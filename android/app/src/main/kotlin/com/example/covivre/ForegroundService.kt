@@ -70,6 +70,24 @@ class ForegroundService : Service() {
                 } else {
                     result.error("UNAVAILABLE", "Battery level not available.", null)
                 }
+            }else if (call.method == "startAdvertise") {
+                this.risk = call.argument("risk")
+                this.positive = call.argument("positive")
+                this.closeContact = call.argument("closeContact")
+                this.showAtRisk = call.argument("showAtRisk")
+                this.showMeetingRooms = call.argument("showMeetingRooms")
+
+                if (startAdvertise() != -1) {
+                    result.success(0)
+                } else {
+                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                }
+            }else if (call.method == "stopAdvertise") {
+                if (stopAdvertise() != -1) {
+                    result.success(0)
+                } else {
+                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                }
             } else {
                 result.notImplemented()
             }
@@ -172,6 +190,17 @@ class ForegroundService : Service() {
     private fun startScan(): Int {
         makeCheck()
         bleModule.startScan(this)
+        return 0
+    }
+
+    private fun startAdvertise(): Int {
+        makeCheck()
+        bleModule.startAdvertise(this)
+        return 0
+    }
+
+    private fun stopAdvertise(): Int {
+        bleModule.stopAdvertise()
         return 0
     }
 

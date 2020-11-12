@@ -39,7 +39,7 @@ class BleModule() : AppCompatActivity() {
     private val uuidOld = UUID.fromString("10000000-0000-0000-0000-000000000002")
 
     var old = mutableListOf<String>()
-    val ill = mutableListOf<String>()
+    var ill = mutableListOf<String>()
     var turnScanOn = false
     var lastScanResults: Long = 0
 
@@ -82,17 +82,21 @@ class BleModule() : AppCompatActivity() {
         checkIfNeedClearing()
     }
 
-    fun checkIfNeedClearing(){
-        if (lastScanResults-(System.currentTimeMillis() / 1000)>15){
+    fun checkIfNeedClearing() {
+        val time = (System.currentTimeMillis() / 1000) - lastScanResults
+        if ( time > 15) {
             context.sendResult(mapOf("ill" to 0, "old" to 0))
+            old = mutableListOf<String>()
+            ill = mutableListOf<String>()
         }
+        Log.d(TAG, "checkIfNeedClearing time = $time")
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun stopScan() {
         btLeScanner.stopScan(callBack)
         this.isScan = false
-        advertiser!!.stopAdvertising(mAdvertiseCallback)
+
     }
 
     fun buildSettings(): ScanSettings? {
@@ -142,7 +146,7 @@ class BleModule() : AppCompatActivity() {
             super.onScanResult(callbackType, result)
             lastScanResults = System.currentTimeMillis() / 1000
             context.sendResult(getServiceUUIDsList(result))
-            Log.d(TAG, "rssi: " + result.getRssi() + "address: " + result.device.toString());
+            Log.d(TAG, "rssi: " + result.getRssi() + "address: " + result.device.toString() + "lastScanResults: " + lastScanResults);
 
 //            btLeScanner.startScan(buildFilters(), buildSettings(), callBackStop)
 
@@ -206,15 +210,32 @@ class BleModule() : AppCompatActivity() {
     fun startScan(context: ForegroundService) {
         Log.d(TAG, "In startScan")
         this.context = context
-        checkLocationPermission()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            initBLEModule()
+        }
+        if (btAdapter.isEnabled) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                scanLeDevice()
+            }
+        }
     }
 
-    private fun checkLocationPermission() {
-        Log.d(TAG, "In checkLocationPermission")
-        if (isAboveMarshmallow()) {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                initBLEModule()
-            }
+    fun startAdvertise(context: ForegroundService) {
+        Log.d(TAG, "In startAdvertise")
+        this.context = context
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            initBLEModule()
+        }
+        if (btAdapter.isEnabled) {
+            startAdvertising()
+        }
+
+    }
+
+    fun stopAdvertise() {
+        Log.d(TAG, "In stopAdvertise")
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            advertiser!!.stopAdvertising(mAdvertiseCallback)
         }
     }
 
@@ -233,13 +254,10 @@ class BleModule() : AppCompatActivity() {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             MainActivity.instance.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
         }
-        if (btAdapter.isEnabled) {
-            scanLeDevice()
-            startAdvertising()
-        }
+
     }
 
-    private fun startAdvertising() {
+    fun startAdvertising() {
 
         if (advertiser == null) {
             Log.d("App", "Failed to create advertiser")

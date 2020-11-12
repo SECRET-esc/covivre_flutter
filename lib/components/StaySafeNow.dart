@@ -1,5 +1,4 @@
 import 'package:covivre/components/BaseButton.dart';
-import 'package:covivre/components/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
@@ -580,7 +579,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [BaseButton(title: "scan now", width: 0.44)],
+                    children: [BaseButton(title: "scan now", width: 0.44, onTap: _startScan)],
                   ),
                 ),
                 Expanded(
