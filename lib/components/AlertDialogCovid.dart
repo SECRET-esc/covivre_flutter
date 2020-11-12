@@ -40,7 +40,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
             child: Image.asset("lib/assets/img/PopupImage.png"),
           ),
           Positioned(
-            top: height * 0.25,
+            top: width > 412 ? height * 0.25 : height * 0.28,
             left: width * 0.1,
             child: Container(
               width: width * 0.7,
@@ -54,7 +54,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "FaturaHeavy",
-                        fontSize: 21,
+                        fontSize: width > 412 ? 21 : 16,
                         decoration: TextDecoration.none),
                   ),
                   Container(
@@ -64,7 +64,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                         style: TextStyle(
                             fontFamily: "FaturaMedium",
                             color: Colors.black,
-                            fontSize: 18,
+                            fontSize: width > 412 ? 18 : 14,
                             decoration: TextDecoration.none),
                       ))
                 ],
@@ -95,7 +95,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                             "Don’t show me again",
                             style: TextStyle(
                                 fontFamily: "FaturaMedium",
-                                fontSize: 16,
+                                fontSize: width > 412 ? 16 : 13,
                                 color: Colors.black,
                                 decoration: TextDecoration.none),
                           ),
@@ -130,7 +130,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                             fontFamily: "FaturaDemi",
                             color: Colors.black,
                             decoration: TextDecoration.none,
-                            fontSize: 20),
+                            fontSize: width > 412 ? 20 : 16),
                       ),
                     ),
                   )

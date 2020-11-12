@@ -17,11 +17,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var now = new DateTime.now();
+
   int firstLunchCounter = 1;
+
   bool firstLunch = false;
   bool showAlertTour = false;
   bool showTour = false;
   bool iAmState = false;
+
   String data;
 
   @override
@@ -29,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     DateTime now = DateTime.now();
     DateFormat formatter = DateFormat('yyyy-MM-dd');
-    data = formatter.format(now);
+    this.data = formatter.format(now);
     print(data);
     _incrementInit();
     _furstLanchCencelation();
@@ -81,13 +84,24 @@ class _HomePageState extends State<HomePage> {
       if (data != this.data) {
         setState(() {
           this.iAmState = false;
+          print('data is $data');
           // print("if data in prefs is $data");
         });
       } else {
-        // print("else data in prefs is $data");
+        setState(() {
+          this.iAmState = true;
+          print("else data in prefs is $data");
+        });
       }
     }
     print("First lunch is:$name");
+  }
+
+  _navigation(BuildContext context, String name) async {
+    final state = await Navigator.pushNamed(context, 'I');
+    setState(() {
+      this.iAmState = state ?? false;
+    });
   }
 
   @override
@@ -160,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               GestureDetector(
-                                onTap: () => Navigator.pushNamed(context, 'I'),
+                                onTap: () => _navigation(context, "I"),
                                 child: Container(
                                   alignment: Alignment.center,
                                   // color: Colors.amber,
@@ -229,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                                                       .colorScheme
                                                       .buttonText,
                                                   fontSize:
-                                                      width < 412.0 ? 27 : 30,
+                                                      width < 412.0 ? 23 : 30,
                                                   fontFamily: "FaturaExtraBold",
                                                   height: 0.9,
                                                   decoration:

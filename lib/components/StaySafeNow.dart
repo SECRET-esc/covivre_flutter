@@ -500,7 +500,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                   height: height * 0.07,
                                   // color: Colors.black,
                                   child: Text(
-                                    "1h or\nmore",
+                                    "1h or more",
                                     style: TextStyle(
                                         fontFamily: "FaturaBook",
                                         fontSize: width > 412 ? 13 : 11,

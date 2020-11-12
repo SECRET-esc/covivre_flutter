@@ -61,8 +61,8 @@ class _SwitchCustomState extends State<SwitchCustom> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return FlutterSwitch(
-      width: width * 0.16,
-      height: 30,
+      width: width > 412 ? width * 0.16 : width * 0.14,
+      height: width > 412 ? 30 : 27,
       toggleSize: 20.0,
       value: status,
       borderRadius: 30.0,

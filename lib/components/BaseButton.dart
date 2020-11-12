@@ -46,7 +46,7 @@ class _BaseButtonState extends State<BaseButton> {
       },
       child: Container(
           width: width * widget.width,
-          height: height * 0.05,
+          height: width > 412 ? height * 0.05 : height * 0.04,
           alignment: Alignment.center,
           constraints: BoxConstraints(maxHeight: 42.2, minHeight: 40.2),
           decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class _BaseButtonState extends State<BaseButton> {
           child: Text(
             widget.upperCase ? (widget.title).toUpperCase() : widget.title,
             style: TextStyle(
-                fontSize: 17,
+                fontSize: width > 412 ? 17 : 15,
                 fontFamily: "FaturaBold",
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.none,

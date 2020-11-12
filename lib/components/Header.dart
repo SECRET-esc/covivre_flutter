@@ -3,8 +3,9 @@ import 'package:covivre/constants/ColorsTheme.dart';
 
 // ignore: must_be_immutable
 class Header extends StatefulWidget {
-  Header({this.title, this.showItems});
+  Header({this.title, this.showItems, this.context});
   final String title;
+  bool context = false;
   bool showItems = true;
 
   @override
@@ -108,7 +109,11 @@ class _HeaderState extends State<Header> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: () => Navigator.pop(context),
+                                onTap: () => Navigator.pop(
+                                    context,
+                                    widget.context == null
+                                        ? false
+                                        : widget.context),
                                 child: Container(
                                     margin: EdgeInsets.only(left: width * 0.05),
                                     // color: Colors.amber,

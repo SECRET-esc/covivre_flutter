@@ -95,11 +95,9 @@ class _StaySafeState extends State<StaySafe> {
           Header(title: "stay safe"),
           Expanded(
             flex: 1,
-            child: Container(
-                // color: Colors.amber,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Flexible(
                     flex: 1,
                     child: GestureDetector(
@@ -166,7 +164,7 @@ class _StaySafeState extends State<StaySafe> {
                       ),
                     ),
                   )
-                ])),
+                ]),
           ),
           // nowState
           //     ? Expanded(flex: 9, child: StaySafeNow())

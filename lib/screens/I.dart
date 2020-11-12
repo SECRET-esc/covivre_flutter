@@ -3,9 +3,9 @@ import 'package:covivre/components/Header.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:covivre/components/SwitchCustom.dart';
-import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:flutter/rendering.dart';
 import 'package:covivre/components/AlertDialogCovid.dart';
+import 'package:intl/intl.dart';
 
 class I extends StatefulWidget {
   I({Key key, this.height}) : super(key: key);
@@ -16,20 +16,29 @@ class I extends StatefulWidget {
 }
 
 class _IState extends State<I> {
+  double stateOne = 0.0;
+  double stateTwo = 33.33333333333333;
+  double stateThree = 66.66666666666666;
+  double stateFour = 100.0;
   double a;
+  double valueHeight = 0.13;
+  double valueHeightPerent = 0.45;
+  double defaultHeight = 0;
+  double _value;
+  double indicatior;
+
   bool showAlert = false;
   bool cyrcleCovid = false;
   bool scrollState = false;
   bool symptomsList = false;
   bool stateShow = false;
-  double valueHeight = 0.13;
-  double valueHeightPerent = 0.45;
-  double defaultHeight = 0;
+  bool showAlertDialog = true;
+  bool buildContext = false;
+  bool dataState = false;
+
+  String data;
   String text =
       "Your symptoms might be those of COVID. Let’s monitor that closely and don’t take any chance with your loved ones.";
-  bool showAlertDialog = true;
-  double _value;
-  double indicatior = 0.0;
 
   @override
   void initState() {
@@ -37,9 +46,31 @@ class _IState extends State<I> {
     cyrcleCovid = false;
     symptomsList = false;
     scrollState = false;
-    _value = 0.0;
+    _setStateIndicator();
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    this.data = formatter.format(now);
+    print(data);
     // _init();
+    _checkData();
     this.a = 0;
+  }
+
+  _checkData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String data = prefs.getString('feeling today');
+    if (this.data == data) {
+      this.dataState = true;
+    }
+  }
+
+  _setStateIndicator() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double state = prefs.getDouble("state slider");
+    print('state is $state saved');
+    setState(() {
+      this._value = state;
+    });
   }
 
   _getSync() async {
@@ -81,6 +112,16 @@ class _IState extends State<I> {
     });
   }
 
+  _saveStateSlider(double state) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble("state slider", state);
+    await prefs.setString('feeling today', this.data);
+    setState(() {
+      this.buildContext = true;
+    });
+    print("state was saved!");
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -102,8 +143,8 @@ class _IState extends State<I> {
           Column(
             children: [
               Header(
-                title: "i am",
-              ),
+                  title: "i am",
+                  context: this.dataState ? true : this.buildContext),
               Expanded(
                 child: ListView(
                   physics: scrollState ? null : NeverScrollableScrollPhysics(),
@@ -121,7 +162,8 @@ class _IState extends State<I> {
                               // color: Colors.black,
                               child: Container(
                                 width: width < 412 ? width * 0.9 : width * 0.75,
-                                height: height * 0.13,
+                                height:
+                                    width < 412 ? height * 0.13 : height * 0.14,
                                 // color: Colors.pink,
                                 child: Stack(
                                     alignment: Alignment.center,
@@ -134,8 +176,12 @@ class _IState extends State<I> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
-                                                width: width * 0.11,
-                                                height: height * 0.13,
+                                                width: width > 412
+                                                    ? width * 0.11
+                                                    : width * 0.12,
+                                                height: width < 412
+                                                    ? height * 0.13
+                                                    : height * 0.14,
                                                 // color: Colors.white,
                                                 child: Column(
                                                   mainAxisAlignment:
@@ -150,14 +196,18 @@ class _IState extends State<I> {
                                                     ),
                                                     Container(
                                                       margin: EdgeInsets.only(
-                                                          bottom:
-                                                              height * 0.035),
+                                                          bottom: width > 412
+                                                              ? height * 0.035
+                                                              : height * 0.03),
                                                       child: Text(
                                                         "great".toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
-                                                            fontSize: 8,
+                                                            fontSize:
+                                                                width > 412
+                                                                    ? 8
+                                                                    : 7,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -170,8 +220,12 @@ class _IState extends State<I> {
                                                 ),
                                               ),
                                               Container(
-                                                width: width * 0.11,
-                                                height: height * 0.13,
+                                                width: width > 412
+                                                    ? width * 0.11
+                                                    : width * 0.12,
+                                                height: width < 412
+                                                    ? height * 0.13
+                                                    : height * 0.14,
                                                 // color: Colors.black,
                                                 child: Column(
                                                   mainAxisAlignment:
@@ -186,14 +240,18 @@ class _IState extends State<I> {
                                                     ),
                                                     Container(
                                                       margin: EdgeInsets.only(
-                                                          bottom:
-                                                              height * 0.035),
+                                                          bottom: width > 412
+                                                              ? height * 0.035
+                                                              : height * 0.03),
                                                       child: Text(
                                                         "ok".toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
-                                                            fontSize: 8,
+                                                            fontSize:
+                                                                width > 412
+                                                                    ? 8
+                                                                    : 7,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -206,8 +264,12 @@ class _IState extends State<I> {
                                                 ),
                                               ),
                                               Container(
-                                                width: width * 0.11,
-                                                height: height * 0.13,
+                                                width: width > 412
+                                                    ? width * 0.11
+                                                    : width * 0.12,
+                                                height: width < 412
+                                                    ? height * 0.13
+                                                    : height * 0.14,
                                                 // color: Colors.green,
                                                 child: Column(
                                                   mainAxisAlignment:
@@ -222,15 +284,19 @@ class _IState extends State<I> {
                                                     ),
                                                     Container(
                                                       margin: EdgeInsets.only(
-                                                          bottom:
-                                                              height * 0.035),
+                                                          bottom: width > 412
+                                                              ? height * 0.035
+                                                              : height * 0.03),
                                                       child: Text(
                                                         "a bit down"
                                                             .toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
-                                                            fontSize: 8,
+                                                            fontSize:
+                                                                width > 412
+                                                                    ? 8
+                                                                    : 7,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -243,8 +309,12 @@ class _IState extends State<I> {
                                                 ),
                                               ),
                                               Container(
-                                                width: width * 0.11,
-                                                height: height * 0.13,
+                                                width: width > 412
+                                                    ? width * 0.11
+                                                    : width * 0.12,
+                                                height: width < 412
+                                                    ? height * 0.13
+                                                    : height * 0.14,
                                                 // color: Colors.yellow,
                                                 child: Column(
                                                   mainAxisAlignment:
@@ -259,14 +329,18 @@ class _IState extends State<I> {
                                                     ),
                                                     Container(
                                                       margin: EdgeInsets.only(
-                                                          bottom:
-                                                              height * 0.035),
+                                                          bottom: width > 412
+                                                              ? height * 0.035
+                                                              : height * 0.03),
                                                       child: Text(
                                                         "poorly".toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
-                                                            fontSize: 8,
+                                                            fontSize:
+                                                                width > 412
+                                                                    ? 8
+                                                                    : 7,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -300,11 +374,11 @@ class _IState extends State<I> {
                                           },
                                           onChangeEnd: (value) {
                                             print('value $value');
-                                            if (value ==
-                                                value.roundToDouble()) {
+                                            if (value == this.stateThree) {
                                               print('value is $value');
                                               _getSync();
                                             }
+                                            _saveStateSlider(value);
                                           },
                                         ),
                                       ),
@@ -508,7 +582,7 @@ class _IState extends State<I> {
                                               fontWeight: FontWeight.w500,
                                               letterSpacing: 2,
                                               decoration: TextDecoration.none,
-                                              fontSize: 20,
+                                              fontSize: width > 412 ? 20 : 18,
                                               color: Colors.white),
                                         ),
                                         SwitchCustom(nameState: 'risk')
@@ -562,7 +636,7 @@ class _IState extends State<I> {
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: 3,
                                         decoration: TextDecoration.none,
-                                        fontSize: 20,
+                                        fontSize: width > 412 ? 20 : 18,
                                         color: Colors.white),
                                   ),
                                   Flexible(
@@ -593,7 +667,7 @@ class _IState extends State<I> {
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 2,
                                       decoration: TextDecoration.none,
-                                      fontSize: 20,
+                                      fontSize: width > 412 ? 20 : 18,
                                       color: Colors.white),
                                 ),
                                 SwitchCustom(nameState: 'closeContact')
