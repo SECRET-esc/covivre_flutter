@@ -24,26 +24,27 @@ class Fight extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                      right: width * 0.6,
-                      top: height * 0.05,
-                      child: Container(
-                        alignment: Alignment.bottomLeft,
-                        width: width * 0.55,
-                        // color: Colors.white,
+                    right: width * 0.6,
+                    top: height * 0.05,
+                    child: Container(
+                      alignment: Alignment.bottomLeft,
+                      width: width * 0.55,
+                      // color: Colors.white,
 
-                        child: ColorFiltered(
-                          child: Image.asset(
-                            "lib/assets/img/Calque34.png",
-                            fit: BoxFit.cover,
-                          ),
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context)
-                                  .colorScheme
-                                  .background
-                                  .withOpacity(0.8),
-                              BlendMode.srcATop),
+                      child: ColorFiltered(
+                        child: Image.asset(
+                          "lib/assets/img/Calque34.png",
+                          fit: BoxFit.cover,
                         ),
-                      )),
+                        colorFilter: ColorFilter.mode(
+                            Theme.of(context)
+                                .colorScheme
+                                .background
+                                .withOpacity(0.8),
+                            BlendMode.srcATop),
+                      ),
+                    ),
+                  ),
                   Positioned(
                     top: (height * 0.01),
                     left: width * 0.5,
@@ -68,21 +69,28 @@ class Fight extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: PercentageProgress(
-                      small: true,
+                  Positioned(
+                    top: -height * 0.01,
+                    left: width * 0.25,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: PercentageProgress(
+                        small: true,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.15),
+                  Positioned(
+                    top: height * 0.19,
+                    left: width * 0.21,
                     child: Container(
+                      // color: Colors.black,
                       child: Text(
-                        "Have you done that today?",
+                        "Have you done that\ntoday?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "FaturaBold",
-                            fontSize: 30,
+                            fontSize: 25,
+                            letterSpacing: 1,
                             fontWeight: FontWeight.w500,
                             decoration: TextDecoration.none,
                             color: Colors.white),

@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('show alert feeling a bit down', true);
       await prefs.setString('feeling today', 'empty');
       await prefs.setDouble('state slider', 0.0);
+      await prefs.setBool("show alert feeling a bit down", true);
       setState(() {
         firstLunch = true;
         showAlertTour = true;

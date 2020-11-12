@@ -83,11 +83,19 @@ class _IState extends State<I> {
 
   _getSync() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      bool state = prefs.getBool("show alert feeling a bit down");
-      print('show alert is $state');
-      this.showAlert = state;
-    });
+    bool state = prefs.getBool("show alert feeling a bit down");
+    if (state == null) {
+      setState(() {
+        prefs.setBool("show alert feeling a bit down", true);
+        this.showAlert = state;
+        print('show alert is null set defoult true');
+      });
+    } else {
+      setState(() {
+        print('show alert is $state');
+        this.showAlert = state;
+      });
+    }
   }
 
   _init() async {
