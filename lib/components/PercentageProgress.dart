@@ -46,7 +46,6 @@ class _PercentageProgressState extends State<PercentageProgress>
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     setState(() {
       if (widget.small == null) {
         widget.small = false;
@@ -65,7 +64,7 @@ class _PercentageProgressState extends State<PercentageProgress>
             child: Opacity(
               opacity: 0.7,
               child: Container(
-                width: widget.small ? width * 0.3 : width * 0.6,
+                width: widget.small ? width * 0.25 : width * 0.6,
                 child: Image.asset(
                   "lib/assets/img/DeadVirusBackground.png",
                   fit: BoxFit.contain,
@@ -77,7 +76,7 @@ class _PercentageProgressState extends State<PercentageProgress>
         Container(
           alignment: Alignment.center,
           child: CircularPercentIndicator(
-            radius: widget.small ? width * 0.38 : width * 0.7,
+            radius: widget.small ? width * 0.33 : width * 0.7,
             lineWidth: 15.0,
             animation: true,
             backgroundColor: Colors.grey.withOpacity(0.1),
@@ -96,8 +95,8 @@ class _PercentageProgressState extends State<PercentageProgress>
                         fontWeight: FontWeight.w600,
                         fontSize: widget.small
                             ? width < 412
-                                ? 30
-                                : 40
+                                ? 20
+                                : 30
                             : width < 412
                                 ? 40
                                 : 55,
@@ -111,8 +110,8 @@ class _PercentageProgressState extends State<PercentageProgress>
                       decoration: TextDecoration.none,
                       fontSize: widget.small
                           ? width < 376
-                              ? 20
-                              : 40
+                              ? 15
+                              : 35
                           : width < 376
                               ? 40
                               : 60),

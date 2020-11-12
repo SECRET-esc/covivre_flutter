@@ -125,7 +125,7 @@ class _HeaderState extends State<Header> {
                               ),
                               Flexible(
                                   child: Container(
-                                margin: EdgeInsets.only(left: width * 0.03),
+                                margin: EdgeInsets.only(left: width * 0.04),
                                 child: Text(
                                   widget.title,
                                   style: TextStyle(

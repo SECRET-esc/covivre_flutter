@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('show meeting rooms', false);
       await prefs.setBool('show alert feeling a bit down', true);
       await prefs.setString('feeling today', 'empty');
+      await prefs.setDouble('state slider', 0.0);
       setState(() {
         firstLunch = true;
         showAlertTour = true;
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> {
   _navigation(BuildContext context, String name) async {
     final state = await Navigator.pushNamed(context, 'I');
     setState(() {
-      this.iAmState = state ?? false;
+      this.iAmState = state ?? this.iAmState;
     });
   }
 

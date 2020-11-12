@@ -74,40 +74,58 @@ class Fight extends StatelessWidget {
                       small: true,
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.15),
+                    child: Container(
+                      child: Text(
+                        "Have you done that today?",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: "FaturaBold",
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.none,
+                            color: Colors.white),
+                      ),
+                    ),
+                  )
                 ],
                 // ),
               ),
             ),
             Expanded(
               flex: 8,
-              child: Container(
-                child: ListView(
-                  children: [
-                    ItemFight(
-                      title: "Wash your hands",
-                      contant:
-                          "With plain soap and water for at 40\nseconds.The best way to prevent the spread!",
-                    ),
-                    ItemFight(
-                      title: "Wear a mask",
-                      contant: "The musk must cover your face.",
-                    ),
-                    ItemFight(
-                      title: "Use hand sanitazer",
-                      contant: "Share the application with your loved ones.",
-                    ),
-                    ItemFight(
-                      title: "Keep your distance",
-                      contant: "Stay at least 6 feet away from others.",
-                    ),
-                    ItemFight(
-                      title: "Share the app",
-                      contant: "Share the application with your loved ones.",
-                    ),
-                  ],
-                ),
+              child: ListView(
+                children: [
+                  ItemFight(
+                    title: "Wash your hands",
+                    urlImage: "lib/assets/img/HandsIcon.png",
+                    contant:
+                        "With plain soap and water for at 40\nseconds.The best way to prevent the spread!",
+                  ),
+                  ItemFight(
+                    urlImage: "lib/assets/img/MaskIcon.png",
+                    title: "Wear a mask",
+                    contant: "The musk must cover your face.",
+                  ),
+                  ItemFight(
+                    title: "Use hand sanitazer",
+                    urlImage: "lib/assets/img/SanitizerIcon.png",
+                    contant: "Share the application with your loved ones.",
+                  ),
+                  ItemFight(
+                    title: "Keep your distance",
+                    urlImage: "lib/assets/img/DistanceIcon.png",
+                    contant: "Stay at least 6 feet away from others.",
+                  ),
+                  ItemFight(
+                    title: "Share the app",
+                    showNavigate: false,
+                    urlImage: "lib/assets/img/ShareIcon.png",
+                    contant: "Share the application with your loved ones.",
+                  ),
+                ],
               ),
-              // color: Colors.red,
             ),
           ],
         ),

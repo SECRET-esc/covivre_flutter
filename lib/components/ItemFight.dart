@@ -4,49 +4,37 @@ import 'package:covivre/constants/ColorsTheme.dart';
 
 // ignore: must_be_immutable
 class ItemFight extends StatefulWidget {
-  ItemFight({
-    Key key,
-    @required this.title,
-    @required this.contant,
-    this.urlImage,
-    this.urlNavigationSee,
-  }) : super(key: key);
+  ItemFight(
+      {Key key,
+      @required this.title,
+      @required this.contant,
+      this.urlImage,
+      this.urlNavigationSee,
+      this.showNavigate})
+      : super(key: key);
   final String title;
   final String contant;
   final String urlNavigationSee;
   final String urlImage;
+  bool showNavigate = true;
 
   @override
-  _ItemFightState createState() => _ItemFightState(
-      title: title,
-      contant: contant,
-      urlImage: urlImage,
-      urlNavigationSee: urlNavigationSee);
+  _ItemFightState createState() => _ItemFightState();
 }
 
 class _ItemFightState extends State<ItemFight> {
-  _ItemFightState({
-    this.title,
-    this.contant,
-    this.urlImage,
-    this.urlNavigationSee,
-  });
   bool checkbox = false;
-  final String title;
-  final String contant;
-  final String urlNavigationSee;
-  final String urlImage;
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     _seeBoll() {
-      if (title != null) {
+      if (widget.showNavigate == null) {
         return GestureDetector(
           onTap: () {
-            urlNavigationSee != null
-                ? Navigator.pushNamed(context, urlNavigationSee)
+            widget.urlNavigationSee != null
+                ? Navigator.pushNamed(context, widget.urlNavigationSee)
                 : print("was tapped!");
           },
           child: Container(
@@ -68,7 +56,7 @@ class _ItemFightState extends State<ItemFight> {
     }
 
     setState(() {
-      print(title);
+      print(widget.title);
     });
     return Container(
       width: width,
@@ -86,8 +74,8 @@ class _ItemFightState extends State<ItemFight> {
               // color: Colors.amber,
               child: Container(
                 width: width * 0.18,
-                child: Image.asset(urlImage != null
-                    ? urlImage
+                child: Image.asset(widget.urlImage != null
+                    ? widget.urlImage
                     : "lib/assets/img/Location.png"),
               ),
             ),
@@ -102,7 +90,7 @@ class _ItemFightState extends State<ItemFight> {
                   children: [
                     Container(
                       child: Text(
-                        title,
+                        widget.title,
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Colors.white,
@@ -114,7 +102,7 @@ class _ItemFightState extends State<ItemFight> {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: width * 0.02),
                       child: Text(
-                        contant,
+                        widget.contant,
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Theme.of(context).colorScheme.switchCircle,

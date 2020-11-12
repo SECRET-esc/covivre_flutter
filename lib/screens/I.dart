@@ -67,10 +67,18 @@ class _IState extends State<I> {
   _setStateIndicator() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double state = prefs.getDouble("state slider");
-    print('state is $state saved');
-    setState(() {
-      this._value = state;
-    });
+    if (state == null) {
+      await prefs.setDouble("state slider", 0.0);
+      print('state is null saved');
+      setState(() {
+        this._value = 0.0;
+      });
+    } else {
+      print('state is $state saved');
+      setState(() {
+        this._value = state;
+      });
+    }
   }
 
   _getSync() async {

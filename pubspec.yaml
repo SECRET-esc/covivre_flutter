@@ -69,6 +69,11 @@ flutter:
     - lib/assets/img/RiskArrow.png 
     - lib/assets/img/VulnerableArrow.png
     - lib/assets/img/circleCovid.png
+    - lib/assets/img/ShareIcon.png
+    - lib/assets/img/SanitizerIcon.png
+    - lib/assets/img/MaskIcon.png
+    - lib/assets/img/HandsIcon.png
+    - lib/assets/img/DistanceIcon.png
 
 
   fonts:
