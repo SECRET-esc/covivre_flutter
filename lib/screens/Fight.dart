@@ -1,7 +1,7 @@
 import 'package:covivre/components/Header.dart';
 import 'package:covivre/components/PercentageProgress.dart';
 import 'package:flutter/material.dart';
-import 'package:covivre/constants/ColorsTheme.dart';
+import 'package:covivre/components/stories/WashHands.dart';
 import 'package:covivre/components/ItemFight.dart';
 
 class Fight extends StatelessWidget {
@@ -108,6 +108,7 @@ class Fight extends StatelessWidget {
                   ItemFight(
                     title: "Wash your hands",
                     urlImage: "lib/assets/img/HandsIcon.png",
+                    urlNavigationSee: 'WashHands',
                     contant:
                         "With plain soap and water for at 40\nseconds.The best way to prevent the spread!",
                   ),

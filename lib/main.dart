@@ -1,3 +1,4 @@
+import 'package:covivre/components/stories/WashHands.dart';
 import 'package:covivre/screens/CovidUpdates.dart';
 import 'package:covivre/screens/HomePage.dart';
 import 'package:covivre/screens/StaySafe.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         'I': (context) => Scaffold(body: I()),
         'Fight': (context) => Fight(),
         'CovidUpdates': (context) => Scaffold(body: CovidUpdates()),
+        'WashHands': (context) => Scaffold(body: WashHands())
       },
       home: HomePage(),
     );

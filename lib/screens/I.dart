@@ -61,6 +61,12 @@ class _IState extends State<I> {
     String data = prefs.getString('feeling today');
     if (this.data == data) {
       this.dataState = true;
+    } else {
+      await prefs.setDouble("state slider", 0.0);
+      print('state was changad on new day');
+      setState(() {
+        this._value = 0.0;
+      });
     }
   }
 
@@ -87,7 +93,7 @@ class _IState extends State<I> {
     if (state == null) {
       setState(() {
         prefs.setBool("show alert feeling a bit down", true);
-        this.showAlert = state;
+        this.showAlert = true;
         print('show alert is null set defoult true');
       });
     } else {

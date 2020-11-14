@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
       await prefs.setString('feeling today', 'empty');
       await prefs.setDouble('state slider', 0.0);
       await prefs.setBool("show alert feeling a bit down", true);
+      await prefs.setBool('bluetooth state', false);
       setState(() {
         firstLunch = true;
         showAlertTour = true;

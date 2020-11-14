@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Header extends StatefulWidget {
-  Header({this.title, this.showItems, this.context});
+  Header({this.title, this.showItems, this.context, this.stateBluetooth});
   final String title;
   bool context = false;
   bool showItems = true;
+  final bool stateBluetooth;
 
   @override
   _HeaderState createState() => _HeaderState();
@@ -14,6 +16,38 @@ class Header extends StatefulWidget {
 
 class _HeaderState extends State<Header> {
   bool bluetoothEnable = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.stateBluetooth != null) {
+      this.bluetoothEnable = widget.stateBluetooth;
+    } else {
+      print("state bluetooth = null");
+      _sync();
+    }
+  }
+
+  _sync() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool state = prefs.getBool('bluetooth state');
+    if (state == null) {
+      setState(() {
+        prefs.setBool('bluetooth state', false);
+        this.bluetoothEnable = false;
+      });
+    } else {
+      setState(() {
+        this.bluetoothEnable = state;
+      });
+    }
+  }
+
+  _changeState(bool state) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('bluetooth state', state);
+    print('bluetooth state was changed!');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,62 +119,63 @@ class _HeaderState extends State<Header> {
       child: Row(
         children: [
           Flexible(
-              child: Container(
-                  // color: Colors.red,
-                  alignment: Alignment.center,
-                  child: (this.widget.title == null
-                      ? Stack(alignment: Alignment.center, children: [
-                          Positioned(
-                            right: width * 0.03,
-                            child: Container(
-                              // color: Colors.amber,
-                              child: Image.asset(
-                                'lib/assets/img/CoVivre.png',
-                                fit: BoxFit.cover,
-                                width: width * 0.65,
-                              ),
-                            ),
+            child: Container(
+              // color: Colors.red,
+              alignment: Alignment.center,
+              child: (this.widget.title == null
+                  ? Stack(alignment: Alignment.center, children: [
+                      Positioned(
+                        right: width * 0.03,
+                        child: Container(
+                          // color: Colors.amber,
+                          child: Image.asset(
+                            'lib/assets/img/CoVivre.png',
+                            fit: BoxFit.cover,
+                            width: width * 0.65,
                           ),
-                        ])
-                      : Container(
-                          // color: Colors.black,
-                          height: height * 0.08,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () => Navigator.pop(
-                                    context,
-                                    widget.context == null
-                                        ? false
-                                        : widget.context),
-                                child: Container(
-                                    margin: EdgeInsets.only(left: width * 0.05),
-                                    // color: Colors.amber,
-                                    width: width * 0.12,
-                                    child: Icon(Icons.west_rounded,
-                                        size: width * 0.13, color: Colors.white)
-                                    // Image.asset("lib/assets/img/arrow.png"),
-                                    ),
-                              ),
-                              Flexible(
-                                  child: Container(
-                                margin: EdgeInsets.only(left: width * 0.04),
-                                child: Text(
-                                  widget.title,
-                                  style: TextStyle(
-                                      fontFamily: "Heaters",
-                                      fontSize: 48,
-                                      fontWeight: FontWeight.w500,
-                                      height:
-                                          widget.title.length > 10 ? 0.6 : null,
-                                      color:
-                                          Theme.of(context).colorScheme.base),
-                                  textWidthBasis: TextWidthBasis.longestLine,
+                        ),
+                      ),
+                    ])
+                  : Container(
+                      // color: Colors.black,
+                      height: height * 0.08,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: () => Navigator.pop(
+                                context,
+                                widget.context == null
+                                    ? false
+                                    : widget.context),
+                            child: Container(
+                                margin: EdgeInsets.only(left: width * 0.05),
+                                // color: Colors.amber,
+                                width: width * 0.12,
+                                child: Icon(Icons.west_rounded,
+                                    size: width * 0.13, color: Colors.white)
+                                // Image.asset("lib/assets/img/arrow.png"),
                                 ),
-                              ))
-                            ],
-                          ))))),
+                          ),
+                          Flexible(
+                              child: Container(
+                            margin: EdgeInsets.only(left: width * 0.04),
+                            child: Text(
+                              widget.title,
+                              style: TextStyle(
+                                  fontFamily: "Heaters",
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.w500,
+                                  height: widget.title.length > 10 ? 0.6 : null,
+                                  color: Theme.of(context).colorScheme.base),
+                              textWidthBasis: TextWidthBasis.longestLine,
+                            ),
+                          ))
+                        ],
+                      ),
+                    )),
+            ),
+          ),
           widget.showItems
               ? Flexible(
                   child: Container(
@@ -154,6 +189,7 @@ class _HeaderState extends State<Header> {
                             onTap: () {
                               setState(() {
                                 bluetoothEnable = !bluetoothEnable;
+                                _changeState(bluetoothEnable);
                               });
                             },
                             child: _stateBluetooth()),
