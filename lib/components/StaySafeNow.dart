@@ -35,44 +35,18 @@ class _StauSafeNowState extends State<StaySafeNow> {
     platform.setMethodCallHandler((call) => myUtilsHandler(call));
   }
 
-  Future<void> _startScan() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    bool risk = sharedPreferences.getBool('risk');
-    bool positive = sharedPreferences.getBool('positive');
-    bool closeContact = sharedPreferences.getBool('closeContact');
-    bool showAtRisk = sharedPreferences.getBool('showAtRisk');
-    bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
-
-    print(
-        "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
-
-    var map = {
-      "risk": risk,
-      "positive": positive,
-      "closeContact": closeContact,
-      "showAtRisk": showAtRisk,
-      "showMeetingRooms": showMeetingRooms
-    };
-    String scanStartResult;
-    try {
-      final int result = await platform.invokeMethod('startScan', map);
-      scanStartResult = '$result % .';
-    } on PlatformException catch (e) {
-      scanStartResult = "Failed to get info: '${e.message}'.";
-    }
-
-    setState(() {
-      _scanResult = scanStartResult;
-    });
-  }
-
   Future<dynamic> myUtilsHandler(MethodCall methodCall) async {
     switch (methodCall.method) {
       case 'result':
+        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         setState(() {
           valueVulnerable = methodCall.arguments["old"];
           value = methodCall.arguments["ill"];
           _scanResult = methodCall.arguments.toString();
+
+          sharedPreferences.setInt('valueVulnerable', valueVulnerable);
+          sharedPreferences.setInt('value', value);
+          sharedPreferences.setString('_scanResult', _scanResult);
         });
         return "1";
       default:
@@ -100,7 +74,9 @@ class _StauSafeNowState extends State<StaySafeNow> {
   _initState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool state = prefs.getBool("show at risk");
-
+    valueVulnerable = prefs.getInt('valueVulnerable');
+    value = prefs.getInt('value');
+    _scanResult = prefs.getString('_scanResult');
     setState(() {
       this.stateAtRisk = state;
     });
@@ -579,7 +555,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [BaseButton(title: "scan now", width: 0.44, onTap: _startScan)],
+                    children: [BaseButton(title: "scan now", width: 0.44)],
                   ),
                 ),
                 Expanded(

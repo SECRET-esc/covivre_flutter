@@ -1,6 +1,7 @@
 import 'package:covivre/components/BaseButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../components/Header.dart';
 import '../components/PercentageProgress.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
@@ -27,6 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   String data;
 
+  static const platform = const MethodChannel('covivre/scan');
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +39,65 @@ class _HomePageState extends State<HomePage> {
     print(data);
     _incrementInit();
     _furstLanchCencelation();
+  }
+
+  Future<void> _startScan() async {
+    Navigator.pushNamed(context, 'StaySafe');
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool risk = sharedPreferences.getBool('risk');
+    bool positive = sharedPreferences.getBool('positive');
+    bool closeContact = sharedPreferences.getBool('closeContact');
+    bool showAtRisk = sharedPreferences.getBool('showAtRisk');
+    bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+
+    print(
+        "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
+
+    var map = {
+      "risk": risk,
+      "positive": positive,
+      "closeContact": closeContact,
+      "showAtRisk": showAtRisk,
+      "showMeetingRooms": showMeetingRooms
+    };
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('startScan', map);
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+
+    setState(() {
+      // _scanResult = scanStartResult;
+    });
+  }
+  Future<void> _showPermissions() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool risk = sharedPreferences.getBool('risk');
+    bool positive = sharedPreferences.getBool('positive');
+    bool closeContact = sharedPreferences.getBool('closeContact');
+    bool showAtRisk = sharedPreferences.getBool('showAtRisk');
+    bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+
+    print(
+        "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
+
+    var map = {
+      "risk": risk,
+      "positive": positive,
+      "closeContact": closeContact,
+      "showAtRisk": showAtRisk,
+      "showMeetingRooms": showMeetingRooms
+    };
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('startAdvertise', map);
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+    print(scanStartResult);
   }
 
   _nextSlideFirstLunch() {
@@ -213,8 +275,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () =>
-                                    Navigator.pushNamed(context, 'StaySafe'),
+                                onTap: () => _startScan(),
                                 child: Container(
                                     // color: Colors.amber,
                                     width: height * 0.17,
@@ -438,6 +499,7 @@ class _HomePageState extends State<HomePage> {
                 },
                 finishTour: () {
                   setState(() {
+                    _showPermissions();
                     firstLunch = false;
                   });
                 },

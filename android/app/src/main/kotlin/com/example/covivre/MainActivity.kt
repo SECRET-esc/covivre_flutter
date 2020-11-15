@@ -137,27 +137,7 @@ class MainActivity: FlutterActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun startServiceForScan() {
-
-        if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-                AlertDialog.Builder(this)
-                        .setMessage("Allow use location.")
-                        .setPositiveButton("Allow")
-                        { _, _ -> requestLocationPermission() }
-                        .setNegativeButton("Deny") { _, _ -> }
-                        .show()
-
-            }
-        } else {
-            startServiceForScanWithPermissions()
-        }
+        startServiceForScanWithPermissions()
     }
 
     private fun startServiceForScanWithPermissions(){
@@ -170,9 +150,5 @@ class MainActivity: FlutterActivity() {
             startService(i)
         }
     }
-    private fun requestLocationPermission() {
-        ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSIONS_REQUEST_FOR_LOCATION)
-    }
+
 }

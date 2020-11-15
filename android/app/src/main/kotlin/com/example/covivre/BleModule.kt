@@ -59,7 +59,7 @@ class BleModule() : AppCompatActivity() {
         if (turnScanOn) {
             createPeriodicScan()
         } else {
-            stopScan()
+//            stopScan()
         }
     }
 

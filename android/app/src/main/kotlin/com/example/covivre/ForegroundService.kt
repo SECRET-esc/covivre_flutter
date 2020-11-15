@@ -1,5 +1,6 @@
 package com.example.covivre
 
+import android.Manifest
 import android.R
 import android.app.*
 import android.bluetooth.BluetoothAdapter
@@ -9,13 +10,16 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.lang.Math.random
@@ -24,6 +28,7 @@ import java.lang.Math.random
 class ForegroundService : Service() {
     private val CHANNEL_ID: String = "my_chanel"
     private val CHANNEL = "covivre/scan"
+    private val MY_PERMISSIONS_REQUEST_FOR_LOCATION = 1
     private val myBinder = MyLocalBinder()
     private lateinit var methodChannel: MethodChannel
     val bleModule = BleModule()
@@ -68,7 +73,7 @@ class ForegroundService : Service() {
                 if (startScan() != -1) {
                     result.success(0)
                 } else {
-                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                    result.error("UNAVAILABLE", "Start Scan error", null)
                 }
             }else if (call.method == "startAdvertise") {
                 this.risk = call.argument("risk")
@@ -80,18 +85,46 @@ class ForegroundService : Service() {
                 if (startAdvertise() != -1) {
                     result.success(0)
                 } else {
-                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                    result.error("UNAVAILABLE", "Start Advertise error", null)
                 }
             }else if (call.method == "stopAdvertise") {
                 if (stopAdvertise() != -1) {
                     result.success(0)
                 } else {
-                    result.error("UNAVAILABLE", "Battery level not available.", null)
+                    result.error("UNAVAILABLE", "Stop Advertise error", null)
+                }
+            }else if (call.method == "showPermissions") {
+                if (checkPermissions()) {
+                    result.success(0)
+                } else {
+                    result.error("UNAVAILABLE", "No Permissions granted.", null)
                 }
             } else {
                 result.notImplemented()
             }
         }
+    }
+
+    fun checkPermissions(): Boolean {
+        if (ContextCompat.checkSelfPermission(MainActivity.instance,
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.instance,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+                return true
+            } else {
+                requestLocationPermission()
+                return false
+            }
+        }
+        return false
+
+    }
+
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(MainActivity.instance,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MY_PERMISSIONS_REQUEST_FOR_LOCATION)
     }
 
     fun sendResult(arguments: Any?) {
@@ -189,13 +222,18 @@ class ForegroundService : Service() {
 
     private fun startScan(): Int {
         makeCheck()
+        if (checkPermissions()){
         bleModule.startScan(this)
+        }
+
         return 0
     }
 
     private fun startAdvertise(): Int {
         makeCheck()
-        bleModule.startAdvertise(this)
+        if (checkPermissions()) {
+            bleModule.startAdvertise(this)
+        }
         return 0
     }
 
