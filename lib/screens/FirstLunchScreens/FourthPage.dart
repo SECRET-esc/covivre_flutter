@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:covivre/components/BaseButton.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FourthPage extends StatefulWidget {
   FourthPage({Key key, @required this.onTapNext}) : super(key: key);
@@ -59,7 +60,7 @@ class _FourthPageState extends State<FourthPage> {
               child: Column(
                 children: [
                   Flexible(
-                    flex: 5,
+                    flex: 6,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: width * 0.1),
                       // color: Colors.white,
@@ -70,11 +71,11 @@ class _FourthPageState extends State<FourthPage> {
                           Container(
                             // color: Colors.yellow,
                             child: Text(
-                              "Keep up the good fight!",
+                              "Tour Fourth Page Title".tr(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaBold",
-                                  fontSize: width > 412 ? 22 : 18,
+                                  fontSize: width > 412 ? 22 : 17,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.none),
                             ),
@@ -82,11 +83,11 @@ class _FourthPageState extends State<FourthPage> {
                           Container(
                             // color: Colors.yellow,
                             child: Text(
-                              "Small actions do make a difference.\nYou too, be a fighter!",
+                              "Tour Fourth Page Content".tr(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaMedium",
-                                  fontSize: width > 412 ? 22 : 18,
+                                  fontSize: width > 412 ? 22 : 15,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none),
                             ),
@@ -97,7 +98,7 @@ class _FourthPageState extends State<FourthPage> {
                               Container(
                                 // color: Colors.black,
                                 child: BaseButton(
-                                    title: "next",
+                                    title: "Tour Button".tr(),
                                     width: 0.25,
                                     onTap: widget.onTapNext),
                               ),

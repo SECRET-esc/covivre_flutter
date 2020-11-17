@@ -3,6 +3,7 @@ import '../components/Header.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/StaySafeNow.dart';
 import 'package:covivre/components/StaySafeRecent.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class StaySafe extends StatefulWidget {
   const StaySafe({Key key}) : super(key: key);
@@ -88,6 +89,7 @@ class _StaySafeState extends State<StaySafe> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
       color: Theme.of(context).backgroundColor,
       child: SafeArea(
@@ -115,11 +117,11 @@ class _StaySafeState extends State<StaySafe> {
                                           ? Theme.of(context).colorScheme.base
                                           : Colors.transparent))),
                           child: Text(
-                            "now".toUpperCase(),
+                            "Stay Safe Now".tr().toUpperCase(),
                             style: TextStyle(
                                 fontFamily: "FaturaMedium",
                                 fontWeight: FontWeight.w500,
-                                fontSize: 25,
+                                fontSize: width > 412 ? 25 : 22,
                                 decoration: TextDecoration.none,
                                 color: nowState == true
                                     ? Theme.of(context).colorScheme.base
@@ -148,12 +150,12 @@ class _StaySafeState extends State<StaySafe> {
                                           ? Theme.of(context).colorScheme.base
                                           : Colors.transparent))),
                           child: Text(
-                            "recent".toUpperCase(),
+                            "Stay Safe Recent".tr().toUpperCase(),
                             style: TextStyle(
                                 fontFamily: "FaturaMedium",
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.none,
-                                fontSize: 25,
+                                fontSize: width > 412 ? 25 : 22,
                                 color: recentState == true
                                     ? Theme.of(context).colorScheme.base
                                     : Theme.of(context)

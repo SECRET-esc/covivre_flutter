@@ -4,6 +4,7 @@ import 'package:covivre/components/CovidUpdatesListViewPopular.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/components/Header.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CovidUpdates extends StatefulWidget {
   @override
@@ -133,7 +134,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
           direction: Axis.vertical,
           children: [
             Header(
-              title: "covid updates",
+              title: "CoVivre Blog",
               showItems: false,
             ),
             Expanded(
@@ -204,7 +205,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
                                             ? Theme.of(context).colorScheme.base
                                             : Colors.transparent))),
                             child: Text(
-                              "for you".toUpperCase(),
+                              "For you".tr().toUpperCase(),
                               style: TextStyle(
                                   fontFamily: "FaturaMedium",
                                   fontWeight: FontWeight.w500,

@@ -6,6 +6,7 @@ import 'package:covivre/components/SwitchCustom.dart';
 import 'package:flutter/rendering.dart';
 import 'package:covivre/components/AlertDialogCovid.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class I extends StatefulWidget {
   I({Key key, this.height}) : super(key: key);
@@ -37,8 +38,7 @@ class _IState extends State<I> {
   bool dataState = false;
 
   String data;
-  String text =
-      "Your symptoms might be those of COVID. Let’s monitor that closely and don’t take any chance with your loved ones.";
+  String text = "Alert Dialog Feeling a Bit Down Content".tr();
 
   @override
   void initState() {
@@ -222,7 +222,9 @@ class _IState extends State<I> {
                                                               ? height * 0.035
                                                               : height * 0.03),
                                                       child: Text(
-                                                        "great".toUpperCase(),
+                                                        "I Great"
+                                                            .tr()
+                                                            .toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
@@ -266,7 +268,9 @@ class _IState extends State<I> {
                                                               ? height * 0.035
                                                               : height * 0.03),
                                                       child: Text(
-                                                        "ok".toUpperCase(),
+                                                        "I Ok"
+                                                            .tr()
+                                                            .toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
@@ -310,7 +314,8 @@ class _IState extends State<I> {
                                                               ? height * 0.035
                                                               : height * 0.03),
                                                       child: Text(
-                                                        "a bit down"
+                                                        "I a Bit Down"
+                                                            .tr()
                                                             .toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
@@ -355,7 +360,9 @@ class _IState extends State<I> {
                                                               ? height * 0.035
                                                               : height * 0.03),
                                                       child: Text(
-                                                        "poorly".toUpperCase(),
+                                                        "I Portly"
+                                                            .tr()
+                                                            .toUpperCase(),
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 "FaturaHeavy",
@@ -447,7 +454,8 @@ class _IState extends State<I> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text(
-                                                    "SYMPTOMS OF COVID"
+                                                    "I Symptoms"
+                                                        .tr()
                                                         .toUpperCase(),
                                                     style: TextStyle(
                                                         fontFamily:
@@ -519,7 +527,8 @@ class _IState extends State<I> {
                                                     alignment:
                                                         Alignment.centerLeft,
                                                     child: Text(
-                                                      "LIFE CYCLE OF COVID"
+                                                      "I Cyrcle"
+                                                          .tr()
                                                           .toUpperCase(),
                                                       style: TextStyle(
                                                           fontFamily:
@@ -598,7 +607,7 @@ class _IState extends State<I> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          'vulnerable'.toUpperCase(),
+                                          'I Vulnerable'.tr().toUpperCase(),
                                           style: TextStyle(
                                               fontFamily: "FaturaMedium",
                                               fontWeight: FontWeight.w500,
@@ -621,8 +630,7 @@ class _IState extends State<I> {
                                           MainAxisAlignment.center,
                                       children: [
                                         BaseButton(
-                                            title:
-                                                'am i more vulnerable to covid?',
+                                            title: 'I Vulnerable Covid'.tr(),
                                             width: 0.85)
                                       ],
                                     ),
@@ -652,7 +660,7 @@ class _IState extends State<I> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'positive'.toUpperCase(),
+                                    'I Positive'.tr().toUpperCase(),
                                     style: TextStyle(
                                         fontFamily: "FaturaMedium",
                                         fontWeight: FontWeight.w500,
@@ -683,7 +691,7 @@ class _IState extends State<I> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'close contact'.toUpperCase(),
+                                  'I Close Contact'.tr().toUpperCase(),
                                   style: TextStyle(
                                       fontFamily: "FaturaMedium",
                                       fontWeight: FontWeight.w500,
@@ -728,7 +736,7 @@ class _IState extends State<I> {
               : Container(),
           showAlert
               ? AlertDialogCovid(
-                  titleText: "YOU’RE FEELING A BIT DOWN?",
+                  titleText: "Alert Dialog Feeling a Bit Down Title".tr(),
                   text: text,
                   getStateShow: _getStateShow,
                   hideDialog: () {
