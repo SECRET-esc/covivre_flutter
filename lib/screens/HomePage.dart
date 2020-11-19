@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
       // _scanResult = scanStartResult;
     });
   }
+
   Future<void> _showPermissions() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool risk = sharedPreferences.getBool('risk');
@@ -311,7 +312,6 @@ class _HomePageState extends State<HomePage> {
                                                   fontSize:
                                                       width < 412.0 ? 23 : 30,
                                                   fontFamily: "FaturaExtraBold",
-                                                  height: 0.9,
                                                   decoration:
                                                       TextDecoration.none),
                                             ),

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
 import 'package:covivre/components/DayChart.dart';
-import 'package:covivre/components/HourCharts.dart';
+import 'package:covivre/components/HourChart.dart';
 import 'package:covivre/components/MinuteChart.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StaySafeRecent extends StatefulWidget {
   StaySafeRecent({Key key}) : super(key: key);
@@ -17,6 +18,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
   bool stateDay = true;
   bool stateHour = false;
   bool stateMinute = false;
+  bool stateSwitch = false;
 
   @override
   void initState() {
@@ -24,6 +26,22 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
     stateDay = true;
     stateHour = false;
     stateMinute = false;
+    _getSwitchState();
+  }
+
+  _getSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var state = prefs.getBool("show people at risk");
+    if (state == null) {
+      await prefs.setBool("show people at risk", false);
+      setState(() {
+        this.stateSwitch = false;
+      });
+    } else {
+      setState(() {
+        this.stateSwitch = state;
+      });
+    }
   }
 
   _onTopStateDay() {
@@ -58,12 +76,18 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
 
   _returnCharts() {
     if (stateDay) {
-      return DayChart();
+      return DayChart(stateAtRisk: this.stateSwitch);
     } else if (stateHour) {
-      return HourChart();
+      return HourChart(stateAtRisk: this.stateSwitch);
     } else {
-      return MinuteChart();
+      return MinuteChart(stateAtRisk: this.stateSwitch);
     }
+  }
+
+  _getStateSwitch(bool state) {
+    setState(() {
+      this.stateSwitch = state;
+    });
   }
 
   @override
@@ -380,6 +404,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                   ),
                   SwitchCustom(
                     nameState: "show people at risk",
+                    returnState: _getStateSwitch,
                   ),
                 ],
               ),

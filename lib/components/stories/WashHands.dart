@@ -22,9 +22,11 @@ class _WashHandsState extends State<WashHands> {
       storyItems: [
         StoryItem.inlineImage(url: null, caption: null, controller: null),
         StoryItem.pageImage(
-            url: "https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif",
-            caption: "Working with gifs",
-            controller: storyController),
+          url:
+              'https://cdn.zeplin.io/5f97886eb60adfa01cfa6358/screens/A43A158B-4B15-4A6E-ADB2-636857CF9179.png',
+          caption: "Working with gifs",
+          controller: storyController,
+        ),
         StoryItem.pageImage(
           url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
           caption: "Hello, from the other side",

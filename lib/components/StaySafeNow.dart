@@ -11,10 +11,10 @@ class StaySafeNow extends StatefulWidget {
   StaySafeNow({Key key}) : super(key: key);
 
   @override
-  _StauSafeNowState createState() => _StauSafeNowState();
+  _StatusSafeNowState createState() => _StatusSafeNowState();
 }
 
-class _StauSafeNowState extends State<StaySafeNow> {
+class _StatusSafeNowState extends State<StaySafeNow> {
   int value = 0;
   int valueVulnerable = 0;
   // if true display vulnerable
@@ -570,7 +570,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                     children: [
                       this.showScanNowButton
                           ? BaseButton(
-                              title: "scan now", width: 0.44, onTap: _startScan)
+                              title: "scan now", width: 0.44)
                           : Container()
                     ],
                   ),

@@ -3,7 +3,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
 class MinuteChart extends StatefulWidget {
-  MinuteChart({Key key}) : super(key: key);
+  MinuteChart({Key key, @required this.stateAtRisk}) : super(key: key);
+  bool stateAtRisk;
 
   @override
   _MinuteChartState createState() => _MinuteChartState();
@@ -38,27 +39,30 @@ class _MinuteChartState extends State<MinuteChart> {
             ),
             // enableAxisAnimation: true,
             series: <CartesianSeries>[
-              AreaSeries<SalesData, String>(
-                  dataSource: [
-                    SalesData('25/10', 1),
-                    SalesData('25/11', 2),
-                    SalesData('25/12', 5),
-                    SalesData('25/13', 0),
-                    SalesData('now'.toUpperCase(), 0)
-                  ],
-                  color: Color.fromRGBO(117, 69, 59, 1),
-                  // pointColorMapper: (SalesData sales, _) => sales.segmentColor,
-                  xValueMapper: (SalesData sales, _) => sales.year,
-                  yValueMapper: (SalesData sales, _) => sales.sales,
-                  borderColor: Color.fromRGBO(245, 132, 74, 0.8),
-                  borderWidth: 2,
-                  markerSettings: MarkerSettings(
-                      width: 20,
-                      color: Theme.of(context).colorScheme.background,
-                      height: 20,
+              widget.stateAtRisk
+                  ? AreaSeries<SalesData, String>(
+                      dataSource: [
+                          SalesData('25/10', 1),
+                          SalesData('25/11', 2),
+                          SalesData('25/12', 5),
+                          SalesData('25/13', 0),
+                          SalesData('now'.toUpperCase(), 0)
+                        ],
+                      color: Color.fromRGBO(117, 69, 59, 1),
+                      // pointColorMapper: (SalesData sales, _) => sales.segmentColor,
+                      xValueMapper: (SalesData sales, _) => sales.year,
+                      yValueMapper: (SalesData sales, _) => sales.sales,
                       borderColor: Color.fromRGBO(245, 132, 74, 0.8),
-                      isVisible: true,
-                      shape: DataMarkerType.circle)),
+                      borderWidth: 2,
+                      markerSettings: MarkerSettings(
+                          width: 20,
+                          color: Theme.of(context).colorScheme.background,
+                          height: 20,
+                          borderColor: Color.fromRGBO(245, 132, 74, 0.8),
+                          isVisible: true,
+                          shape: DataMarkerType.circle))
+                  : AreaSeries(
+                      dataSource: null, xValueMapper: null, yValueMapper: null),
               AreaSeries<SalesData, String>(
                   dataSource: [
                     SalesData('25/10', 2),

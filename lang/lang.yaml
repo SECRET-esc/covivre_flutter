@@ -79,25 +79,25 @@ en_US:
 
 ru_RU:
 
-  Stay safe: "безопа\nсность"
+  Stay safe: "будь\nздоров!"
   I am: "я..."
-  Fight : "Бой"
+  Fight : "  меры\nборьбы"
   Risk: "риск"
   For you: "для вас"
   See how: "> детальнее"
 
 
-  FightItem WashHands Title: "Мойте руки"
+  FightItem WashHands Title: "Мыл руки"
   FightItem WashHands Content: "Мойте руки в течении 40 секунд - так Вы\nможете предотвратить распространение!"
-  FightItem WearMask Title: "Носите маску"
+  FightItem WearMask Title: "Носил маску"
   FightItem WearMask Content: "Маска защищает ваше лицо, и не дает распространиться вирусу."
-  FightItem Sanitazer Title: "Используйте антисептик"
+  FightItem Sanitazer Title: "Использывал антисептик"
   FightItem Sanitazer Content: "Антисептик отлично справляется с вирусом."
-  FightItem Distance Title: "Контролируйте дистанцию"
-  FightItem Distance Content: "Держитесь на расстоянии не менее 2 метров от других."
-  FightItem Share Title: "Поделитесь приложением"
-  FightItem Share Content: "Поделитесь приложением со своими близкими."
-  FightItem Question: "А ты сделал это\nсегодня?"
+  FightItem Distance Title: "Контролировал дистанцию"
+  FightItem Distance Content: "Держитесь на расстоянии не менее 1.5 м. от других."
+  FightItem Share Title: "Поделился приложением"
+  FightItem Share Content: "Поделитесь приложением со своими блиßзкими."
+  FightItem Question: "   А ты сделал это\nсегодня?"
 
 
   I Great: "хорошо"
@@ -105,11 +105,11 @@ ru_RU:
   I a Bit Down: "чуть плохо"
   I Portly: "плохо"
   I Symptoms: "Симптомы Covid-19" 
-  I Cyrcle: "ЦИКЛ COVID-19"
-  I Vulnerable: "Уязвимый(-ая)"
-  I Vulnerable Covid: "я более уязвим для covid-19?"
+  I Cyrcle: "Развитие COVID-19"
+  I Vulnerable: "Группа риска"
+  I Vulnerable Covid: "я в группе риска?"
   I Positive: "Болею"
-  I Close Contact: "Был близко к\nзаболевшему"
+  I Close Contact: "Был в контакте"
 
 
   Stay Safe Now: "Сейчас"
@@ -121,18 +121,18 @@ ru_RU:
   Stay Safe Meering Rooms: "показывать безопасные места\nот Covid-19"
   Stay Safe Min: "{} мин"
   Stay Safe Hour: "1 час\nи более"
-  Stay Safe Streak Title: "полоса предотвращения распространения"
+  Stay Safe Streak Title: "шкала предотвращения распространения"
   Stay Safe Streak Content: "Количество дней, в течение которых вы избегали риска COVID-19."
-  Stay Safe Protection Title: "полоса защиты"
-  Stay Safe Protection Content: "Количество дней, в течение которых вы защищали\nлюдей из группы риска, сохраняя дистанцию."
+  Stay Safe Protection Title: "шкала защиты"
+  Stay Safe Protection Content: "Количество дней, в течение которых вы держали\nдестанцию от людей из группы риска."
   Stay Safe Recent Day: "День"
   Stay Safe Recent Hour: "Час"
-  Stay Safe Recent Minute: "Минуты"
+  Stay Safe Recent Minute: "Минута"
   Stay Safe Recent Today: "Сегодня"
 
 
   Alert Dialog Feeling a Bit Down Title: "Чувствуете себя чуть плохо?"
-  Alert Dialog Feeling a Bit Down Content: "У вас могут быть симптомы COVID-19. Внимательно следите за этим и не подводите риску окружающих."
+  Alert Dialog Feeling a Bit Down Content: "У вас могут быть симптомы COVID-19. Внимательно следите за этим и не подвергайте риску окружающих."
   Alert Dialog Don’t Show Me Again: "Больше не показывать"
 
 
