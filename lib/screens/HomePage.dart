@@ -8,6 +8,7 @@ import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:covivre/screens/FirstLunch.dart';
 import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -143,6 +144,7 @@ class _HomePageState extends State<HomePage> {
     var name = prefs.getBool('FirstLunch');
     if (name == null) {
       await prefs.setBool('FirstLunch', true);
+      _incrementInit();
     } else {
       await prefs.setBool('FirstLunch', false);
       String data = prefs.getString('feeling today');
@@ -261,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                                         margin:
                                             EdgeInsets.only(top: height * 0.01),
                                         child: Text(
-                                          "I am...".toUpperCase(),
+                                          "I am".tr().toUpperCase(),
                                           style: TextStyle(
                                               fontFamily: "FaturaMedium",
                                               fontWeight: FontWeight.w500,
@@ -300,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                                             // color: Colors.black12,
                                             alignment: Alignment.center,
                                             child: Text(
-                                              "Stay\nsafe".toUpperCase(),
+                                              'Stay safe'.tr().toUpperCase(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Theme.of(context)
@@ -338,7 +340,7 @@ class _HomePageState extends State<HomePage> {
                                         margin:
                                             EdgeInsets.only(top: height * 0.01),
                                         child: Text(
-                                          "Fight".toUpperCase(),
+                                          "Fight".tr().toUpperCase(),
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: "FaturaMedium",
@@ -390,7 +392,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               alignment: Alignment.center,
                               child: Text(
-                                "Welcome to",
+                                "Tour Alert Welcome".tr(),
                                 style: TextStyle(
                                     color: Colors.white,
                                     decoration: TextDecoration.none,
@@ -419,15 +421,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Expanded(
                       flex: 6,
-                      // child: Container(
-                      //   // color: Colors.yellow,
-                      //   margin: EdgeInsets.symmetric(horizontal: width * 0.1),
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: width * 0.1),
                         child: Column(
                           children: [
                             Text(
-                              "The prevention app that helps you fight the virus and stay safe and healthy.\n\nLet me show you around! It will only take a minute.",
+                              "Tour Alert Content".tr(),
                               style: TextStyle(
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
@@ -451,7 +450,7 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             BaseButton(
-                              title: "get started",
+                              title: "Tour Alert Get Started".tr(),
                               width: 0.4,
                               onTap: () {
                                 setState(() {
@@ -469,12 +468,12 @@ class _HomePageState extends State<HomePage> {
                                 });
                               },
                               child: Text(
-                                "Skip the tour",
+                                "Tour Alert Skip The Tour".tr(),
                                 style: TextStyle(
                                     decoration: TextDecoration.none,
                                     color: Colors.white,
                                     fontFamily: "FaturaDemi",
-                                    fontSize: width > 412 ? 25 : 20,
+                                    fontSize: width > 412 ? 25 : 18,
                                     fontWeight: FontWeight.w500),
                               ),
                             )

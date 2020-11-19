@@ -1,7 +1,7 @@
 import 'package:covivre/components/Header.dart';
 import 'package:covivre/components/PercentageProgress.dart';
 import 'package:flutter/material.dart';
-import 'package:covivre/components/stories/WashHands.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:covivre/components/ItemFight.dart';
 
 class Fight extends StatelessWidget {
@@ -17,7 +17,7 @@ class Fight extends StatelessWidget {
         child: Flex(
           direction: Axis.vertical,
           children: [
-            Header(title: "fight"),
+            Header(title: "Fight"),
             Expanded(
               flex: 5,
               // color: Colors.green,
@@ -85,7 +85,7 @@ class Fight extends StatelessWidget {
                     child: Container(
                       // color: Colors.black,
                       child: Text(
-                        "Have you done that\ntoday?",
+                        "FightItem Question".tr(),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "FaturaBold",
@@ -106,32 +106,31 @@ class Fight extends StatelessWidget {
               child: ListView(
                 children: [
                   ItemFight(
-                    title: "Wash your hands",
-                    urlImage: "lib/assets/img/HandsIcon.png",
-                    urlNavigationSee: 'WashHands',
-                    contant:
-                        "With plain soap and water for at 40\nseconds.The best way to prevent the spread!",
-                  ),
+                      // title: "Wash your hands",
+                      title: 'FightItem WashHands Title'.tr(),
+                      urlImage: "lib/assets/img/HandsIcon.png",
+                      urlNavigationSee: 'WashHands',
+                      content: 'FightItem WashHands Content'.tr()),
                   ItemFight(
                     urlImage: "lib/assets/img/MaskIcon.png",
-                    title: "Wear a mask",
-                    contant: "The musk must cover your face.",
+                    title: "FightItem WearMask Title".tr(),
+                    content: "FightItem WearMask Content".tr(),
                   ),
                   ItemFight(
-                    title: "Use hand sanitazer",
+                    title: "FightItem Sanitazer Title".tr(),
                     urlImage: "lib/assets/img/SanitizerIcon.png",
-                    contant: "Share the application with your loved ones.",
+                    content: "FightItem Sanitazer Content".tr(),
                   ),
                   ItemFight(
-                    title: "Keep your distance",
+                    title: "FightItem Distance Title".tr(),
                     urlImage: "lib/assets/img/DistanceIcon.png",
-                    contant: "Stay at least 6 feet away from others.",
+                    content: "FightItem Distance Content".tr(),
                   ),
                   ItemFight(
-                    title: "Share the app",
+                    title: "FightItem Share Title".tr(),
                     showNavigate: false,
                     urlImage: "lib/assets/img/ShareIcon.png",
-                    contant: "Share the application with your loved ones.",
+                    content: "FightItem Share Content".tr(),
                   ),
                 ],
               ),

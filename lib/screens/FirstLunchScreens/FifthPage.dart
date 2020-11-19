@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:covivre/components/BaseButton.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FifthPage extends StatefulWidget {
   FifthPage({Key key, @required this.onTapNext}) : super(key: key);
@@ -76,7 +77,7 @@ class _FifthPageState extends State<FifthPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaBold",
-                                  fontSize: width > 412 ? 22 : 18,
+                                  fontSize: width > 412 ? 22 : 17,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.none),
                             ),
@@ -84,11 +85,11 @@ class _FifthPageState extends State<FifthPage> {
                           Container(
                             // color: Colors.yellow,
                             child: Text(
-                              "One last thing before you start using the app!\n\nTo evaluate your risk of contracting or transmitting the virus without localizing you, the app needs Bluetooth to measure your distance from other CoVivre users nearby.\n\nBe sure that your phone has Bluetooth turned on and don’t worry about your battery: Bluetooth is used only for a few seconds every 2 minutes.",
+                              "Tour Fifth Page Content".tr(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaMedium",
-                                  fontSize: width > 412 ? 22 : 18,
+                                  fontSize: width > 412 ? 22 : 16,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none),
                             ),
@@ -99,8 +100,8 @@ class _FifthPageState extends State<FifthPage> {
                               Container(
                                 // color: Colors.black,
                                 child: BaseButton(
-                                    title: "enable",
-                                    width: 0.25,
+                                    title: "Tour Button Enable".tr(),
+                                    width: 0.3,
                                     onTap: () {
                                       widget.onTapNext();
                                     }),

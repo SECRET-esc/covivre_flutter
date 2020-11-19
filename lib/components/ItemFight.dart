@@ -1,19 +1,20 @@
 import 'package:covivre/components/CheckBox.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // ignore: must_be_immutable
 class ItemFight extends StatefulWidget {
   ItemFight(
       {Key key,
       @required this.title,
-      @required this.contant,
+      @required this.content,
       this.urlImage,
       this.urlNavigationSee,
       this.showNavigate})
       : super(key: key);
   final String title;
-  final String contant;
+  final String content;
   final String urlNavigationSee;
   final String urlImage;
   bool showNavigate = true;
@@ -40,7 +41,7 @@ class _ItemFightState extends State<ItemFight> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: width * 0.02),
             child: Text(
-              "> see how".toUpperCase(),
+              "See how".tr().toUpperCase(),
               style: TextStyle(
                   decoration: TextDecoration.none,
                   color: Theme.of(context).colorScheme.base,
@@ -102,7 +103,7 @@ class _ItemFightState extends State<ItemFight> {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: width * 0.02),
                       child: Text(
-                        widget.contant,
+                        widget.content,
                         style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Theme.of(context).colorScheme.switchCircle,

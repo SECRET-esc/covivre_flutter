@@ -5,6 +5,7 @@ import 'package:covivre/components/SwitchCustom.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:covivre/components/AlertDialogCovid.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class StaySafeNow extends StatefulWidget {
   StaySafeNow({Key key}) : super(key: key);
@@ -20,6 +21,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
   bool stateAtRisk = false;
   // if false alert is hide
   bool alertAtRisk = false;
+  bool showScanNowButton = false;
   bool alertAtRiskCallBack = false;
 
   RangeValues _currentRangeValues = const RangeValues(25, 75);
@@ -54,6 +56,15 @@ class _StauSafeNowState extends State<StaySafeNow> {
     }
   }
 
+  _getColor(int integer) {
+    if (integer <= 2) {
+      return Color.fromRGBO(62, 178, 0, 1.0);
+    } else if (integer > 2 && integer <= 5) {
+      return Color.fromRGBO(237, 174, 62, 1);
+    } else if (integer > 5) {
+      return Color.fromRGBO(222, 91, 91, 1);
+    }
+  }
 
   _notShowAgain(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -179,7 +190,8 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                         right: width * 0.13,
                                         child: Container(
                                           child: Text(
-                                            "COVID HIGH-RISK CONTACTS\nAROUND ME"
+                                            "Stay Safe Around Me"
+                                                .tr()
                                                 .toUpperCase(),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -216,7 +228,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                       alignment: Alignment.topCenter,
                                       children: [
                                         Positioned(
-                                          top: -height * 0.06,
+                                          top: -height * 0.04,
                                           child: Text(
                                             '$value',
                                             textAlign: TextAlign.center,
@@ -225,8 +237,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                                     width > 412 ? 240 : 160,
                                                 fontFamily: "FaturaDemi",
                                                 decoration: TextDecoration.none,
-                                                color: Color.fromRGBO(
-                                                    155, 177, 71, 1),
+                                                color: _getColor(this.value),
                                                 fontWeight: FontWeight.w500),
                                           ),
                                         ),
@@ -279,7 +290,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                                 child: Container(
                                                   width: width > 412
                                                       ? width * 0.6
-                                                      : width * 0.4,
+                                                      : width * 0.45,
                                                   height: width > 412
                                                       ? height * 0.04
                                                       : height * 0.06,
@@ -291,7 +302,8 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                                           BorderRadius.circular(
                                                               13)),
                                                   child: Text(
-                                                    "VULNERABLE PEOPLE AROUND ME"
+                                                    "Stay Safe Around Me Vulnerable"
+                                                        .tr()
                                                         .toUpperCase(),
                                                     textAlign: width < 412
                                                         ? TextAlign.center
@@ -363,7 +375,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -373,7 +385,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                             top: height * 0.01, left: width * 0.08),
                         width: width,
                         child: Text(
-                          "TIME SPENT AROUND HIGH-RISK CONTACTS:".toUpperCase(),
+                          "Stay Safe Around Me Time".tr().toUpperCase(),
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: "FaturaMedium",
@@ -415,7 +427,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                   height: height * 0.06,
                                   // color: Colors.red,
                                   child: Text(
-                                    "0 min",
+                                    "Stay Safe Min".tr(args: ['0']),
                                     style: TextStyle(
                                         fontFamily: "FaturaBook",
                                         fontSize: width > 412 ? 13 : 11,
@@ -430,7 +442,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                   height: height * 0.06,
                                   // color: Colors.green,
                                   child: Text(
-                                    "5 min",
+                                    "Stay Safe Min".tr(args: ['5']),
                                     style: TextStyle(
                                         fontFamily: "FaturaBook",
                                         fontSize: width > 412 ? 13 : 11,
@@ -445,7 +457,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                   height: height * 0.06,
                                   // color: Colors.yellow,
                                   child: Text(
-                                    "15 min",
+                                    "Stay Safe Min".tr(args: ['15']),
                                     style: TextStyle(
                                         fontFamily: "FaturaBook",
                                         fontSize: width > 412 ? 13 : 11,
@@ -460,7 +472,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                   height: height * 0.06,
                                   // color: Colors.blue,
                                   child: Text(
-                                    "30 min",
+                                    "Stay Safe Min".tr(args: ['30']),
                                     style: TextStyle(
                                         fontFamily: "FaturaBook",
                                         fontSize: width > 412 ? 13 : 11,
@@ -475,7 +487,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                                   height: height * 0.07,
                                   // color: Colors.black,
                                   child: Text(
-                                    "1h or more",
+                                    "Stay Safe Hour".tr(),
                                     style: TextStyle(
                                         fontFamily: "FaturaBook",
                                         fontSize: width > 412 ? 13 : 11,
@@ -496,7 +508,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Flex(
               direction: Axis.vertical,
               children: [
@@ -509,7 +521,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                       children: [
                         Container(
                           child: Text(
-                            'show "at-risk" people'.toUpperCase(),
+                            'Stay Safe At Risk People'.tr().toUpperCase(),
                             style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 14,
@@ -527,7 +539,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.08),
                     child: Row(
@@ -536,7 +548,7 @@ class _StauSafeNowState extends State<StaySafeNow> {
                       children: [
                         Container(
                           child: Text(
-                            'show safe meeting rooms'.toUpperCase(),
+                            'Stay Safe Meering Rooms'.tr().toUpperCase(),
                             style: TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 14,
@@ -551,11 +563,16 @@ class _StauSafeNowState extends State<StaySafeNow> {
                   ),
                 ),
                 Expanded(
-                  flex: 5,
+                  flex: 2,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [BaseButton(title: "scan now", width: 0.44)],
+                    children: [
+                      this.showScanNowButton
+                          ? BaseButton(
+                              title: "scan now", width: 0.44, onTap: _startScan)
+                          : Container()
+                    ],
                   ),
                 ),
                 Expanded(

@@ -16,6 +16,7 @@ class Header extends StatefulWidget {
 
 class _HeaderState extends State<Header> {
   bool bluetoothEnable = true;
+  bool showIconBluetoooth = false;
 
   @override
   void initState() {
@@ -164,7 +165,7 @@ class _HeaderState extends State<Header> {
                               widget.title,
                               style: TextStyle(
                                   fontFamily: "Heaters",
-                                  fontSize: 48,
+                                  fontSize: width > 412 ? 48 : 42,
                                   fontWeight: FontWeight.w500,
                                   height: widget.title.length > 10 ? 0.6 : null,
                                   color: Theme.of(context).colorScheme.base),
@@ -180,19 +181,25 @@ class _HeaderState extends State<Header> {
               ? Flexible(
                   child: Container(
                     // color: Colors.blue,
-                    alignment: Alignment.center,
+                    alignment: this.showIconBluetoooth
+                        ? Alignment.center
+                        : Alignment.centerRight,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: this.showIconBluetoooth
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.end,
                       children: [
-                        GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                bluetoothEnable = !bluetoothEnable;
-                                _changeState(bluetoothEnable);
-                              });
-                            },
-                            child: _stateBluetooth()),
+                        this.showIconBluetoooth
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    bluetoothEnable = !bluetoothEnable;
+                                    _changeState(bluetoothEnable);
+                                  });
+                                },
+                                child: _stateBluetooth())
+                            : Container(),
                         GestureDetector(
                           onTap: () =>
                               Navigator.pushNamed(context, 'CovidUpdates'),
@@ -200,6 +207,10 @@ class _HeaderState extends State<Header> {
                             alignment: Alignment.center,
                             width: width * 0.1,
                             // color: Colors.black,
+                            margin: EdgeInsets.only(
+                                right: this.showIconBluetoooth
+                                    ? null
+                                    : width * 0.05),
                             height: width * 0.1,
                             // decoration: (BoxDecoration(
                             //     color: Colors.white,

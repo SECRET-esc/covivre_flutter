@@ -4,6 +4,7 @@ import 'package:covivre/components/SwitchCustom.dart';
 import 'package:covivre/components/DayChart.dart';
 import 'package:covivre/components/HourCharts.dart';
 import 'package:covivre/components/MinuteChart.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class StaySafeRecent extends StatefulWidget {
   StaySafeRecent({Key key}) : super(key: key);
@@ -140,25 +141,23 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'anti-spread streak'.toUpperCase(),
+                                  'Stay Safe Streak Title'.tr().toUpperCase(),
                                   style: TextStyle(
                                       decoration: TextDecoration.none,
                                       color: Colors.white,
                                       fontFamily: "FaturaMedium",
-                                      fontSize: 18,
+                                      fontSize: width > 412 ? 18 : 16,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  width < 376
-                                      ? 'Nomber of days you stayed away from COVID risk.Well done!'
-                                      : 'Nomber of days you stayed away from COVID risk.Well done!',
+                                  'Stay Safe Streak Content'.tr(),
                                   style: TextStyle(
                                       decoration: TextDecoration.none,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .switchCircle,
                                       fontFamily: "FaturaMedium",
-                                      fontSize: 14,
+                                      fontSize: width > 412 ? 14 : 12,
                                       fontWeight: FontWeight.w600),
                                 )
                               ],
@@ -230,23 +229,25 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'protection streack'.toUpperCase(),
+                                  'Stay Safe Protection Title'
+                                      .tr()
+                                      .toUpperCase(),
                                   style: TextStyle(
                                       decoration: TextDecoration.none,
                                       color: Colors.white,
                                       fontFamily: "FaturaMedium",
-                                      fontSize: 18,
+                                      fontSize: width > 412 ? 18 : 16,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  'Number of days you protected people at risk by\nkeeping your distance.Keep up the good work!',
+                                  'Stay Safe Protection Content'.tr(),
                                   style: TextStyle(
                                       decoration: TextDecoration.none,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .switchCircle,
                                       fontFamily: "FaturaMedium",
-                                      fontSize: 14,
+                                      fontSize: width > 412 ? 14 : 12,
                                       fontWeight: FontWeight.w600),
                                 )
                               ],
@@ -263,7 +264,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
           Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(left: width * 0.1),
+              margin: EdgeInsets.only(left: width * 0.11),
               // color: Colors.yellow,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -282,7 +283,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                         ? Theme.of(context).colorScheme.base
                                         : Colors.transparent))),
                         child: Text(
-                          "Day",
+                          "Stay Safe Recent Day".tr(),
                           style: TextStyle(
                               color: stateDay
                                   ? Theme.of(context).colorScheme.base
@@ -290,7 +291,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                               decoration: TextDecoration.none,
                               fontFamily: "FaturaMedium",
                               fontWeight: FontWeight.w600,
-                              fontSize: 20),
+                              fontSize: width > 412 ? 20 : 16),
                         ),
                       ),
                     ),
@@ -310,7 +311,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                         ? Theme.of(context).colorScheme.base
                                         : Colors.transparent))),
                         child: Text(
-                          "Hour",
+                          "Stay Safe Recent Hour".tr(),
                           style: TextStyle(
                               color: stateHour
                                   ? Theme.of(context).colorScheme.base
@@ -318,7 +319,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                               decoration: TextDecoration.none,
                               fontFamily: "FaturaMedium",
                               fontWeight: FontWeight.w500,
-                              fontSize: 20),
+                              fontSize: width > 412 ? 20 : 16),
                         ),
                       ),
                     ),
@@ -339,7 +340,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                                         ? Theme.of(context).colorScheme.base
                                         : Colors.transparent))),
                         child: Text(
-                          "Minute",
+                          "Stay Safe Recent Minute".tr(),
                           style: TextStyle(
                               color: stateMinute
                                   ? Theme.of(context).colorScheme.base
@@ -347,7 +348,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                               decoration: TextDecoration.none,
                               fontFamily: "FaturaMedium",
                               fontWeight: FontWeight.w600,
-                              fontSize: 20),
+                              fontSize: width > 412 ? 20 : 16),
                         ),
                       ),
                     ),
@@ -368,10 +369,10 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                 children: [
                   Container(
                     child: Text(
-                      'show "at-risk" people'.toUpperCase(),
+                      'Stay Safe At Risk People'.tr().toUpperCase(),
                       style: TextStyle(
                           decoration: TextDecoration.none,
-                          fontSize: 14,
+                          fontSize: width > 412 ? 14 : 12,
                           fontFamily: "FaturaMedium",
                           color: Colors.white,
                           fontWeight: FontWeight.w500),

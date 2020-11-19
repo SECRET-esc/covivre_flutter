@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class PercentageProgress extends StatefulWidget {
@@ -102,7 +101,7 @@ class _PercentageProgressState extends State<PercentageProgress>
                                 : 55,
                         decoration: TextDecoration.none)),
                 Text(
-                  "Risk".toUpperCase(),
+                  "Risk".tr().toUpperCase(),
                   style: TextStyle(
                       fontFamily: "FaturaBoldOBbli",
                       fontWeight: FontWeight.w600,

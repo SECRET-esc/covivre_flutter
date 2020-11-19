@@ -1,0 +1,166 @@
+en_US:
+  stay safe: "stay\nsafe"
+  I am: "i am..."
+  Fight : "fight"
+  Risk: "risk"
+  For you: "for you"
+  See how: "> see how"
+
+
+  FightItem WashHands Title: "Wash your hands"
+  FightItem WashHands Content: "With plain soap and water for at 40\nseconds.The best way to prevent the spread!"
+  FightItem WearMask Title: "Wear a mask"
+  FightItem WearMask Content: "The musk must cover your face."
+  FightItem Sanitazer Title: "Use hand sanitazer"
+  FightItem Sanitazer Content: "Share the application with your loved ones."
+  FightItem Distance Title: "Keep your distance"
+  FightItem Distance Content: "Stay at least 6 feet away from others."
+  FightItem Share Title: "Share the app"
+  FightItem Share Content: "Share the application with your loved ones."
+  FightItem Question: "Have you done that\ntoday?"
+  
+
+  I Great: "great"
+  I Ok: "ok"
+  I a Bit Down: "a bit down"
+  I Portly: "portly"
+  I Symptoms: "SYMPTOMS OF COVID"
+  I Cyrcle: "LIFE CYCLE OF COVID"
+  I Vulnerable: "Vulnerable"
+  I Vulnerable Covid: "am i more vulnerable to covid?"
+  I Positive: "Positive"
+  I Close Contact: "Close Contact"
+
+  Stay Safe Now: "now"
+  Stay Safe Recent: "Recent"
+  Stay Safe Around Me: "COVID HIGH-RISK CONTACTS\nAROUND ME"
+  Stay Safe Around Me Time: "TIME SPENT AROUND HIGH-RISK CONTACTS:"
+  Stay Safe Around Me Vulnerable: "VULNERABLE PEOPLE AROUND ME"
+  Stay Safe At Risk People: 'show "at-risk" people'
+  Stay Safe Meering Rooms: "show safe meeting rooms"
+  Stay Safe Min: "{} min"
+  Stay Safe Hour: "1h or more"
+  Stay Safe Streak Title: "anti-spread streak"
+  Stay Safe Streak Content: "Nomber of days you stayed away from COVID risk.Well done!"
+  Stay Safe Protection Title: "protection streack"
+  Stay Safe Protection Content: "Number of days you protected people at risk by\nkeeping your distance.Keep up the good work!"
+  Stay Safe Recent Day: "Day"
+  Stay Safe Recent Hour: "Hour"
+  Stay Safe Recent Minute: "Minute"
+  Stay Safe Recent Today: "Today"
+
+
+  Alert Dialog Feeling a Bit Down Title: "YOU’RE FEELING A BIT DOWN?"
+  Alert Dialog Feeling a Bit Down Content: "Your symptoms might be those of COVID. Let’s monitor that closely and don’t take any chance with your loved ones."
+  Alert Dialog Don’t Show Me Again: "Don’t show me again"
+
+
+  Tour Alert Welcome: "Welcome to"
+  Tour Alert Content: "The prevention app that helps you fight the virus and stay safe and healthy.\n\nLet me show you around! It will only take a minute."
+  Tour Alert Get Started: "Get Started"
+  Tour Alert Skip The Tour: "Skip the tour" 
+
+
+  Tour First Page Title: "Be aware of the risk around you" 
+  Tour First Page Content: "The app uses Bluetooth to assess your proximity to the virus but also to safe areas."
+  Tour Button: "next"
+  Tour Button Enable: "Enable"
+  Tour Second Page Title: "Your risk at a glance"
+  Tour Second Page Content:  "Know your risk of contracting or transmitting the virus."
+  Tour Third Page Title: "Be aware of the risk around you"
+  Tour Third Page Content: "The app uses Bluetooth to assess your proximity to the virus but also to safe areas."
+  Tour Fourth Page Title: "Keep up the good fight!"
+  Tour Fourth Page Content: "Small actions do make a difference.\nYou too, be a fighter!"
+  Tour Fifth Page Title: ""
+  Tour Fifth Page Content: "One last thing before you start using the app!\n\nTo evaluate your risk of contracting or transmitting the virus without localizing you, the app needs Bluetooth to measure your distance from other CoVivre users nearby.\n\nBe sure that your phone has Bluetooth turned on and don’t worry about your battery: Bluetooth is used only for a few seconds every 2 minutes."
+
+
+
+
+ru_RU:
+
+  Stay safe: "безопа\nсность"
+  I am: "я..."
+  Fight : "Бой"
+  Risk: "риск"
+  For you: "для вас"
+  See how: "> детальнее"
+
+
+  FightItem WashHands Title: "Мойте руки"
+  FightItem WashHands Content: "Мойте руки в течении 40 секунд - так Вы\nможете предотвратить распространение!"
+  FightItem WearMask Title: "Носите маску"
+  FightItem WearMask Content: "Маска защищает ваше лицо, и не дает распространиться вирусу."
+  FightItem Sanitazer Title: "Используйте антисептик"
+  FightItem Sanitazer Content: "Антисептик отлично справляется с вирусом."
+  FightItem Distance Title: "Контролируйте дистанцию"
+  FightItem Distance Content: "Держитесь на расстоянии не менее 2 метров от других."
+  FightItem Share Title: "Поделитесь приложением"
+  FightItem Share Content: "Поделитесь приложением со своими близкими."
+  FightItem Question: "А ты сделал это\nсегодня?"
+
+
+  I Great: "хорошо"
+  I Ok: "нормально"
+  I a Bit Down: "чуть плохо"
+  I Portly: "плохо"
+  I Symptoms: "Симптомы Covid-19" 
+  I Cyrcle: "ЦИКЛ COVID-19"
+  I Vulnerable: "Уязвимый(-ая)"
+  I Vulnerable Covid: "я более уязвим для covid-19?"
+  I Positive: "Болею"
+  I Close Contact: "Был близко к\nзаболевшему"
+
+
+  Stay Safe Now: "Сейчас"
+  Stay Safe Recent: "Недавно"
+  Stay Safe Around Me: "Люди вокруг меня с\nвысоким риском Covid-19"
+  Stay Safe Around Me Time: "Время в тичении которого вы находились близко к заболевшему:"
+  Stay Safe Around Me Vulnerable: "Уязвимые люди\nвокруг меня"
+  Stay Safe At Risk People: "показывать людей с высоким\nриском заболеть на Covid-19"
+  Stay Safe Meering Rooms: "показывать безопасные места\nот Covid-19"
+  Stay Safe Min: "{} мин"
+  Stay Safe Hour: "1 час\nи более"
+  Stay Safe Streak Title: "полоса предотвращения распространения"
+  Stay Safe Streak Content: "Количество дней, в течение которых вы избегали риска COVID-19."
+  Stay Safe Protection Title: "полоса защиты"
+  Stay Safe Protection Content: "Количество дней, в течение которых вы защищали\nлюдей из группы риска, сохраняя дистанцию."
+  Stay Safe Recent Day: "День"
+  Stay Safe Recent Hour: "Час"
+  Stay Safe Recent Minute: "Минуты"
+  Stay Safe Recent Today: "Сегодня"
+
+
+  Alert Dialog Feeling a Bit Down Title: "Чувствуете себя чуть плохо?"
+  Alert Dialog Feeling a Bit Down Content: "У вас могут быть симптомы COVID-19. Внимательно следите за этим и не подводите риску окружающих."
+  Alert Dialog Don’t Show Me Again: "Больше не показывать"
+
+
+  Tour Alert Welcome: "Добро пожаловать в"
+  Tour Alert Content: "Приложение для профилактики, которое поможет вам бороться с вирусом, оставаться в безопасности а также быть здоровым.\n\nПозвольте нам провести мини-гайд! Это займет всего минуту."
+  Tour Alert Get Started: "Начать"
+  Tour Alert Skip The Tour: "Пропустить обучение" 
+  
+
+  Tour First Page Title: "Помните про риск заболеть вокруг вас" 
+  Tour First Page Content: "Приложение использует Bluetooth, чтобы понять насколько вы близки к вирусу, а также к безопасным местам."
+  Tour Button: "далее"
+  Tour Button Enable: "Включить"
+  Tour Second Page Title: "Тут будет ваш процент риска"
+  Tour Second Page Content: "Знайте свой риск заражения или передачи вируса."
+  Tour Third Page Title: "Это ваша страница самочувствия"
+  Tour Third Page Content: "Тут вы можете указать свое самочувствие, а также изменить настройки поиска. Тут вы сможете защитить окружающих!"
+  Tour Fourth Page Title: "Придерживание этих рекомендаций поможет нам одолеть вирус!"
+  Tour Fourth Page Content: "Эти простые действия сохранят кому-то жизнь! Постарайтесь придерживаться их."
+  Tour Fifth Page Title: ""
+  Tour Fifth Page Content: "И последнее, прежде чем вы начнете использовать приложение!\n\nЧтобы оценить ваш риск заражения или передачи вируса, не локализуя вас, приложению необходим Bluetooth для измерения вашего расстояния от других пользователей CoVivre поблизости.\n\nУбедитесь, что на вашем телефоне включен Bluetooth, и не Не беспокойтесь о вашей батарее: Bluetooth используется всего несколько секунд каждые 2 минуты."
+
+
+
+
+
+fr_FR: 
+
+  Fight : "JE LUTTE"
+
+  

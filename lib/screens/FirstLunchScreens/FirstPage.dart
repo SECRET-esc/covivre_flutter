@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:covivre/components/BaseButton.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class FirstPage extends StatefulWidget {
   FirstPage({Key key, @required this.onTapNext}) : super(key: key);
@@ -71,11 +72,11 @@ class _FirstPageState extends State<FirstPage> {
                           Container(
                             // color: Colors.yellow,
                             child: Text(
-                              "Be aware of the risk around you",
+                              "Tour First Page Title".tr(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaBold",
-                                  fontSize: width > 412 ? 22 : 18,
+                                  fontSize: width > 412 ? 22 : 17,
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.none),
                             ),
@@ -83,11 +84,11 @@ class _FirstPageState extends State<FirstPage> {
                           Container(
                             // color: Colors.yellow,
                             child: Text(
-                              "The app uses Bluetooth to assess your proximity to the virus but also to safe areas.",
+                              "Tour First Page Content".tr(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: "FaturaMedium",
-                                  fontSize: width > 412 ? 22 : 16,
+                                  fontSize: width > 412 ? 22 : 15,
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none),
                             ),
@@ -98,8 +99,8 @@ class _FirstPageState extends State<FirstPage> {
                               Container(
                                 // color: Colors.black,
                                 child: BaseButton(
-                                    title: "next",
-                                    width: 0.25,
+                                    title: "Tour Button".tr(),
+                                    width: 0.3,
                                     onTap: widget.onTapNext),
                               ),
                             ],

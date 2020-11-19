@@ -1,6 +1,7 @@
 import 'package:covivre/components/CheckBox.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AlertDialogCovid extends StatefulWidget {
   AlertDialogCovid(
@@ -92,7 +93,7 @@ class _AlertDialogCovidState extends State<AlertDialogCovid> {
                         Container(
                           margin: EdgeInsets.only(left: width * 0.05),
                           child: Text(
-                            "Don’t show me again",
+                            "Alert Dialog Don’t Show Me Again".tr(),
                             style: TextStyle(
                                 fontFamily: "FaturaMedium",
                                 fontSize: width > 412 ? 16 : 13,
