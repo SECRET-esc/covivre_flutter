@@ -108,16 +108,19 @@ class ForegroundService : Service() {
     fun checkPermissions(): Boolean {
         if (ContextCompat.checkSelfPermission(MainActivity.instance,
                         Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            Log.d(TAG, "!= PackageManager.PERMISSION_GRANTED")
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.instance,
                             Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.d(TAG, "shouldShowRequestPermissionRationale")
                 return true
             } else {
+                Log.d(TAG, "requestLocationPermission")
                 requestLocationPermission()
                 return false
             }
         }
-        return false
+        Log.d(TAG, "checkPermissions == false")
+        return true
 
     }
 
@@ -125,6 +128,7 @@ class ForegroundService : Service() {
         ActivityCompat.requestPermissions(MainActivity.instance,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 MY_PERMISSIONS_REQUEST_FOR_LOCATION)
+        Log.d(TAG, "requestLocationPermission")
     }
 
     fun sendResult(arguments: Any?) {
