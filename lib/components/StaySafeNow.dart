@@ -42,9 +42,15 @@ class _StatusSafeNowState extends State<StaySafeNow> {
       case 'result':
         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         setState(() {
-          valueVulnerable = methodCall.arguments["old"];
-          value = methodCall.arguments["ill"];
+          valueVulnerable = methodCall.arguments["old"]??0;
+          value = methodCall.arguments["ill"]??0;
           _scanResult = methodCall.arguments.toString();
+          if (value==null){
+            value=0;
+          }
+          if (valueVulnerable==null){
+            valueVulnerable = 0;
+          }
 
           sharedPreferences.setInt('valueVulnerable', valueVulnerable);
           sharedPreferences.setInt('value', value);
@@ -57,6 +63,9 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   }
 
   _getColor(int integer) {
+    if (integer == null){
+      integer = 0;
+    }
     if (integer <= 2) {
       return Color.fromRGBO(62, 178, 0, 1.0);
     } else if (integer > 2 && integer <= 5) {
@@ -85,8 +94,8 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   _initState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool state = prefs.getBool("show at risk");
-    valueVulnerable = prefs.getInt('valueVulnerable');
-    value = prefs.getInt('value');
+    valueVulnerable = prefs.getInt('valueVulnerable')??0;
+    value = prefs.getInt('value')??0;
     _scanResult = prefs.getString('_scanResult');
     setState(() {
       this.stateAtRisk = state;

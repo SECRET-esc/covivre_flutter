@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _startScan() async {
-    Navigator.pushNamed(context, 'StaySafe');
+
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool risk = sharedPreferences.getBool('risk');
     bool positive = sharedPreferences.getBool('positive');
@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       // _scanResult = scanStartResult;
     });
+    Navigator.pushNamed(context, 'StaySafe');
   }
 
   Future<void> _showPermissions() async {
