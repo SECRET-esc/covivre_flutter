@@ -23,6 +23,9 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   bool alertAtRisk = false;
   bool showScanNowButton = false;
   bool alertAtRiskCallBack = false;
+  var date = new DateTime.now();
+  var format = DateFormat('d MMM, h:mm a');
+  String formatted = "";
 
   RangeValues _currentRangeValues = const RangeValues(25, 75);
   String text =
@@ -34,13 +37,14 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   initState() {
     super.initState();
     _initState();
+    formatted = format.format(this.date);
     platform.setMethodCallHandler((call) => myUtilsHandler(call));
   }
 
   Future<dynamic> myUtilsHandler(MethodCall methodCall) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     switch (methodCall.method) {
       case 'result':
-        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         setState(() {
           valueVulnerable = methodCall.arguments["old"]??0;
           value = methodCall.arguments["ill"]??0;
@@ -56,6 +60,14 @@ class _StatusSafeNowState extends State<StaySafeNow> {
           sharedPreferences.setInt('value', value);
           sharedPreferences.setString('_scanResult', _scanResult);
         });
+        return "1";
+      case 'data':
+        var timestamp = methodCall.arguments["timestampLast"]??0;
+        timestamp = timestamp * 1000;
+        print("timestamp $timestamp");
+        sharedPreferences.setInt('timestamp', timestamp);
+        this.date = new DateTime.fromMicrosecondsSinceEpoch(timestamp);
+        formatted = format.format(this.date);
         return "1";
       default:
         throw MissingPluginException('notImplemented');
@@ -96,6 +108,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
     bool state = prefs.getBool("show at risk");
     valueVulnerable = prefs.getInt('valueVulnerable')??0;
     value = prefs.getInt('value')??0;
+    date = new DateTime.fromMicrosecondsSinceEpoch(prefs.getInt('timestamp')??0);
     _scanResult = prefs.getString('_scanResult');
     setState(() {
       this.stateAtRisk = state;
@@ -141,7 +154,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                     // color: Colors.pink,
                     alignment: Alignment.center,
                     child: Text(
-                      "Last scan: 24 Oct, 9:28 PM",
+                      "Last scan: $formatted",
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           decoration: TextDecoration.none,

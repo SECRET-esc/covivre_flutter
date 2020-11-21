@@ -153,6 +153,47 @@ class ForegroundService : Service() {
         }
     }
 
+    fun sendData(data: Any?){
+        print("sendData = $data")
+        if (this::methodChannel.isInitialized) {
+            this.methodChannel.invokeMethod("data", data, object : MethodChannel.Result {
+                override fun success(result: Any?) {
+                    print("methodChannel all done")
+                }
+
+                override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                    print("error $errorCode $errorMessage")
+                }
+
+                override fun notImplemented() {
+                    print("notImplemented")
+                }
+            })
+        } else {
+            print("this::methodChannel.isInitialized not init")
+        }
+    }
+    fun sendDataGraph(data: Any?){
+        print("sendData = $data")
+        if (this::methodChannel.isInitialized) {
+            this.methodChannel.invokeMethod("dataGraph", data, object : MethodChannel.Result {
+                override fun success(result: Any?) {
+                    print("methodChannel all done")
+                }
+
+                override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
+                    print("error $errorCode $errorMessage")
+                }
+
+                override fun notImplemented() {
+                    print("notImplemented")
+                }
+            })
+        } else {
+            print("this::methodChannel.isInitialized not init")
+        }
+    }
+
     private fun checkIfNotificationNeeded(arguments: Any?){
         val params = arguments as Map<*, *>
         if (params["ill"] as Int > 0) {

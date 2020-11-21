@@ -26,6 +26,7 @@ class BleModule() : AppCompatActivity() {
     lateinit var handler: Handler
     private lateinit var btAdapter: BluetoothAdapter
     var isScan = false
+    var timestampLast: Long = 0
     private var REQUEST_LOCATION_PERMISSION = 1
     private var REQUEST_ENABLE_BT = 1
     var scanPeriod: Long = 5000
@@ -39,9 +40,20 @@ class BleModule() : AppCompatActivity() {
     private val uuidOld = UUID.fromString("10000000-0000-0000-0000-000000000002")
 
     var old = mutableListOf<String>()
+    var oldGraph = mutableListOf<String>()
+    var oldGraphDay = mutableListOf<String>()
     var ill = mutableListOf<String>()
+    var illGraph = mutableListOf<String>()
+    var illGraphDay = mutableListOf<String>()
     var turnScanOn = false
     var lastScanResults: Long = 0
+    var dayGraphOld = mutableMapOf<Int, MutableList<String>>()
+    var dayGraphIll = mutableMapOf<Int, MutableList<String>>()
+    var hourGraphOld = mutableMapOf<Int, MutableList<String>>()
+    var hourGraphIll = mutableMapOf<Int, MutableList<String>>()
+    val c = Calendar.getInstance()
+    var clearHoursData = false
+    var clearDayData = false
 
     companion object {
         lateinit var instance: BleModule
@@ -69,6 +81,9 @@ class BleModule() : AppCompatActivity() {
             return
         btLeScanner.startScan(buildFilters(), buildSettings(), callBack)
         this.isScan = true
+        this.timestampLast = ((System.currentTimeMillis()))
+        Log.d(TAG, "timestampLast = $timestampLast")
+        context.sendData(mapOf("timestampLast" to timestampLast))
         if (!this::handler.isInitialized) {
             handler = Handler()
         }
@@ -144,7 +159,6 @@ class BleModule() : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             super.onScanResult(callbackType, result)
-            lastScanResults = System.currentTimeMillis() / 1000
             context.sendResult(getServiceUUIDsList(result))
             Log.d(TAG, "rssi: " + result.getRssi() + "address: " + result.device.toString() + "lastScanResults: " + lastScanResults);
 
@@ -152,20 +166,45 @@ class BleModule() : AppCompatActivity() {
 
         }
     }
+    private fun checkClear(){
+        val cal = Calendar.getInstance()
+        cal.time = Date(lastScanResults*1000)
+        if (c.get(Calendar.HOUR_OF_DAY)!=cal.get(Calendar.HOUR_OF_DAY)){
+            illGraph = mutableListOf<String>()
+            oldGraph = mutableListOf<String>()
+        }
+        if (c.get(Calendar.DAY_OF_YEAR)!=cal.get(Calendar.DAY_OF_YEAR)){
+            illGraphDay = mutableListOf<String>()
+            oldGraphDay = mutableListOf<String>()
+        }
 
+        lastScanResults = System.currentTimeMillis() / 1000
+    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun getServiceUUIDsList(scanResult: ScanResult): Map<String, Int> {
+        checkClear()
         val parcelUuids = scanResult.scanRecord!!.serviceUuids
         for (i in parcelUuids.indices) {
             val serviceUUID = parcelUuids[i].uuid
             val uuidString = serviceUUID.toString()
             if (serviceUUID.toString() == uuidIll.toString()) {
                 ill.add(uuidString)
+                illGraph.add(uuidString)
+                illGraphDay.add(uuidString)
             } else if (serviceUUID.toString() == uuidOld.toString()) {
                 old.add(uuidString);
+                oldGraph.add(uuidString)
+                oldGraphDay.add(uuidString)
             }
         }
+        val hour = c.get(Calendar.HOUR_OF_DAY)
+        val day = c.get(Calendar.DAY_OF_YEAR)
+        dayGraphIll.put(day, illGraphDay)
+        dayGraphOld.put(day, oldGraphDay)
+        hourGraphOld.put(hour, oldGraph)
+        hourGraphIll.put(hour, illGraph)
+        context.sendDataGraph(mapOf("dayIll" to dayGraphIll, "dayOld" to dayGraphOld, "hourIll" to hourGraphIll, "hourOld" to hourGraphOld))
         val resp = mapOf("ill" to ill.distinct().size, "old" to old.distinct().size)
         Log.d(TAG, "resp: $resp")
         return resp

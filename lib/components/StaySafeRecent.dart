@@ -5,6 +5,7 @@ import 'package:covivre/components/DayChart.dart';
 import 'package:covivre/components/HourChart.dart';
 import 'package:covivre/components/MinuteChart.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StaySafeRecent extends StatefulWidget {
@@ -17,16 +18,28 @@ class StaySafeRecent extends StatefulWidget {
 class _StaySafeRecentState extends State<StaySafeRecent> {
   bool stateDay = true;
   bool stateHour = false;
-  bool stateMinute = false;
   bool stateSwitch = false;
+  Map data = new Map();
+  static const platform = const MethodChannel('covivre/scan');
 
   @override
   void initState() {
     super.initState();
     stateDay = true;
     stateHour = false;
-    stateMinute = false;
     _getSwitchState();
+    platform.setMethodCallHandler((call) => myUtilsHandler(call));
+  }
+
+  Future<dynamic> myUtilsHandler(MethodCall methodCall) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    switch (methodCall.method) {
+      case 'dataGraph':
+        data = methodCall.arguments;
+        return "1";
+      default:
+        throw MissingPluginException('notImplemented');
+    }
   }
 
   _getSwitchState() async {
@@ -49,7 +62,6 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
       if (stateDay == false) {
         stateDay = true;
         stateHour = false;
-        stateMinute = false;
       }
     });
   }
@@ -59,28 +71,16 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
       if (stateHour == false) {
         stateHour = true;
         stateDay = false;
-        stateMinute = false;
       }
     });
   }
 
-  _onTopStateMinute() {
-    setState(() {
-      if (stateMinute == false) {
-        stateMinute = true;
-        stateHour = false;
-        stateDay = false;
-      }
-    });
-  }
 
   _returnCharts() {
     if (stateDay) {
-      return DayChart(stateAtRisk: this.stateSwitch);
+      return DayChart(stateAtRisk: this.stateSwitch, data: data);
     } else if (stateHour) {
-      return HourChart(stateAtRisk: this.stateSwitch);
-    } else {
-      return MinuteChart(stateAtRisk: this.stateSwitch);
+      return HourChart(stateAtRisk: this.stateSwitch, data: data);
     }
   }
 
@@ -343,35 +343,6 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                               decoration: TextDecoration.none,
                               fontFamily: "FaturaMedium",
                               fontWeight: FontWeight.w500,
-                              fontSize: width > 412 ? 20 : 16),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: width * 0.08),
-                    width: width * 0.15,
-                    child: GestureDetector(
-                      onTap: () {
-                        _onTopStateMinute();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    width: stateMinute ? 2 : 0,
-                                    color: stateMinute
-                                        ? Theme.of(context).colorScheme.base
-                                        : Colors.transparent))),
-                        child: Text(
-                          "Stay Safe Recent Minute".tr(),
-                          style: TextStyle(
-                              color: stateMinute
-                                  ? Theme.of(context).colorScheme.base
-                                  : Colors.white,
-                              decoration: TextDecoration.none,
-                              fontFamily: "FaturaMedium",
-                              fontWeight: FontWeight.w600,
                               fontSize: width > 412 ? 20 : 16),
                         ),
                       ),
