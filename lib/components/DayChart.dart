@@ -3,8 +3,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
 class DayChart extends StatefulWidget {
-  DayChart({Key key, @required this.stateAtRisk}) : super(key: key);
+  DayChart({Key key, @required this.stateAtRisk, @required this.data}) : super(key: key);
   bool stateAtRisk;
+  Map data;
 
   @override
   _DayChartsState createState() => _DayChartsState();
