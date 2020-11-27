@@ -183,7 +183,7 @@ class _IState extends State<I> {
                               alignment: Alignment.center,
                               // color: Colors.black,
                               child: Container(
-                                width: width < 412 ? width * 0.9 : width * 0.75,
+                                width: width < 412 ? width * 0.8 : width * 0.75,
                                 height:
                                     width < 412 ? height * 0.13 : height * 0.14,
                                 // color: Colors.pink,
@@ -387,7 +387,7 @@ class _IState extends State<I> {
                                       ),
                                       Container(
                                         width: width < 412
-                                            ? width * 0.9
+                                            ? width * 0.8
                                             : width * 0.75,
                                         child: Slider(
                                           min: 0,
@@ -461,7 +461,9 @@ class _IState extends State<I> {
                                                         fontFamily:
                                                             "FaturaLight",
                                                         color: Colors.white,
-                                                        fontSize: 16,
+                                                        fontSize: width > 412
+                                                            ? 16
+                                                            : 14,
                                                         letterSpacing: 3,
                                                         decoration:
                                                             TextDecoration.none,
@@ -473,7 +475,7 @@ class _IState extends State<I> {
                                                   child: Icon(
                                                     Icons.keyboard_arrow_down,
                                                     color: Colors.white,
-                                                    size: 40,
+                                                    size: width > 412 ? 40 : 35,
                                                   ),
                                                 )
                                               ],
@@ -534,7 +536,9 @@ class _IState extends State<I> {
                                                           fontFamily:
                                                               "FaturaLight",
                                                           color: Colors.white,
-                                                          fontSize: 16,
+                                                          fontSize: width > 412
+                                                              ? 16
+                                                              : 14,
                                                           letterSpacing: 3,
                                                           decoration:
                                                               TextDecoration
@@ -551,7 +555,8 @@ class _IState extends State<I> {
                                                           : Icons
                                                               .keyboard_arrow_up,
                                                       color: Colors.white,
-                                                      size: 40,
+                                                      size:
+                                                          width > 412 ? 40 : 35,
                                                     ),
                                                   )
                                                 ],
@@ -613,7 +618,7 @@ class _IState extends State<I> {
                                               fontWeight: FontWeight.w500,
                                               letterSpacing: 2,
                                               decoration: TextDecoration.none,
-                                              fontSize: width > 412 ? 20 : 18,
+                                              fontSize: width > 412 ? 20 : 16,
                                               color: Colors.white),
                                         ),
                                         SwitchCustom(nameState: 'risk')
@@ -666,7 +671,7 @@ class _IState extends State<I> {
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: 3,
                                         decoration: TextDecoration.none,
-                                        fontSize: width > 412 ? 20 : 18,
+                                        fontSize: width > 412 ? 20 : 16,
                                         color: Colors.white),
                                   ),
                                   Flexible(
@@ -697,7 +702,7 @@ class _IState extends State<I> {
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 2,
                                       decoration: TextDecoration.none,
-                                      fontSize: width > 412 ? 20 : 18,
+                                      fontSize: width > 412 ? 20 : 16,
                                       color: Colors.white),
                                 ),
                                 SwitchCustom(nameState: 'closeContact')

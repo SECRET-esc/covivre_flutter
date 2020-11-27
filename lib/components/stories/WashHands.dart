@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:story_view/story_view.dart';
+import 'package:path_provider/path_provider.dart';
+import "package:story_view/story_view.dart";
 
 class WashHands extends StatefulWidget {
   WashHands({Key key}) : super(key: key);
@@ -10,33 +13,46 @@ class WashHands extends StatefulWidget {
 
 class _WashHandsState extends State<WashHands> {
   final storyController = StoryController();
+  String link;
   @override
   void dispose() {
     storyController.dispose();
     super.dispose();
   }
 
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<String> get _localFile async {
+    final path = await _localPath;
+    return '$path/lib/assets/img/firstPage.png';
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getValue();
+  }
+
+  getValue() async {
+    var value = await _localFile;
+    print('$value');
+    setState(() {
+      this.link = value;
+    });
+    return value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoryView(
       storyItems: [
-        StoryItem.inlineImage(url: null, caption: null, controller: null),
         StoryItem.pageImage(
-          url:
-              'https://cdn.zeplin.io/5f97886eb60adfa01cfa6358/screens/A43A158B-4B15-4A6E-ADB2-636857CF9179.png',
-          caption: "Working with gifs",
-          controller: storyController,
-        ),
-        StoryItem.pageImage(
-          url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
-          caption: "Hello, from the other side",
-          controller: storyController,
-        ),
-        StoryItem.pageImage(
-          url: "https://media.giphy.com/media/XcA8krYsrEAYXKf4UQ/giphy.gif",
-          caption: "Hello, from the other side2",
-          controller: storyController,
-        ),
+            controller: storyController, file: '${this.link}', url: null),
       ],
       onStoryShow: (s) {
         print("Showing a story");

@@ -80,8 +80,8 @@ class Fight extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: height * 0.19,
-                    left: width * 0.21,
+                    top: width > 412 ? height * 0.19 : height * 0.22,
+                    left: width > 412 ? width * 0.21 : width * 0.25,
                     child: Container(
                       // color: Colors.black,
                       child: Text(
@@ -89,7 +89,7 @@ class Fight extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: "FaturaBold",
-                            fontSize: 25,
+                            fontSize: width > 412 ? 25 : 18,
                             letterSpacing: 1,
                             fontWeight: FontWeight.w500,
                             decoration: TextDecoration.none,

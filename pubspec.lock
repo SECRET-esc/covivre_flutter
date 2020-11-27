@@ -115,6 +115,13 @@ packages:
       url: "https://github.com/aissat/easy_localization_loader.git"
     source: git
     version: "0.0.2"
+  expandable:
+    dependency: "direct main"
+    description:
+      name: expandable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.4"
   fake_async:
     dependency: transitive
     description:
@@ -147,7 +154,7 @@ packages:
       name: flutter_cache_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.4.2"
   flutter_localizations:
     dependency: transitive
     description: flutter
@@ -395,10 +402,12 @@ packages:
   story_view:
     dependency: "direct main"
     description:
-      name: story_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.12.5"
+      path: "."
+      ref: HEAD
+      resolved-ref: "33ca9c4f09a92b6384aa64b5e6657b778438a803"
+      url: "https://github.com/DanialV/story_view.git"
+    source: git
+    version: "0.12.3"
   stream_channel:
     dependency: transitive
     description:
@@ -482,7 +491,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "0.10.12+5"
   video_player_platform_interface:
     dependency: transitive
     description:

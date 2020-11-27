@@ -55,7 +55,7 @@ class _BaseButtonState extends State<BaseButton> {
           child: Text(
             widget.upperCase ? (widget.title).toUpperCase() : widget.title,
             style: TextStyle(
-                fontSize: width > 412 ? 17 : 15,
+                fontSize: width > 412 ? 17 : 14,
                 fontFamily: "FaturaBold",
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.none,

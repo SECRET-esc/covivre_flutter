@@ -209,7 +209,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
                               style: TextStyle(
                                   fontFamily: "FaturaMedium",
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 22,
+                                  fontSize: width > 412 ? 22 : 19,
                                   decoration: TextDecoration.none,
                                   color: forYou == true
                                       ? Theme.of(context).colorScheme.base
@@ -238,7 +238,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
                               style: TextStyle(
                                   fontFamily: "FaturaMedium",
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 22,
+                                  fontSize: width > 412 ? 22 : 19,
                                   decoration: TextDecoration.none,
                                   color: latest == true
                                       ? Theme.of(context).colorScheme.base
@@ -267,7 +267,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
                               style: TextStyle(
                                   fontFamily: "FaturaMedium",
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 22,
+                                  fontSize: width > 412 ? 22 : 19,
                                   decoration: TextDecoration.none,
                                   color: popular == true
                                       ? Theme.of(context).colorScheme.base

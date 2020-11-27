@@ -46,13 +46,13 @@ class _StatusSafeNowState extends State<StaySafeNow> {
     switch (methodCall.method) {
       case 'result':
         setState(() {
-          valueVulnerable = methodCall.arguments["old"]??0;
-          value = methodCall.arguments["ill"]??0;
+          valueVulnerable = methodCall.arguments["old"] ?? 0;
+          value = methodCall.arguments["ill"] ?? 0;
           _scanResult = methodCall.arguments.toString();
-          if (value==null){
-            value=0;
+          if (value == null) {
+            value = 0;
           }
-          if (valueVulnerable==null){
+          if (valueVulnerable == null) {
             valueVulnerable = 0;
           }
 
@@ -62,7 +62,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
         });
         return "1";
       case 'data':
-        var timestamp = methodCall.arguments["timestampLast"]??0;
+        var timestamp = methodCall.arguments["timestampLast"] ?? 0;
         timestamp = timestamp * 1000;
         print("timestamp $timestamp");
         sharedPreferences.setInt('timestamp', timestamp);
@@ -75,7 +75,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   }
 
   _getColor(int integer) {
-    if (integer == null){
+    if (integer == null) {
       integer = 0;
     }
     if (integer <= 2) {
@@ -106,9 +106,10 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   _initState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool state = prefs.getBool("show at risk");
-    valueVulnerable = prefs.getInt('valueVulnerable')??0;
-    value = prefs.getInt('value')??0;
-    date = new DateTime.fromMicrosecondsSinceEpoch(prefs.getInt('timestamp')??0);
+    valueVulnerable = prefs.getInt('valueVulnerable') ?? 0;
+    value = prefs.getInt('value') ?? 0;
+    date =
+        new DateTime.fromMicrosecondsSinceEpoch(prefs.getInt('timestamp') ?? 0);
     _scanResult = prefs.getString('_scanResult');
     setState(() {
       this.stateAtRisk = state;
@@ -312,7 +313,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                 child: Container(
                                                   width: width > 412
                                                       ? width * 0.6
-                                                      : width * 0.45,
+                                                      : width * 0.55,
                                                   height: width > 412
                                                       ? height * 0.04
                                                       : height * 0.06,
@@ -336,7 +337,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                             "FaturaMedium",
                                                         fontSize: width > 412
                                                             ? 14
-                                                            : 12,
+                                                            : 11,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         decoration:
@@ -591,8 +592,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       this.showScanNowButton
-                          ? BaseButton(
-                              title: "scan now", width: 0.44)
+                          ? BaseButton(title: "scan now", width: 0.44)
                           : Container()
                     ],
                   ),

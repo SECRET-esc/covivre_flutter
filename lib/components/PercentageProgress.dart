@@ -108,10 +108,10 @@ class _PercentageProgressState extends State<PercentageProgress>
                       color: Theme.of(context).colorScheme.base,
                       decoration: TextDecoration.none,
                       fontSize: widget.small
-                          ? width < 376
-                              ? 15
+                          ? width < 412
+                              ? 27
                               : 35
-                          : width < 376
+                          : width < 412
                               ? 40
                               : 60),
                 ),
