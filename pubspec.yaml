@@ -83,8 +83,30 @@ flutter:
     - lib/assets/img/MaskIcon.png
     - lib/assets/img/HandsIcon.png
     - lib/assets/img/DistanceIcon.png
-    - lib/assets/img/firstPage.png
     - lang/
+
+    # Wash hands Story
+    - lib/assets/img/WashHands/firstPage.png
+    - lib/assets/img/WashHands/secondPage.png
+    - lib/assets/img/WashHands/thirdPage.png
+    - lib/assets/img/WashHands/fourthPage.png
+    - lib/assets/img/WashHands/fifthPage.png
+
+    # Wear mask story
+    - lib/assets/img/Mask/secondPage.png
+    - lib/assets/img/Mask/firstPage.png
+    - lib/assets/img/Mask/thirdPage.png
+    - lib/assets/img/Mask/fourthPage.png
+
+    # Sanitizer story
+    - lib/assets/img/Sanitizer/firstPage.png
+    - lib/assets/img/Sanitizer/secondPage.png
+    - lib/assets/img/Sanitizer/thirdPage.png
+
+    # Distance stroy
+    - lib/assets/img/Distance/firstPage.png
+    - lib/assets/img/Distance/secondPage.png
+    
 
 
   fonts:

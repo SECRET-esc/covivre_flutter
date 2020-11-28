@@ -115,16 +115,19 @@ class Fight extends StatelessWidget {
                     urlImage: "lib/assets/img/MaskIcon.png",
                     title: "FightItem WearMask Title".tr(),
                     content: "FightItem WearMask Content".tr(),
+                    urlNavigationSee: 'Mask',
                   ),
                   ItemFight(
-                    title: "FightItem Sanitazer Title".tr(),
+                    title: "FightItem Sanitizer Title".tr(),
                     urlImage: "lib/assets/img/SanitizerIcon.png",
-                    content: "FightItem Sanitazer Content".tr(),
+                    content: "FightItem Sanitizer Content".tr(),
+                    urlNavigationSee: 'Sanitizer',
                   ),
                   ItemFight(
                     title: "FightItem Distance Title".tr(),
                     urlImage: "lib/assets/img/DistanceIcon.png",
                     content: "FightItem Distance Content".tr(),
+                    urlNavigationSee: 'Distance',
                   ),
                   ItemFight(
                     title: "FightItem Share Title".tr(),

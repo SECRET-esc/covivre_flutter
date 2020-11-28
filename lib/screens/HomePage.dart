@@ -43,7 +43,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _startScan() async {
-
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     bool risk = sharedPreferences.getBool('risk');
     bool positive = sharedPreferences.getBool('positive');
@@ -177,6 +176,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    print('px width = $width');
     return Container(
       color: Theme.of(context).backgroundColor,
       // color: Colors.white,
@@ -304,14 +304,14 @@ class _HomePageState extends State<HomePage> {
                                             // color: Colors.black12,
                                             alignment: Alignment.center,
                                             child: Text(
-                                              'Stay safe'.tr().toUpperCase(),
+                                              'stay safe'.tr().toUpperCase(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Theme.of(context)
                                                       .colorScheme
                                                       .buttonText,
                                                   fontSize:
-                                                      width < 412.0 ? 23 : 30,
+                                                      width < 412.0 ? 25 : 30,
                                                   fontFamily: "FaturaExtraBold",
                                                   height: 0.9,
                                                   decoration:
@@ -407,7 +407,7 @@ class _HomePageState extends State<HomePage> {
                           Positioned(
                             left: width > 412 ? -width * 0.1 : width * 0.03,
                             bottom:
-                                width > 412 ? -height * 0.15 : -height * 0.15,
+                                width > 412 ? -height * 0.15 : -height * 0.12,
                             child: Container(
                               // alignment: Alignment.centerLeft,
                               // color: Colors.amber,
@@ -433,7 +433,7 @@ class _HomePageState extends State<HomePage> {
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
                                   fontFamily: "FaturaDemi",
-                                  fontSize: width > 412 ? 18 : 14,
+                                  fontSize: width > 412 ? 18 : 15,
                                   fontWeight: FontWeight.w500),
                             )
                           ],

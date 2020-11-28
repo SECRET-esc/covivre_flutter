@@ -8,6 +8,10 @@ import 'package:easy_localization_loader/easy_localization_loader.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import 'components/stories/Distance.dart';
+import 'components/stories/Mask.dart';
+import 'components/stories/Sanitizer.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
@@ -48,7 +52,10 @@ class MyApp extends StatelessWidget {
         'I': (context) => Scaffold(body: I()),
         'Fight': (context) => Fight(),
         'CovidUpdates': (context) => Scaffold(body: CovidUpdates()),
-        'WashHands': (context) => Scaffold(body: WashHands())
+        'WashHands': (context) => Scaffold(body: WashHands()),
+        'Mask': (context) => Scaffold(body: Mask()),
+        'Sanitizer': (context) => Scaffold(body: Sanitizer()),
+        'Distance': (context) => Scaffold(body: Distance()),
       },
       home: HomePage(),
     );

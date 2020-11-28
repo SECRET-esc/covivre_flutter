@@ -30,9 +30,9 @@ class _ThirdPageState extends State<ThirdPage> {
               alignment: Alignment.topCenter,
               child: Container(
                 margin:
-                    EdgeInsets.only(top: height * 0.55, right: width * 0.65),
-                height: width * 0.3,
-                width: width * 0.3,
+                    EdgeInsets.only(top: height * 0.565, right: width * 0.69),
+                height: width * 0.28,
+                width: width * 0.28,
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(100),

@@ -2,14 +2,14 @@ import 'package:covivre/components/StoriesLib/StoryPage.dart';
 import 'package:flutter/material.dart';
 import 'package:story_view/controller/story_controller.dart';
 
-class WashHands extends StatefulWidget {
-  WashHands({Key key}) : super(key: key);
+class Mask extends StatefulWidget {
+  Mask({Key key}) : super(key: key);
 
   @override
-  _WashHandsState createState() => _WashHandsState();
+  _MaskState createState() => _MaskState();
 }
 
-class _WashHandsState extends State<WashHands> {
+class _MaskState extends State<Mask> {
   final storyController = StoryController();
   @override
   Widget build(BuildContext context) {
@@ -17,19 +17,16 @@ class _WashHandsState extends State<WashHands> {
       storyItems: [
         StoryItem.pageImage(
             controller: storyController,
-            url: "lib/assets/img/WashHands/firstPage.png"),
+            url: "lib/assets/img/Mask/firstPage.png"),
         StoryItem.pageImage(
             controller: storyController,
-            url: "lib/assets/img/WashHands/secondPage.png"),
+            url: "lib/assets/img/Mask/secondPage.png"),
         StoryItem.pageImage(
             controller: storyController,
-            url: "lib/assets/img/WashHands/thirdPage.png"),
+            url: "lib/assets/img/Mask/thirdPage.png"),
         StoryItem.pageImage(
             controller: storyController,
-            url: "lib/assets/img/WashHands/fourthPage.png"),
-        StoryItem.pageImage(
-            controller: storyController,
-            url: "lib/assets/img/WashHands/fifthPage.png"),
+            url: "lib/assets/img/Mask/fourthPage.png")
       ],
       onStoryShow: (s) {
         print("Showing a story");
