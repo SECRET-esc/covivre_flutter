@@ -3,7 +3,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
 class HourChart extends StatefulWidget {
-  HourChart({Key key, @required this.stateAtRisk, @required this.data}) : super(key: key);
+  HourChart({Key key, @required this.stateAtRisk, @required this.data})
+      : super(key: key);
   bool stateAtRisk;
   Map data;
 
@@ -21,7 +22,7 @@ class _HourChartState extends State<HourChart> {
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(
                 labelStyle: TextStyle(
-                    fontSize: 18,
+                    fontSize: width > 412 ? 18 : 16,
                     color: Colors.white,
                     fontFamily: "FaturaBook",
                     fontWeight: FontWeight.w500),

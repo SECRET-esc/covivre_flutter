@@ -3,7 +3,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 
 class DayChart extends StatefulWidget {
-  DayChart({Key key, @required this.stateAtRisk, @required this.data}) : super(key: key);
+  DayChart({Key key, @required this.stateAtRisk, @required this.data})
+      : super(key: key);
   bool stateAtRisk;
   Map data;
 
@@ -26,7 +27,7 @@ class _DayChartsState extends State<DayChart> {
         child: SfCartesianChart(
             primaryXAxis: CategoryAxis(
                 labelStyle: TextStyle(
-                    fontSize: 18,
+                    fontSize: width > 412 ? 18 : 16,
                     color: Colors.white,
                     fontFamily: "FaturaBook",
                     fontWeight: FontWeight.w500),

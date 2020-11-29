@@ -140,6 +140,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    print("width $width");
     return Stack(alignment: Alignment.center, children: [
       Flex(
         direction: Axis.vertical,
@@ -159,7 +160,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
                           decoration: TextDecoration.none,
-                          fontSize: 22,
+                          fontSize: width > 412 ? 22 : 20,
                           fontFamily: "FaturaMedium",
                           color: Colors.white),
                     ),
@@ -313,7 +314,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                 child: Container(
                                                   width: width > 412
                                                       ? width * 0.6
-                                                      : width * 0.55,
+                                                      : width * 0.5,
                                                   height: width > 412
                                                       ? height * 0.04
                                                       : height * 0.06,
@@ -337,7 +338,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                             "FaturaMedium",
                                                         fontSize: width > 412
                                                             ? 14
-                                                            : 11,
+                                                            : 12,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         decoration:
@@ -352,7 +353,9 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                     : width * 0.02,
                                                 top: width > 412
                                                     ? height * 0.017
-                                                    : height * 0.006,
+                                                    : width < 390
+                                                        ? height * 0.006
+                                                        : height * 0.0077,
                                                 child: Container(
                                                   alignment: Alignment.center,
                                                   width: width > 412
@@ -374,7 +377,9 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                               Positioned(
                                                 right: width > 412
                                                     ? width * 0.44
-                                                    : width * 0.45,
+                                                    : width < 390
+                                                        ? width * 0.45
+                                                        : width * 0.455,
                                                 top: width > 412
                                                     ? height * 0.01
                                                     : -height * 0.001,
@@ -547,7 +552,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                             'Stay Safe At Risk People'.tr().toUpperCase(),
                             style: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: 14,
+                                fontSize: width > 412 ? 14 : 12,
                                 fontFamily: "FaturaMedium",
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
@@ -574,7 +579,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                             'Stay Safe Meering Rooms'.tr().toUpperCase(),
                             style: TextStyle(
                                 decoration: TextDecoration.none,
-                                fontSize: 14,
+                                fontSize: width > 412 ? 14 : 12,
                                 fontFamily: "FaturaMedium",
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
