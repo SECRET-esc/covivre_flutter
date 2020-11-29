@@ -1,5 +1,5 @@
 en_US:
-  stay safe: "stay\nsafe"
+  Stay safe: "stay\nsafe"
   I am: "i am..."
   Fight : "fight"
   Risk: "risk"
@@ -75,8 +75,17 @@ en_US:
   Tour Fifth Page Content: "One last thing before you start using the app!\n\nTo evaluate your risk of contracting or transmitting the virus without localizing you, the app needs Bluetooth to measure your distance from other CoVivre users nearby.\n\nBe sure that your phone has Bluetooth turned on and don’t worry about your battery: Bluetooth is used only for a few seconds every 2 minutes."
 
 
-
-
+  Symptoms Begin Block: "COVID-19 affects people in different ways. Most infected people develop a mild to moderate form of the disease and recover without hospitalization."
+  Symptoms Title First Symptoms: "First symptoms"
+  Symptoms Bottom Title First Symptoms: "The first symptoms are not very specific:"
+  Symptoms Content First Symptoms: "- HEADACHE\n- MUSCLE PAIN\n- TIREDNESS/FATIGUE"
+  Symptoms Title Secondary Symptoms: "Symptoms occurring secondarily"
+  Symptoms Bottom Secondary Symptoms: "Those symptoms occur secondarily, often 2 or 3 days the first symptoms:"
+  Symptoms Content Left Side Secondary Symptoms: "- FEVER\n- COUCH\n- SORE THROAT\n- DIARRHEA"
+  Symptoms Content Right Side Secondary Symptoms: "- CONJONCTIVITUS\n- LOST OF SMELL OR TASTE\n- SKIN RASH"
+  Symptoms Title Severe: "Severe symptoms"
+  Symproms Content Severe: "- TROUBLE BREATHING\n- PAIN OR PRESSURE IN THE CHEST\n- CONFUSION"
+  
 ru_RU:
 
   Stay safe: "будь\nздоров!"
@@ -155,6 +164,16 @@ ru_RU:
   Tour Fifth Page Title: ""
   Tour Fifth Page Content: "И последнее, прежде чем вы начнете использовать приложение!\n\nЧтобы оценить ваш риск заражения или передачи вируса, не локализуя вас, приложению необходим Bluetooth для измерения вашего расстояния от других пользователей CoVivre поблизости.\n\nУбедитесь, что на вашем телефоне включен Bluetooth, и не Не беспокойтесь о вашей батарее: Bluetooth используется всего несколько секунд каждые 2 минуты."
 
+  Symptoms Begin Block: "COVID-19 влияет на людей по-разному. У большинства инфицированных людей развивается легкая или умеренная форма болезни, и они выздоравливают без госпитализации."
+  Symptoms Title First Symptoms: "Первые симптомы"
+  Symptoms Bottom Title First Symptoms: "Первые симптомы не очень специфичны:"
+  Symptoms Content First Symptoms: "- ГОЛОВНАЯ БОЛЬ\n- МЫШЕЧНАЯ БОЛЬ\n- УСТАЛОСТЬ/УТОМЛЕННОСТЬ"
+  Symptoms Title Secondary Symptoms: "Симптомы, возникающие вторично"
+  Symptoms Bottom Secondary Symptoms: "Эти симптомы часто возникают через 2-3 дня:"
+  Symptoms Content Left Side Secondary Symptoms: "- лихорадка\n- кашель\n- боль в горле\n- диарея"
+  Symptoms Content Right Side Secondary Symptoms: "- КОНЬЮНКТИВИТ\n- ПОТЕРЯ ЗАПАХА ИЛИ ВКУСА"
+  Symptoms Title Severe: "Тяжелые симптомы"
+  Symproms Content Severe: "- затрудненное дыхание\n- боль или давление в груди\n- замешательство."
 
 
 

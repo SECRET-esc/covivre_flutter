@@ -22,7 +22,7 @@ class _IState extends State<I> {
   double stateThree = 66.66666666666666;
   double stateFour = 100.0;
   double a;
-  double valueHeight = 0.13;
+  double valueHeight = 0.593;
   double valueHeightPerent = 0.45;
   double defaultHeight = 0;
   double _value;
@@ -31,11 +31,12 @@ class _IState extends State<I> {
   bool showAlert = false;
   bool cyrcleCovid = false;
   bool scrollState = false;
-  bool symptomsList = false;
+  bool symptomsCovid = false;
   bool stateShow = false;
   bool showAlertDialog = true;
   bool buildContext = false;
   bool dataState = false;
+  bool showDialog = false;
 
   String data;
   String text = "Alert Dialog Feeling a Bit Down Content".tr();
@@ -44,7 +45,7 @@ class _IState extends State<I> {
   void initState() {
     super.initState();
     cyrcleCovid = false;
-    symptomsList = false;
+    symptomsCovid = false;
     scrollState = false;
     _setStateIndicator();
     DateTime now = DateTime.now();
@@ -152,7 +153,7 @@ class _IState extends State<I> {
     if (a == 0) {
       setState(() {
         this.a = height;
-        this.valueHeight = a * 0.13;
+        this.valueHeight = a * 0.124;
         this.valueHeightPerent = a * 0.45;
         this.defaultHeight = valueHeight;
       });
@@ -173,363 +174,349 @@ class _IState extends State<I> {
                   children: [
                     Container(
                       height: valueHeightPerent,
+                      // height: height * 0.85,
                       child: Container(
+                          margin: EdgeInsets.symmetric(vertical: height * 0.05),
                           // color: Colors.red,
-                          child: Column(
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
-                              // color: Colors.black,
-                              child: Container(
-                                width: width < 412 ? width * 0.8 : width * 0.75,
-                                height:
-                                    width < 412 ? height * 0.13 : height * 0.14,
-                                // color: Colors.pink,
-                                child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: Container(
-                                          // color: Colors.amber,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                width: width > 412
-                                                    ? width * 0.11
-                                                    : width * 0.12,
-                                                height: width < 412
-                                                    ? height * 0.13
-                                                    : height * 0.14,
-                                                // color: Colors.white,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      child: Image.asset(
-                                                        "lib/assets/img/Good.png",
-                                                        width: width * 0.09,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: width > 412
-                                                              ? height * 0.035
-                                                              : height * 0.03),
-                                                      child: Text(
-                                                        "I Great"
-                                                            .tr()
-                                                            .toUpperCase(),
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                "FaturaHeavy",
-                                                            fontSize:
-                                                                width > 412
-                                                                    ? 8
-                                                                    : 7,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                width: width > 412
-                                                    ? width * 0.11
-                                                    : width * 0.12,
-                                                height: width < 412
-                                                    ? height * 0.13
-                                                    : height * 0.14,
-                                                // color: Colors.black,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      child: Image.asset(
-                                                        "lib/assets/img/Middle.png",
-                                                        width: width * 0.09,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: width > 412
-                                                              ? height * 0.035
-                                                              : height * 0.03),
-                                                      child: Text(
-                                                        "I Ok"
-                                                            .tr()
-                                                            .toUpperCase(),
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                "FaturaHeavy",
-                                                            fontSize:
-                                                                width > 412
-                                                                    ? 8
-                                                                    : 7,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                width: width > 412
-                                                    ? width * 0.11
-                                                    : width * 0.12,
-                                                height: width < 412
-                                                    ? height * 0.13
-                                                    : height * 0.14,
-                                                // color: Colors.green,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      child: Image.asset(
-                                                        "lib/assets/img/Hard.png",
-                                                        width: width * 0.09,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: width > 412
-                                                              ? height * 0.035
-                                                              : height * 0.03),
-                                                      child: Text(
-                                                        "I a Bit Down"
-                                                            .tr()
-                                                            .toUpperCase(),
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                "FaturaHeavy",
-                                                            fontSize:
-                                                                width > 412
-                                                                    ? 8
-                                                                    : 7,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                width: width > 412
-                                                    ? width * 0.11
-                                                    : width * 0.12,
-                                                height: width < 412
-                                                    ? height * 0.13
-                                                    : height * 0.14,
-                                                // color: Colors.yellow,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      child: Image.asset(
-                                                        "lib/assets/img/Bad.png",
-                                                        width: width * 0.09,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          bottom: width > 412
-                                                              ? height * 0.035
-                                                              : height * 0.03),
-                                                      child: Text(
-                                                        "I Portly"
-                                                            .tr()
-                                                            .toUpperCase(),
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                "FaturaHeavy",
-                                                            fontSize:
-                                                                width > 412
-                                                                    ? 8
-                                                                    : 7,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .none),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: width < 412
-                                            ? width * 0.8
-                                            : width * 0.75,
-                                        child: Slider(
-                                          min: 0,
-                                          value: _value,
-                                          max: 100,
-                                          inactiveColor: Colors.white,
-                                          activeColor: Colors.white,
-                                          divisions: 3,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _value = value;
-                                            });
-                                          },
-                                          onChangeEnd: (value) {
-                                            print('value $value');
-                                            if (value == this.stateThree) {
-                                              print('value is $value');
-                                              _getSync();
-                                            }
-                                            _saveStateSlider(value);
-                                          },
-                                        ),
-                                      ),
-                                    ]),
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Container(
-                              width: width < 376 ? width * 0.9 : width * 0.85,
-                              height: valueHeight,
-                              decoration: BoxDecoration(
-                                  // color: Colors.blue,
-                                  border: Border.all(
-                                      color: Colors.white,
-                                      width: 1,
-                                      style: BorderStyle.solid)),
-                              child: Column(
-                                children: [
-                                  Flexible(
-                                    flex: 1,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Flexible(
+                                  flex: 1,
+                                  child: Container(
+                                    // color: Colors.black,
                                     child: Container(
-                                      // color: Colors.green,
-
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.white, width: 0.2)),
-                                      child: Container(
-                                        height: defaultHeight,
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: width * 0.05),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                      width: width < 412
+                                          ? width * 0.8
+                                          : width * 0.75,
+                                      height: width < 412
+                                          ? height * 0.13
+                                          : height * 0.14,
+                                      // color: Colors.pink,
+                                      child: Stack(
+                                          alignment: Alignment.center,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  height: defaultHeight / 2.1,
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    "I Symptoms"
-                                                        .tr()
-                                                        .toUpperCase(),
-                                                    style: TextStyle(
-                                                        fontFamily:
-                                                            "FaturaLight",
-                                                        color: Colors.white,
-                                                        fontSize: width > 412
-                                                            ? 16
-                                                            : 14,
-                                                        letterSpacing: 3,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
+                                            Flexible(
+                                              child: Container(
+                                                // color: Colors.amber,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      width: width > 412
+                                                          ? width * 0.11
+                                                          : width * 0.12,
+                                                      height: width < 412
+                                                          ? height * 0.13
+                                                          : height * 0.14,
+                                                      // color: Colors.white,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            child: Image.asset(
+                                                              "lib/assets/img/Good.png",
+                                                              width:
+                                                                  width * 0.09,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets.only(
+                                                                bottom: width >
+                                                                        412
+                                                                    ? height *
+                                                                        0.035
+                                                                    : height *
+                                                                        0.03),
+                                                            child: Text(
+                                                              "I Great"
+                                                                  .tr()
+                                                                  .toUpperCase(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "FaturaHeavy",
+                                                                  fontSize:
+                                                                      width > 412
+                                                                          ? 8
+                                                                          : 7,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: width > 412
+                                                          ? width * 0.11
+                                                          : width * 0.12,
+                                                      height: width < 412
+                                                          ? height * 0.13
+                                                          : height * 0.14,
+                                                      // color: Colors.black,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            child: Image.asset(
+                                                              "lib/assets/img/Middle.png",
+                                                              width:
+                                                                  width * 0.09,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets.only(
+                                                                bottom: width >
+                                                                        412
+                                                                    ? height *
+                                                                        0.035
+                                                                    : height *
+                                                                        0.03),
+                                                            child: Text(
+                                                              "I Ok"
+                                                                  .tr()
+                                                                  .toUpperCase(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "FaturaHeavy",
+                                                                  fontSize:
+                                                                      width > 412
+                                                                          ? 8
+                                                                          : 7,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: width > 412
+                                                          ? width * 0.11
+                                                          : width * 0.12,
+                                                      height: width < 412
+                                                          ? height * 0.13
+                                                          : height * 0.14,
+                                                      // color: Colors.green,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            child: Image.asset(
+                                                              "lib/assets/img/Hard.png",
+                                                              width:
+                                                                  width * 0.09,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets.only(
+                                                                bottom: width >
+                                                                        412
+                                                                    ? height *
+                                                                        0.035
+                                                                    : height *
+                                                                        0.03),
+                                                            child: Text(
+                                                              "I a Bit Down"
+                                                                  .tr()
+                                                                  .toUpperCase(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "FaturaHeavy",
+                                                                  fontSize:
+                                                                      width > 412
+                                                                          ? 8
+                                                                          : 7,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: width > 412
+                                                          ? width * 0.11
+                                                          : width * 0.12,
+                                                      height: width < 412
+                                                          ? height * 0.13
+                                                          : height * 0.14,
+                                                      // color: Colors.yellow,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            child: Image.asset(
+                                                              "lib/assets/img/Bad.png",
+                                                              width:
+                                                                  width * 0.09,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets.only(
+                                                                bottom: width >
+                                                                        412
+                                                                    ? height *
+                                                                        0.035
+                                                                    : height *
+                                                                        0.03),
+                                                            child: Text(
+                                                              "I Portly"
+                                                                  .tr()
+                                                                  .toUpperCase(),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      "FaturaHeavy",
+                                                                  fontSize:
+                                                                      width > 412
+                                                                          ? 8
+                                                                          : 7,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .none),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Container(
-                                                  child: Icon(
-                                                    Icons.keyboard_arrow_down,
-                                                    color: Colors.white,
-                                                    size: width > 412 ? 40 : 35,
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
+                                            Container(
+                                              width: width < 412
+                                                  ? width * 0.8
+                                                  : width * 0.75,
+                                              child: Slider(
+                                                min: 0,
+                                                value: _value,
+                                                max: 100,
+                                                inactiveColor: Colors.white,
+                                                activeColor: Colors.white,
+                                                divisions: 3,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _value = value;
+                                                  });
+                                                },
+                                                onChangeEnd: (value) {
+                                                  print('value $value');
+                                                  if (value ==
+                                                      this.stateThree) {
+                                                    print('value is $value');
+                                                    _getSync();
+                                                  }
+                                                  _saveStateSlider(value);
+                                                },
+                                              ),
+                                            ),
+                                          ]),
                                     ),
                                   ),
-                                  Flexible(
-                                    flex: 1,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          cyrcleCovid = !cyrcleCovid;
-                                          print(valueHeightPerent);
-                                          if (cyrcleCovid) {
-                                            setState(() {
-                                              valueHeight =
-                                                  valueHeight + height * 0.15;
-                                              valueHeightPerent =
-                                                  valueHeightPerent +
-                                                      height * 0.2;
-                                              scrollState = !scrollState;
-                                            });
-                                          } else
-                                            setState(() {
-                                              valueHeight =
-                                                  valueHeight - height * 0.15;
-                                              valueHeightPerent =
-                                                  valueHeightPerent -
-                                                      height * 0.2;
-                                            });
-                                        });
-                                      },
-                                      child: Container(
-                                        // color: Colors.red,
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: width * 0.05),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: height * 0.03),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    width: width < 376
+                                        ? width * 0.9
+                                        : width * 0.85,
+                                    height: valueHeight,
+                                    // height: height * 0.593,
+                                    decoration: BoxDecoration(
+                                        // color: Colors.blue,
+                                        border: Border.all(
+                                            color: Colors.white,
+                                            width: 1,
+                                            style: BorderStyle.solid)),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              // color: Colors.green,
+                                              border: !symptomsCovid
+                                                  ? Border.all(
+                                                      color: Colors.white,
+                                                      width: 0.2)
+                                                  : Border.all(
+                                                      color: Colors.transparent,
+                                                      width: 0)),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                symptomsCovid = !symptomsCovid;
+                                                print('$symptomsCovid');
+                                                if (symptomsCovid) {
+                                                  valueHeight = valueHeight +
+                                                      height * 0.45;
+                                                  valueHeightPerent =
+                                                      valueHeightPerent +
+                                                          height * 0.45;
+                                                  scrollState = true;
+                                                } else {
+                                                  valueHeight = valueHeight -
+                                                      height * 0.45;
+                                                  valueHeightPerent =
+                                                      valueHeightPerent -
+                                                          height * 0.45;
+                                                  if (!cyrcleCovid) {
+                                                    scrollState = false;
+                                                  }
+                                                }
+                                              });
+                                            },
+                                            child: Container(
+                                              // height: defaultHeight,
+                                              height: height * 0.06,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: width * 0.05),
+                                              child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
                                                   Container(
+                                                    // height: defaultHeight / 2.1,
                                                     alignment:
                                                         Alignment.centerLeft,
                                                     child: Text(
-                                                      "I Cyrcle"
+                                                      "I Symptoms"
                                                           .tr()
                                                           .toUpperCase(),
                                                       style: TextStyle(
@@ -549,7 +536,7 @@ class _IState extends State<I> {
                                                   ),
                                                   Container(
                                                     child: Icon(
-                                                      !cyrcleCovid
+                                                      !symptomsCovid
                                                           ? Icons
                                                               .keyboard_arrow_down
                                                           : Icons
@@ -561,27 +548,409 @@ class _IState extends State<I> {
                                                   )
                                                 ],
                                               ),
-                                              cyrcleCovid
-                                                  ? Flexible(
-                                                      child: Container(
-                                                        height: height * 0.2,
-                                                        child: Image.asset(
-                                                            "lib/assets/img/circleCovid.png"),
-                                                      ),
-                                                    )
-                                                  : Container()
-                                            ],
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        symptomsCovid
+                                            ? Container(
+                                                decoration: BoxDecoration(
+                                                    // color: Colors.blue,
+                                                    border: symptomsCovid
+                                                        ? Border(
+                                                            bottom: BorderSide(
+                                                                color: Colors
+                                                                    .white,
+                                                                width: 0.2),
+                                                          )
+                                                        : null),
+                                                height: height * 0.45,
+                                                width: double.infinity,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: width * 0.05),
+                                                  child: Column(
+                                                    children: [
+                                                      Flexible(
+                                                        flex: 4,
+                                                        child: Container(
+                                                          // color: Colors.amber,
+                                                          child: Text(
+                                                            "Symptoms Begin Block"
+                                                                .tr(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaBook",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 14
+                                                                        : 12,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          // color: Colors.blue,
+                                                          child: Text(
+                                                            "Symptoms Title First Symptoms"
+                                                                .tr(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaDemi",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 16
+                                                                        : 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          // color: Colors.green,
+                                                          child: Text(
+                                                            "Symptoms Bottom Title First Symptoms"
+                                                                .tr(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaBook",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 14
+                                                                        : 12,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 3,
+                                                        child: Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          // color: Colors.grey,
+                                                          child: Text(
+                                                            "Symptoms Content First Symptoms"
+                                                                .tr()
+                                                                .toUpperCase(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaBook",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 14
+                                                                        : 12,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          // color: Colors.yellow
+                                                          child: Text(
+                                                            "Symptoms Title Secondary Symptoms"
+                                                                .tr(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaDemi",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 16
+                                                                        : 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 2,
+                                                        child: Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          // color: Colors.white,
+                                                          child: Text(
+                                                            "Symptoms Bottom Secondary Symptoms"
+                                                                .tr(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaBook",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 14
+                                                                        : 12,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 4,
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical:
+                                                                      height *
+                                                                          0.006),
+                                                          child: Container(
+                                                            // color: Colors.red,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: [
+                                                                Flexible(
+                                                                  child:
+                                                                      Container(
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .topLeft,
+                                                                    // color: Colors
+                                                                    //     .amber,
+                                                                    child: Text(
+                                                                      "Symptoms Content Left Side Secondary Symptoms"
+                                                                          .tr()
+                                                                          .toUpperCase(),
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              "FaturaBook",
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: width > 412
+                                                                              ? 14
+                                                                              : 12,
+                                                                          decoration:
+                                                                              TextDecoration.none),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Flexible(
+                                                                  child:
+                                                                      Container(
+                                                                    // color: Colors
+                                                                    //     .blue,
+                                                                    //     alignment:
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .topLeft,
+                                                                    child: Text(
+                                                                      "Symptoms Content Right Side Secondary Symptoms"
+                                                                          .tr()
+                                                                          .toUpperCase(),
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              "FaturaBook",
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: width > 412
+                                                                              ? 14
+                                                                              : 12,
+                                                                          decoration:
+                                                                              TextDecoration.none),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 1,
+                                                        child: Container(
+                                                          // color: Colors.orange,
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            "Symptoms Title Severe"
+                                                                .tr(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaDemi",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 16
+                                                                        : 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        flex: 3,
+                                                        child: Container(
+                                                          // color: Colors.black,
+                                                          alignment:
+                                                              Alignment.topLeft,
+                                                          child: Text(
+                                                            "Symproms Content Severe"
+                                                                .tr()
+                                                                .toUpperCase(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaBook",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 14
+                                                                        : 12,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            : SizedBox(),
+                                        Container(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                cyrcleCovid = !cyrcleCovid;
+                                                print(valueHeightPerent);
+                                                if (cyrcleCovid) {
+                                                  setState(() {
+                                                    valueHeight = valueHeight +
+                                                        height * 0.45;
+                                                    valueHeightPerent =
+                                                        valueHeightPerent +
+                                                            height * 0.45;
+                                                    scrollState = true;
+                                                  });
+                                                } else
+                                                  setState(() {
+                                                    valueHeight = valueHeight -
+                                                        height * 0.45;
+                                                    valueHeightPerent =
+                                                        valueHeightPerent -
+                                                            height * 0.45;
+                                                    if (!symptomsCovid) {
+                                                      scrollState = false;
+                                                    }
+                                                  });
+                                              });
+                                            },
+                                            child: Container(
+                                              // color: Colors.red,
+                                              height: height * 0.06,
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: width * 0.05),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            "I Cyrcle"
+                                                                .tr()
+                                                                .toUpperCase(),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "FaturaLight",
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                    width > 412
+                                                                        ? 16
+                                                                        : 14,
+                                                                letterSpacing:
+                                                                    3,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .none,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          child: Icon(
+                                                            !cyrcleCovid
+                                                                ? Icons
+                                                                    .keyboard_arrow_down
+                                                                : Icons
+                                                                    .keyboard_arrow_up,
+                                                            color: Colors.white,
+                                                            size: width > 412
+                                                                ? 40
+                                                                : 35,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        cyrcleCovid
+                                            ? Container(
+                                                height: height * 0.45,
+                                                child: Image.asset(
+                                                    "lib/assets/img/circleCovid.png"),
+                                              )
+                                            : SizedBox(),
+                                      ],
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      )),
+                            ],
+                          )),
                     ),
                     Container(
                       height: height * 0.35,
@@ -589,7 +958,7 @@ class _IState extends State<I> {
                           // color: Colors.yellow,
                           child: Column(children: [
                         Flexible(
-                          flex: 5,
+                          flex: showDialog ? 5 : 3,
                           child: Container(
                             decoration: BoxDecoration(
                                 // color: Colors.orange,
@@ -599,7 +968,9 @@ class _IState extends State<I> {
                                     bottom: BorderSide(
                                         color: Colors.white, width: 0.3))),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: showDialog
+                                  ? MainAxisAlignment.spaceEvenly
+                                  : MainAxisAlignment.center,
                               children: [
                                 Flexible(
                                   flex: 1,
@@ -626,21 +997,24 @@ class _IState extends State<I> {
                                     ),
                                   ),
                                 ),
-                                Flexible(
-                                  flex: 1,
-                                  child: Container(
-                                    // color: Colors.black,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        BaseButton(
-                                            title: 'I Vulnerable Covid'.tr(),
-                                            width: 0.85)
-                                      ],
-                                    ),
-                                  ),
-                                )
+                                showDialog
+                                    ? Flexible(
+                                        flex: 1,
+                                        child: Container(
+                                          // color: Colors.black,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              BaseButton(
+                                                  title:
+                                                      'I Vulnerable Covid'.tr(),
+                                                  width: 0.85)
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : Container()
                               ],
                             ),
                           ),
@@ -721,15 +1095,6 @@ class _IState extends State<I> {
                   ],
                 ),
               ),
-              // Expanded(
-              //     flex: 1,
-              //     // child: Container(
-              //     // color: Colors.amber,
-
-              // Expanded(
-              // flex: 1,
-              // // child: Container(
-              // // color: Colors.black,
             ],
           ),
           showAlert
@@ -756,10 +1121,6 @@ class _IState extends State<I> {
               : Container()
         ]),
       ),
-
-      // ],
-      //   ),
-      // ),
     );
   }
 }

@@ -304,14 +304,14 @@ class _HomePageState extends State<HomePage> {
                                             // color: Colors.black12,
                                             alignment: Alignment.center,
                                             child: Text(
-                                              'stay safe'.tr().toUpperCase(),
+                                              'Stay safe'.tr().toUpperCase(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Theme.of(context)
                                                       .colorScheme
                                                       .buttonText,
                                                   fontSize:
-                                                      width < 412.0 ? 25 : 30,
+                                                      width < 412.0 ? 23 : 30,
                                                   fontFamily: "FaturaExtraBold",
                                                   height: 0.9,
                                                   decoration:
@@ -406,8 +406,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Positioned(
                             left: width > 412 ? -width * 0.1 : width * 0.03,
-                            bottom:
-                                width > 412 ? -height * 0.15 : -height * 0.12,
+                            bottom: width > 412
+                                ? -height * 0.15
+                                : width < 390
+                                    ? -height * 0.12
+                                    : -height * 0.15,
                             child: Container(
                               // alignment: Alignment.centerLeft,
                               // color: Colors.amber,
@@ -442,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // ),
                     Expanded(
-                      flex: 6,
+                      flex: 5,
                       // color: Colors.green,
                       // child: Container(
                       //   margin: EdgeInsets.symmetric(vertical: height * 0.03),
