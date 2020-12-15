@@ -1,4 +1,5 @@
 import 'package:covivre/components/BaseButton.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:covivre/constants/ColorsTheme.dart';
 import 'package:covivre/components/SwitchCustom.dart';
@@ -17,8 +18,12 @@ class StaySafeNow extends StatefulWidget {
 class _StatusSafeNowState extends State<StaySafeNow> {
   int value = 0;
   int valueVulnerable = 0;
+  int meetingRooms = 0;
   // if true display vulnerable
   bool stateAtRisk = false;
+  bool stateMeeting = false;
+  // if true is chosen close if false is chosen max
+  bool stateDistance = false;
   // if false alert is hide
   bool alertAtRisk = false;
   bool showScanNowButton = false;
@@ -105,7 +110,8 @@ class _StatusSafeNowState extends State<StaySafeNow> {
 
   _initState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool state = prefs.getBool("show at risk");
+    bool state = prefs.getBool("show at risk") ?? false;
+    bool stateMeeting = prefs.getBool('meeting state') ?? false;
     valueVulnerable = prefs.getInt('valueVulnerable') ?? 0;
     value = prefs.getInt('value') ?? 0;
     date =
@@ -113,6 +119,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
     _scanResult = prefs.getString('_scanResult');
     setState(() {
       this.stateAtRisk = state;
+      this.stateMeeting = stateMeeting;
     });
   }
 
@@ -134,6 +141,14 @@ class _StatusSafeNowState extends State<StaySafeNow> {
         });
       }
     }
+  }
+
+  _getStateMeeting(bool state) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('meeting state', state);
+    setState(() {
+      this.stateMeeting = state;
+    });
   }
 
   @override
@@ -279,6 +294,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                   alignment: Alignment.centerLeft,
                                   width: width * 0.66,
                                   height: height * 0.4,
+                                  // color: Colors.amber,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment:
@@ -296,7 +312,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                               fontFamily: "FaturaMedium",
                                               decoration: TextDecoration.none,
                                               color: Color.fromRGBO(
-                                                  245, 132, 74, 1),
+                                                  144, 132, 233, 1),
                                               fontWeight: FontWeight.w500),
                                         ),
                                       ),
@@ -305,23 +321,23 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                           height: height * 0.08,
                                           // color: Colors.blue,
                                           child: Stack(
-                                            alignment: Alignment.centerRight,
+                                            alignment: Alignment.centerLeft,
                                             children: [
                                               Positioned(
                                                 left: width < 412
                                                     ? width * 0.08
-                                                    : null,
+                                                    : width * 0.04,
                                                 child: Container(
                                                   width: width > 412
-                                                      ? width * 0.6
-                                                      : width * 0.5,
+                                                      ? width * 0.4
+                                                      : width * 0.35,
                                                   height: width > 412
                                                       ? height * 0.04
                                                       : height * 0.06,
                                                   alignment: Alignment.center,
                                                   decoration: BoxDecoration(
                                                       color: Color.fromRGBO(
-                                                          245, 132, 74, 1),
+                                                          144, 132, 233, 1),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               13)),
@@ -337,8 +353,8 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                         fontFamily:
                                                             "FaturaMedium",
                                                         fontSize: width > 412
-                                                            ? 14
-                                                            : 12,
+                                                            ? 12
+                                                            : 11,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         decoration:
@@ -366,7 +382,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                                       : width * 0.12,
                                                   decoration: BoxDecoration(
                                                       color: Color.fromRGBO(
-                                                          245, 132, 74, 1),
+                                                          144, 132, 233, 1),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               200)),
@@ -398,12 +414,116 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                 )
                               : Container(),
                         ),
+                        Positioned(
+                          bottom: height * 0.002,
+                          right: width * 0.03,
+                          child: stateMeeting
+                              ? Container(
+                                  width: width * 0.45,
+                                  height: height * 0.18,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: width * 0.02),
+                                  // color: Colors.white,
+                                  child: Stack(
+                                    // mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Positioned(
+                                        right: width * 0.02,
+                                        child: Container(
+                                          child: Text(
+                                            '$meetingRooms',
+                                            style: TextStyle(
+                                                fontSize:
+                                                    width > 412 ? 100 : 70,
+                                                fontFamily: "FaturaMedium",
+                                                decoration: TextDecoration.none,
+                                                color: Color.fromRGBO(
+                                                    132, 190, 233, 1),
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: height * 0.003,
+                                        right: 0,
+                                        child: Container(
+                                          width: width * 0.365,
+                                          height: height * 0.04,
+                                          child: Container(
+                                            padding: EdgeInsets.only(
+                                                top: 3,
+                                                right: 4,
+                                                bottom: 3,
+                                                left: width * 0.03),
+                                            alignment: Alignment.centerRight,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(13),
+                                              color: Color.fromRGBO(
+                                                  132, 190, 233, 1),
+
+                                              // color: Colors.red
+                                            ),
+                                            child: Text(
+                                              "DISINFECTED PREMISES SEE THE LIST!",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontFamily: "FaturaDemi",
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: height * 0.001,
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          alignment: Alignment.center,
+                                          height: height * 0.045,
+                                          decoration: BoxDecoration(
+                                              color: Color.fromRGBO(
+                                                  132, 190, 233, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(100)),
+                                          child: Image.asset(
+                                              "lib/assets/img/meeting.png"),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: height * 0.033,
+                                        right: width * 0.055,
+                                        child: Container(
+                                          width: width * 0.04,
+                                          child: ShaderMask(
+                                              blendMode: BlendMode.srcIn,
+                                              child: Image.asset(
+                                                "lib/assets/img/VulnerableArrow.png",
+                                                fit: BoxFit.cover,
+                                              ),
+                                              shaderCallback: (Rect bounds) {
+                                                return LinearGradient(colors: [
+                                                  Color.fromRGBO(
+                                                      132, 190, 233, 1),
+                                                  Color.fromRGBO(
+                                                      132, 190, 233, 1)
+                                                ]).createShader(bounds);
+                                              }),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(),
+                        )
                       ],
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -536,10 +656,132 @@ class _StatusSafeNowState extends State<StaySafeNow> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Flex(
               direction: Axis.vertical,
               children: [
+                Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.08),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Text(
+                            "Distance:".toUpperCase(),
+                            style: TextStyle(
+                                decoration: TextDecoration.none,
+                                fontSize: width > 412 ? 18 : 16,
+                                fontFamily: "FaturaMedium",
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Container(
+                          width: width * 0.35,
+                          height: 30,
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (!stateDistance) {
+                                        setState(() {
+                                          stateDistance = !stateDistance;
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: stateDistance
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .base
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                          border: Border.all(
+                                              color: !stateDistance
+                                                  ? Colors.white
+                                                  : Colors.transparent,
+                                              width: 1),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(30),
+                                              bottomLeft: Radius.circular(30))),
+                                      child: Text("Close".toUpperCase(),
+                                          style: TextStyle(
+                                              fontFamily: stateDistance
+                                                  ? "FaturaBold"
+                                                  : "FaturaBook",
+                                              color: stateDistance
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .background
+                                                  : Colors.white,
+                                              fontSize: 14)),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (stateDistance) {
+                                        setState(() {
+                                          stateDistance = !stateDistance;
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: !stateDistance
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .base
+                                              : Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                          border: Border.all(
+                                              color: stateDistance
+                                                  ? Colors.white
+                                                  : Colors.transparent,
+                                              width: 1),
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(30),
+                                              bottomRight:
+                                                  Radius.circular(30))),
+                                      child: Text("max".toUpperCase(),
+                                          style: TextStyle(
+                                              // fontFamily: "FaturaBold",
+                                              fontFamily: stateDistance
+                                                  ? "FaturaBook"
+                                                  : "FaturaBold",
+                                              // color: Theme.of(context)
+                                              //     .colorScheme
+                                              //     .background,
+                                              color: !stateDistance
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .background
+                                                  : Colors.white,
+                                              fontSize: 14)),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          // color: Colors.amber,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 Expanded(
                   flex: 3,
                   child: Padding(
@@ -567,7 +809,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.08),
                     child: Row(
@@ -585,7 +827,10 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SwitchCustom(nameState: "show meeting rooms"),
+                        SwitchCustom(
+                          nameState: "show meeting rooms",
+                          returnState: _getStateMeeting,
+                        )
                       ],
                     ),
                   ),

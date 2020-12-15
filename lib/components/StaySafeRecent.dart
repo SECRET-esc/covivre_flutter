@@ -75,7 +75,6 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
     });
   }
 
-
   _returnCharts() {
     if (stateDay) {
       return DayChart(stateAtRisk: this.stateSwitch, data: data);
@@ -159,7 +158,7 @@ class _StaySafeRecentState extends State<StaySafeRecent> {
                           Container(
                             // color: Colors.red,
                             width: width * 0.75,
-                            height: height * 0.1,
+                            height: width < 412 ? height * 0.11 : height * 0.1,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
