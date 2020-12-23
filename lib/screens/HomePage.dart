@@ -40,6 +40,9 @@ class _HomePageState extends State<HomePage> {
     print(data);
     _incrementInit();
     _furstLanchCencelation();
+    if (!firstLunch){
+      _startScan();
+    }
   }
 
   Future<void> _startScan() async {

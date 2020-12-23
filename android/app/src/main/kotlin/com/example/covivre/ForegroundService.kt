@@ -230,7 +230,7 @@ class ForegroundService : Service() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_dialog_alert)
+                .setSmallIcon(R.drawable.ic_menu_info_details)
                 .setContentTitle("Covivre")
                 .setContentText("detect covid19 ill ${this.illPersonsNum} person near you")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -449,6 +449,16 @@ class ForegroundService : Service() {
     }
 
     fun makeCheck() {
+        val notificationManagerCompat = NotificationManagerCompat.from(MainActivity.instance)
+        val areNotificationsEnabled = notificationManagerCompat.areNotificationsEnabled()
+        if (!areNotificationsEnabled){
+            AlertDialog.Builder(this)
+                    .setMessage("Please allow notifications, without this application could not work")
+                    .setPositiveButton("Allow")
+                    { _, _ ->  }
+                    .setNegativeButton("Deny") { _, _ -> }
+                    .show()
+        }
         if (Build.MANUFACTURER.equals("samsung", ignoreCase = true)) {
             Log.d(TAG, "Using a wildcard scan filter on Samsung because the screen is on.  We will switch to a non-empty filter if the screen goes off")
             // if this is samsung, as soon as the screen goes off we will need to start a different scan

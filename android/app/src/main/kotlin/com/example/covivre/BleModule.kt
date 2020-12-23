@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.*
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
@@ -35,9 +36,10 @@ class BleModule() : AppCompatActivity() {
     var btManager: BluetoothManager? = null
     var advertiser: BluetoothLeAdvertiser? = null
     var idChannel = "my_channel_01"
-    private val uuidIllAndOld = UUID.fromString("10000000-0000-0000-0000-000000000003")
-    private val uuidIll = UUID.fromString("10000000-0000-0000-0000-000000000001")
-    private val uuidOld = UUID.fromString("10000000-0000-0000-0000-000000000002")
+    private val uuidIll = UUID.fromString("10000000-0000-0000-0000-000000000002")
+    private val uuidOld = UUID.fromString("10000000-0000-0000-0000-000000000003")
+    private val uuidNormal = UUID.fromString("10000000-0000-0000-0000-000000000001")
+    private val uuidContact = UUID.fromString("10000000-0000-0000-0000-000000000004")
 
     var old = mutableListOf<String>()
     var oldGraph = mutableListOf<String>()
@@ -45,12 +47,22 @@ class BleModule() : AppCompatActivity() {
     var ill = mutableListOf<String>()
     var illGraph = mutableListOf<String>()
     var illGraphDay = mutableListOf<String>()
+    var normal = mutableListOf<String>()
+    var normalGraph = mutableListOf<String>()
+    var normalGraphDay = mutableListOf<String>()
+    var contact = mutableListOf<String>()
+    var contactGraph = mutableListOf<String>()
+    var contactGraphDay = mutableListOf<String>()
     var turnScanOn = false
     var lastScanResults: Long = 0
     var dayGraphOld = mutableMapOf<Int, MutableList<String>>()
     var dayGraphIll = mutableMapOf<Int, MutableList<String>>()
+    var dayGraphNormal = mutableMapOf<Int, MutableList<String>>()
+    var dayGraphContact = mutableMapOf<Int, MutableList<String>>()
     var hourGraphOld = mutableMapOf<Int, MutableList<String>>()
     var hourGraphIll = mutableMapOf<Int, MutableList<String>>()
+    var hourGraphNormal = mutableMapOf<Int, MutableList<String>>()
+    var hourGraphContact = mutableMapOf<Int, MutableList<String>>()
     val c = Calendar.getInstance()
     var clearHoursData = false
     var clearDayData = false
@@ -79,7 +91,10 @@ class BleModule() : AppCompatActivity() {
     fun createPeriodicScan() {
         if (!turnScanOn)
             return
-        btLeScanner.startScan(buildFilters(), buildSettings(), callBack)
+        initBLEModule()
+        if (btAdapter.isEnabled) {
+            btLeScanner.startScan(buildFilters(), buildSettings(), callBack)
+        }
         this.isScan = true
         this.timestampLast = ((System.currentTimeMillis()))
         Log.d(TAG, "timestampLast = $timestampLast")
@@ -88,7 +103,9 @@ class BleModule() : AppCompatActivity() {
             handler = Handler()
         }
         handler.postDelayed(Runnable() {
-            btLeScanner.stopScan(callBack)
+            if (btAdapter.isEnabled) {
+                btLeScanner.stopScan(callBack)
+            }
             this.isScan = false
         }, scanPeriod)
         handler.postDelayed(Runnable() {
@@ -100,9 +117,11 @@ class BleModule() : AppCompatActivity() {
     fun checkIfNeedClearing() {
         val time = (System.currentTimeMillis() / 1000) - lastScanResults
         if ( time > 15) {
-            context.sendResult(mapOf("ill" to 0, "old" to 0))
+            context.sendResult(mapOf("ill" to 0, "old" to 0, "normal" to 0, "contact" to 0))
             old = mutableListOf<String>()
             ill = mutableListOf<String>()
+            normal = mutableListOf<String>()
+            contact = mutableListOf<String>()
         }
         Log.d(TAG, "checkIfNeedClearing time = $time")
     }
@@ -132,6 +151,16 @@ class BleModule() : AppCompatActivity() {
         } else {
             TODO("VERSION.SDK_INT < LOLLIPOP")
         }
+        val builder2 = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ScanFilter.Builder()
+        } else {
+            TODO("VERSION.SDK_INT < LOLLIPOP")
+        }
+        val builder3 = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ScanFilter.Builder()
+        } else {
+            TODO("VERSION.SDK_INT < LOLLIPOP")
+        }
 // use if not working
 //        val manufacturerData = ByteBuffer.allocate(23)
 //        val manufacturerDataMask = ByteBuffer.allocate(23)
@@ -144,13 +173,19 @@ class BleModule() : AppCompatActivity() {
 
         builder.setManufacturerData(0x004C, null, null)
         builder1.setManufacturerData(0x004C, null, null)
+        builder2.setManufacturerData(0x004C, null, null)
+        builder3.setManufacturerData(0x004C, null, null)
         val serviceUuidMaskString = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"
         var parcelUuid = ParcelUuid(uuidIll)
         val parcelUuidMask = ParcelUuid.fromString(serviceUuidMaskString)
         builder.setServiceUuid(parcelUuid, parcelUuidMask)
         parcelUuid = ParcelUuid(uuidOld)
         builder1.setServiceUuid(parcelUuid, parcelUuidMask)
-        return listOf(builder.build(), builder1.build())
+        parcelUuid = ParcelUuid(uuidNormal)
+        builder2.setServiceUuid(parcelUuid, parcelUuidMask)
+        parcelUuid = ParcelUuid(uuidContact)
+        builder3.setServiceUuid(parcelUuid, parcelUuidMask)
+        return listOf(builder.build(), builder1.build(), builder2.build(), builder3.build())
     }
 
     // LOLLIPOP - android 5.1.1
@@ -168,14 +203,18 @@ class BleModule() : AppCompatActivity() {
     }
     private fun checkClear(){
         val cal = Calendar.getInstance()
-        cal.time = Date(lastScanResults*1000)
+        cal.time = Date(lastScanResults * 1000)
         if (c.get(Calendar.HOUR_OF_DAY)!=cal.get(Calendar.HOUR_OF_DAY)){
             illGraph = mutableListOf<String>()
             oldGraph = mutableListOf<String>()
+            normalGraph = mutableListOf<String>()
+            contactGraph = mutableListOf<String>()
         }
         if (c.get(Calendar.DAY_OF_YEAR)!=cal.get(Calendar.DAY_OF_YEAR)){
             illGraphDay = mutableListOf<String>()
             oldGraphDay = mutableListOf<String>()
+            normalGraphDay = mutableListOf<String>()
+            contactGraphDay = mutableListOf<String>()
         }
 
         lastScanResults = System.currentTimeMillis() / 1000
@@ -185,6 +224,10 @@ class BleModule() : AppCompatActivity() {
     private fun getServiceUUIDsList(scanResult: ScanResult): Map<String, Int> {
         checkClear()
         val parcelUuids = scanResult.scanRecord!!.serviceUuids
+        ill = mutableListOf<String>()
+        old = mutableListOf<String>()
+        normal = mutableListOf<String>()
+        contact = mutableListOf<String>()
         for (i in parcelUuids.indices) {
             val serviceUUID = parcelUuids[i].uuid
             val uuidString = serviceUUID.toString()
@@ -196,16 +239,31 @@ class BleModule() : AppCompatActivity() {
                 old.add(uuidString);
                 oldGraph.add(uuidString)
                 oldGraphDay.add(uuidString)
+            } else if (serviceUUID.toString() == uuidContact.toString()) {
+                contact.add(uuidString);
+                contactGraph.add(uuidString)
+                contactGraphDay.add(uuidString)
+            } else if (serviceUUID.toString() == uuidNormal.toString()) {
+                normal.add(uuidString);
+                normalGraph.add(uuidString)
+                normalGraphDay.add(uuidString)
             }
         }
         val hour = c.get(Calendar.HOUR_OF_DAY)
         val day = c.get(Calendar.DAY_OF_YEAR)
         dayGraphIll.put(day, illGraphDay)
         dayGraphOld.put(day, oldGraphDay)
+        dayGraphNormal.put(day, normalGraphDay)
+        dayGraphContact.put(day, contactGraphDay)
         hourGraphOld.put(hour, oldGraph)
         hourGraphIll.put(hour, illGraph)
-        context.sendDataGraph(mapOf("dayIll" to dayGraphIll, "dayOld" to dayGraphOld, "hourIll" to hourGraphIll, "hourOld" to hourGraphOld))
-        val resp = mapOf("ill" to ill.distinct().size, "old" to old.distinct().size)
+        hourGraphOld.put(hour, normalGraph)
+        hourGraphIll.put(hour, contactGraph)
+        context.sendDataGraph(mapOf(
+                "dayIll" to dayGraphIll, "dayOld" to dayGraphOld, "dayNormal" to dayGraphNormal, "dayContact" to dayGraphContact,
+                "hourIll" to hourGraphIll, "hourOld" to hourGraphOld, "hourNormal" to hourGraphNormal, "hourContact" to hourGraphContact
+        ))
+        val resp = mapOf("ill" to ill.distinct().size, "old" to old.distinct().size, "normal" to normal.distinct().size, "contact" to contact.distinct().size)
         Log.d(TAG, "resp: $resp")
         return resp
     }
@@ -262,9 +320,7 @@ class BleModule() : AppCompatActivity() {
     fun startAdvertise(context: ForegroundService) {
         Log.d(TAG, "In startAdvertise")
         this.context = context
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             initBLEModule()
-        }
         if (btAdapter.isEnabled) {
             startAdvertising()
         }
@@ -278,21 +334,41 @@ class BleModule() : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_ENABLE_BT){
+            startScan(this.context)
+            startAdvertise(this.context)
+        }
+
+    }
+
     /***After receive the Location Permission, the Application need to initialize the
      * BLE Module and BLE Service*/
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initBLEModule() {
-        btAdapter = BluetoothAdapter.getDefaultAdapter()
-        btLeScanner = btAdapter.getBluetoothLeScanner();
-        advertiser = btAdapter.getBluetoothLeAdvertiser();
-        Log.d(TAG, "Start service");
-        btLeScanner = btAdapter.bluetoothLeScanner
-        Log.d(TAG, "In initBLEModule")
-// BLE initialization
+        try {
+            btAdapter = BluetoothAdapter.getDefaultAdapter()
+        }catch (e: Exception){
+            val btManager = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+            } else {
+                TODO("VERSION.SDK_INT < JELLY_BEAN_MR2")
+            }
+            btAdapter = btManager.adapter;
+        }
         if (!btAdapter.isEnabled) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             MainActivity.instance.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+            return
         }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            btLeScanner = btAdapter.getBluetoothLeScanner()
+            advertiser = btAdapter.getBluetoothLeAdvertiser();
+            Log.d(TAG, "Start service");
+            btLeScanner = btAdapter.bluetoothLeScanner
+        };
+
+
 
     }
 
@@ -320,10 +396,14 @@ class BleModule() : AppCompatActivity() {
                 .setIncludeDeviceName(false)
                 .setIncludeTxPowerLevel(false)
 //                .addManufacturerData(0x004C, null)
-        if (ForegroundService.instance.positive!! || ForegroundService.instance.closeContact!!) {
+        if (ForegroundService.instance.positive!!) {
             data.addServiceUuid(ParcelUuid(uuidIll))
+        } else if (ForegroundService.instance.closeContact!!) {
+            data.addServiceUuid(ParcelUuid(uuidContact))
         } else if (ForegroundService.instance.risk!!) {
             data.addServiceUuid(ParcelUuid(uuidOld))
+        } else  {
+            data.addServiceUuid(ParcelUuid(uuidNormal))
         }
 
         advertiser!!
