@@ -124,6 +124,7 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('show alert feeling a bit down', true);
       await prefs.setString('feeling today', 'empty');
       await prefs.setDouble('state slider', 0.0);
+      await prefs.setBool('meeting state', false);
       await prefs.setBool("show alert feeling a bit down", true);
       await prefs.setBool('bluetooth state', false);
       setState(() {
@@ -235,133 +236,143 @@ class _HomePageState extends State<HomePage> {
               child: firstLunchCounter == 2 && firstLunch ||
                       firstLunchCounter == 5 && firstLunch
                   ? Container()
-                  : Stack(
-                      children: [
-                        Container(
-                          height: height * 0.17,
-                          alignment: Alignment.bottomCenter,
-                          constraints: BoxConstraints(minHeight: height * 0.14),
-                          // color: Colors.amber,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: () => _navigation(context, "I"),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  // color: Colors.amber,
-                                  width: width * 0.14,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                          width: width * 0.14,
-                                          height: width * 0.14,
-                                          // color:
-                                          //     Theme.of(context).colorScheme.insteadImg,
-                                          child: !this.iAmState
-                                              ? Image.asset(
-                                                  "lib/assets/img/IamFillOff.png")
-                                              : Image.asset(
-                                                  "lib/assets/img/IAmIcon.png")),
-                                      Container(
-                                        margin:
-                                            EdgeInsets.only(top: height * 0.01),
-                                        child: Text(
-                                          "I am".tr().toUpperCase(),
-                                          style: TextStyle(
-                                              fontFamily: "FaturaMedium",
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                              decoration: TextDecoration.none,
-                                              fontSize: width < 412 ? 14 : 18),
-                                        ),
-                                      )
-                                    ],
+                  : Padding(
+                      padding: EdgeInsets.only(top: height * 0.01),
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: height * 0.17,
+                            alignment: Alignment.bottomCenter,
+                            constraints:
+                                BoxConstraints(minHeight: height * 0.14),
+                            // color: Colors.amber,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () => _navigation(context, "I"),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    // color: Colors.amber,
+                                    width: width * 0.14,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            width: width * 0.14,
+                                            height: width * 0.14,
+                                            // color:
+                                            //     Theme.of(context).colorScheme.insteadImg,
+                                            child: !this.iAmState
+                                                ? Image.asset(
+                                                    "lib/assets/img/IamFillOff.png")
+                                                : Image.asset(
+                                                    "lib/assets/img/IAmIcon.png")),
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              top: height * 0.01),
+                                          child: Text(
+                                            "I am".tr().toUpperCase(),
+                                            style: TextStyle(
+                                                fontFamily: "FaturaMedium",
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white,
+                                                decoration: TextDecoration.none,
+                                                fontSize:
+                                                    width < 412 ? 14 : 18),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () => _startScan(),
-                                child: Container(
-                                    // color: Colors.amber,
-                                    width: height * 0.17,
-                                    // height: width * 0.3,
-                                    alignment: Alignment.center,
-                                    child: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: [
-                                          Container(
-                                            width: height * 0.16,
-                                            height: height * 0.16,
-                                            decoration: BoxDecoration(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .base,
-                                                borderRadius:
-                                                    BorderRadius.circular(100)),
-                                            // constraints: BoxConstraints(maxWidth: 90),
-                                          ),
-                                          Container(
-                                            width: height * 0.16,
-                                            // color: Colors.black12,
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              'Stay safe'.tr().toUpperCase(),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                GestureDetector(
+                                  onTap: () => _startScan(),
+                                  child: Container(
+                                      // color: Colors.amber,
+                                      width: height * 0.17,
+                                      // height: width * 0.3,
+                                      alignment: Alignment.center,
+                                      child: Stack(
+                                          alignment: Alignment.centerLeft,
+                                          children: [
+                                            Container(
+                                              width: height * 0.16,
+                                              height: height * 0.16,
+                                              decoration: BoxDecoration(
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .buttonText,
-                                                  fontSize:
-                                                      width < 412.0 ? 23 : 30,
-                                                  fontFamily: "FaturaExtraBold",
-                                                  height: 0.9,
-                                                  decoration:
-                                                      TextDecoration.none),
+                                                      .base,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100)),
+                                              // constraints: BoxConstraints(maxWidth: 90),
                                             ),
-                                          )
-                                        ])),
-                              ),
-                              GestureDetector(
-                                onTap: () =>
-                                    Navigator.pushNamed(context, 'Fight'),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  // color: Colors.amber,
-                                  width: width * 0.14,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: width * 0.12,
-                                        height: width * 0.12,
-                                        // color:
-                                        //     Theme.of(context).colorScheme.insteadImg,
-                                        child: Image.asset(
-                                            "lib/assets/img/FightIcon.png"),
-                                      ),
-                                      Container(
-                                        margin:
-                                            EdgeInsets.only(top: height * 0.01),
-                                        child: Text(
-                                          "Fight".tr().toUpperCase(),
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: "FaturaMedium",
-                                              fontWeight: FontWeight.w500,
-                                              decoration: TextDecoration.none,
-                                              fontSize: width < 412 ? 14 : 18),
+                                            Container(
+                                              width: height * 0.16,
+                                              // color: Colors.black12,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'Stay safe'.tr().toUpperCase(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .buttonText,
+                                                    fontSize:
+                                                        width < 412.0 ? 20 : 30,
+                                                    fontFamily:
+                                                        "FaturaExtraBold",
+                                                    height: 0.9,
+                                                    decoration:
+                                                        TextDecoration.none),
+                                              ),
+                                            )
+                                          ])),
+                                ),
+                                GestureDetector(
+                                  onTap: () =>
+                                      Navigator.pushNamed(context, 'Fight'),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    // color: Colors.amber,
+                                    width: width * 0.14,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: width * 0.12,
+                                          height: width * 0.12,
+                                          // color:
+                                          //     Theme.of(context).colorScheme.insteadImg,
+                                          child: Image.asset(
+                                              "lib/assets/img/FightIcon.png"),
                                         ),
-                                      )
-                                    ],
+                                        Container(
+                                          margin: EdgeInsets.only(
+                                              top: height * 0.01),
+                                          child: Text(
+                                            "Fight".tr().toUpperCase(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "FaturaMedium",
+                                                fontWeight: FontWeight.w500,
+                                                decoration: TextDecoration.none,
+                                                fontSize:
+                                                    width < 412 ? 14 : 18),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
             ),
           ],
@@ -413,7 +424,7 @@ class _HomePageState extends State<HomePage> {
                                 ? -height * 0.15
                                 : width < 390
                                     ? -height * 0.12
-                                    : -height * 0.15,
+                                    : -height * 0.16,
                             child: Container(
                               // alignment: Alignment.centerLeft,
                               // color: Colors.amber,
@@ -439,7 +450,7 @@ class _HomePageState extends State<HomePage> {
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
                                   fontFamily: "FaturaDemi",
-                                  fontSize: width > 412 ? 18 : 15,
+                                  fontSize: width > 412 ? 18 : 14,
                                   fontWeight: FontWeight.w500),
                             )
                           ],

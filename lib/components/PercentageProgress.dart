@@ -63,7 +63,7 @@ class _PercentageProgressState extends State<PercentageProgress>
             child: Opacity(
               opacity: 0.7,
               child: Container(
-                width: widget.small ? width * 0.25 : width * 0.6,
+                width: widget.small ? width * 0.25 : width * 0.58,
                 child: Image.asset(
                   "lib/assets/img/DeadVirusBackground.png",
                   fit: BoxFit.contain,
@@ -75,7 +75,7 @@ class _PercentageProgressState extends State<PercentageProgress>
         Container(
           alignment: Alignment.center,
           child: CircularPercentIndicator(
-            radius: widget.small ? width * 0.33 : width * 0.7,
+            radius: widget.small ? width * 0.33 : width * 0.68,
             lineWidth: 15.0,
             animation: true,
             backgroundColor: Colors.grey.withOpacity(0.1),
