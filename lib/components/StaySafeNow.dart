@@ -46,6 +46,11 @@ class _StatusSafeNowState extends State<StaySafeNow> {
     platform.setMethodCallHandler((call) => myUtilsHandler(call));
   }
 
+  updateDistance() async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool('stateDistance', stateDistance);
+  }
+
   Future<dynamic> myUtilsHandler(MethodCall methodCall) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     switch (methodCall.method) {
@@ -112,6 +117,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool state = prefs.getBool("show at risk") ?? false;
     bool stateMeeting = prefs.getBool('meeting state') ?? false;
+    stateDistance = prefs.getBool('stateDistance') ?? false;
     valueVulnerable = prefs.getInt('valueVulnerable') ?? 0;
     value = prefs.getInt('value') ?? 0;
     date =
@@ -692,6 +698,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                       if (!stateDistance) {
                                         setState(() {
                                           stateDistance = !stateDistance;
+                                          updateDistance();
                                         });
                                       }
                                     },
@@ -733,6 +740,7 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                       if (stateDistance) {
                                         setState(() {
                                           stateDistance = !stateDistance;
+                                          updateDistance();
                                         });
                                       }
                                     },

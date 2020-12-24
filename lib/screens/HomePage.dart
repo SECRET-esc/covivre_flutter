@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
     bool closeContact = sharedPreferences.getBool('closeContact');
     bool showAtRisk = sharedPreferences.getBool('showAtRisk');
     bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+    bool stateDistance = sharedPreferences.getBool('stateDistance');
 
     print(
         "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
@@ -61,7 +62,8 @@ class _HomePageState extends State<HomePage> {
       "positive": positive,
       "closeContact": closeContact,
       "showAtRisk": showAtRisk,
-      "showMeetingRooms": showMeetingRooms
+      "showMeetingRooms": showMeetingRooms,
+      "stateDistance": stateDistance
     };
     String scanStartResult;
     try {
@@ -84,6 +86,7 @@ class _HomePageState extends State<HomePage> {
     bool closeContact = sharedPreferences.getBool('closeContact');
     bool showAtRisk = sharedPreferences.getBool('showAtRisk');
     bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+    bool stateDistance = sharedPreferences.getBool('stateDistance');
 
     print(
         "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
@@ -93,7 +96,8 @@ class _HomePageState extends State<HomePage> {
       "positive": positive,
       "closeContact": closeContact,
       "showAtRisk": showAtRisk,
-      "showMeetingRooms": showMeetingRooms
+      "showMeetingRooms": showMeetingRooms,
+      "stateDistance": stateDistance
     };
     String scanStartResult;
     try {
@@ -120,6 +124,7 @@ class _HomePageState extends State<HomePage> {
       await prefs.setBool('positive', false);
       await prefs.setBool('closeContact', false);
       await prefs.setBool('show at risk', false);
+      await prefs.setBool('stateDistance', false);
       await prefs.setBool('show meeting rooms', false);
       await prefs.setBool('show alert feeling a bit down', true);
       await prefs.setString('feeling today', 'empty');

@@ -39,6 +39,7 @@ class ForegroundService : Service() {
     var risk: Boolean? = null
     var positive: Boolean? = null
     var closeContact: Boolean? = null
+    var stateDistance: Boolean? = null
     var showAtRisk: Boolean? = null
     var showMeetingRooms: Boolean? = null
     val NOTIFICATION_ID = 1988
@@ -69,6 +70,7 @@ class ForegroundService : Service() {
                 this.closeContact = call.argument("closeContact")
                 this.showAtRisk = call.argument("showAtRisk")
                 this.showMeetingRooms = call.argument("showMeetingRooms")
+                this.stateDistance = call.argument("stateDistance")
 
                 if (startScan() != -1) {
                     result.success(0)
@@ -81,6 +83,7 @@ class ForegroundService : Service() {
                 this.closeContact = call.argument("closeContact")
                 this.showAtRisk = call.argument("showAtRisk")
                 this.showMeetingRooms = call.argument("showMeetingRooms")
+                this.stateDistance = call.argument("stateDistance")
 
                 if (startAdvertise() != -1) {
                     result.success(0)

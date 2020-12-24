@@ -35,6 +35,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
     bool closeContact = sharedPreferences.getBool('closeContact');
     bool showAtRisk = sharedPreferences.getBool('showAtRisk');
     bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+    bool stateDistance = sharedPreferences.getBool('stateDistance');
 
     print(
         "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
@@ -44,7 +45,8 @@ class _SwitchCustomState extends State<SwitchCustom> {
       "positive": positive,
       "closeContact": closeContact,
       "showAtRisk": showAtRisk,
-      "showMeetingRooms": showMeetingRooms
+      "showMeetingRooms": showMeetingRooms,
+      "stateDistance": stateDistance
     };
     String scanStartResult;
     try {
@@ -99,6 +101,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
     var risk = sharedPreferences.getBool("risk");
     var positive = sharedPreferences.getBool("positive");
     var closeContact = sharedPreferences.getBool("closeContact");
+    var stateDistance = sharedPreferences.getBool("stateDistance");
     print('Name is $name');
     status = val;
     if (risk || positive || closeContact) {
