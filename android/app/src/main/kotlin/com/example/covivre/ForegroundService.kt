@@ -39,7 +39,7 @@ class ForegroundService : Service() {
     var risk: Boolean? = null
     var positive: Boolean? = null
     var closeContact: Boolean? = null
-    var stateDistance: Boolean? = null
+    var stateDistance: Boolean? = false
     var showAtRisk: Boolean? = null
     var showMeetingRooms: Boolean? = null
     val NOTIFICATION_ID = 1988

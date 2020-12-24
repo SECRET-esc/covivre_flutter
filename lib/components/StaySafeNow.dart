@@ -49,6 +49,49 @@ class _StatusSafeNowState extends State<StaySafeNow> {
   updateDistance() async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool('stateDistance', stateDistance);
+    _stopAdvertise();
+    _startAdvertise();
+  }
+
+  Future<void> _startAdvertise() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool risk = sharedPreferences.getBool('risk');
+    bool positive = sharedPreferences.getBool('positive');
+    bool closeContact = sharedPreferences.getBool('closeContact');
+    bool showAtRisk = sharedPreferences.getBool('showAtRisk');
+    bool showMeetingRooms = sharedPreferences.getBool('showMeetingRooms');
+    bool stateDistance = sharedPreferences.getBool('stateDistance');
+
+    print(
+        "state before risk - $risk, positive - $positive, closeContact - $closeContact, showAtRisk - $showAtRisk, showMeetingRooms - $showMeetingRooms");
+
+    var map = {
+      "risk": risk,
+      "positive": positive,
+      "closeContact": closeContact,
+      "showAtRisk": showAtRisk,
+      "showMeetingRooms": showMeetingRooms,
+      "stateDistance": stateDistance
+    };
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('startAdvertise', map);
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+    print(scanStartResult);
+  }
+
+  Future<void> _stopAdvertise() async {
+    String scanStartResult;
+    try {
+      final int result = await platform.invokeMethod('stopAdvertise');
+      scanStartResult = '$result % .';
+    } on PlatformException catch (e) {
+      scanStartResult = "Failed to get info: '${e.message}'.";
+    }
+    print(scanStartResult);
   }
 
   Future<dynamic> myUtilsHandler(MethodCall methodCall) async {

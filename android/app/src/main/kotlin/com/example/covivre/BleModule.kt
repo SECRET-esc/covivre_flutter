@@ -195,11 +195,13 @@ class BleModule() : AppCompatActivity() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             super.onScanResult(callbackType, result)
             var resultSent = false;
-            if (ForegroundService.instance.stateDistance!!&&result.getRssi()>-69||!ForegroundService.instance.stateDistance!!) {
+            if (ForegroundService.instance.stateDistance == true
+                    &&result.getRssi()>-69
+                    ||ForegroundService.instance.stateDistance == false) {
                 context.sendResult(getServiceUUIDsList(result))
                 resultSent = true;
             }
-            Log.d(TAG, "result sent: " +resultSent+ " rssi: " + result.getRssi() + " address: " + result.device.toString() + " lastScanResults: " + lastScanResults);
+            Log.d(TAG, "result sent: " +resultSent+ ""+ (result.getRssi()>-69) + (ForegroundService.instance.stateDistance)+ " rssi: " + result.getRssi() + " address: " + result.device.toString() + " lastScanResults: " + lastScanResults);
 
 //            btLeScanner.startScan(buildFilters(), buildSettings(), callBackStop)
 
