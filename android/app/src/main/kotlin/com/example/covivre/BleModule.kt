@@ -53,7 +53,7 @@ class BleModule() : AppCompatActivity() {
     var contact = mutableListOf<String>()
     var contactGraph = mutableListOf<String>()
     var contactGraphDay = mutableListOf<String>()
-    var turnScanOn = false
+    var turnScanOn = true
     var lastScanResults: Long = 0
     var dayGraphOld = mutableMapOf<Int, MutableList<String>>()
     var dayGraphIll = mutableMapOf<Int, MutableList<String>>()
@@ -77,7 +77,6 @@ class BleModule() : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun scanLeDevice() {
-        turnScanOn = !turnScanOn
 
         Log.d(TAG, "turnScanOn: $turnScanOn")
         if (turnScanOn) {
@@ -107,6 +106,7 @@ class BleModule() : AppCompatActivity() {
                 btLeScanner.stopScan(callBack)
             }
             this.isScan = false
+            turnScanOn = true
         }, scanPeriod)
         handler.postDelayed(Runnable() {
             createPeriodicScan()

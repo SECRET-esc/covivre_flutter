@@ -738,12 +738,10 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                 Flexible(
                                   child: GestureDetector(
                                     onTap: () {
-                                      if (!stateDistance) {
                                         setState(() {
-                                          stateDistance = !stateDistance;
+                                          stateDistance = true;
                                           updateDistance();
                                         });
-                                      }
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -780,12 +778,10 @@ class _StatusSafeNowState extends State<StaySafeNow> {
                                 Flexible(
                                   child: GestureDetector(
                                     onTap: () {
-                                      if (stateDistance) {
                                         setState(() {
-                                          stateDistance = !stateDistance;
+                                          stateDistance = false;
                                           updateDistance();
                                         });
-                                      }
                                     },
                                     child: Container(
                                       alignment: Alignment.center,

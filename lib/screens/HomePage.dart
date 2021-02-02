@@ -40,9 +40,6 @@ class _HomePageState extends State<HomePage> {
     print(data);
     _incrementInit();
     _furstLanchCencelation();
-    if (!firstLunch){
-      _startScan();
-    }
   }
 
   Future<void> _startScan() async {
@@ -170,6 +167,9 @@ class _HomePageState extends State<HomePage> {
           print("else data in prefs is $data");
         });
       }
+    }
+    if (prefs.getBool('FirstLunch') == false) {
+      _startScan();
     }
     print("First lunch is:$name");
   }

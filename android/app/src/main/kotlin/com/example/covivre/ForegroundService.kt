@@ -71,7 +71,9 @@ class ForegroundService : Service() {
                 this.showAtRisk = call.argument("showAtRisk")
                 this.showMeetingRooms = call.argument("showMeetingRooms")
                 this.stateDistance = call.argument("stateDistance")
-
+                if (this.stateDistance===null){
+                    this.stateDistance = false
+                }
                 if (startScan() != -1) {
                     result.success(0)
                 } else {
@@ -84,7 +86,9 @@ class ForegroundService : Service() {
                 this.showAtRisk = call.argument("showAtRisk")
                 this.showMeetingRooms = call.argument("showMeetingRooms")
                 this.stateDistance = call.argument("stateDistance")
-
+                if (this.stateDistance===null){
+                    this.stateDistance = false
+                }
                 if (startAdvertise() != -1) {
                     result.success(0)
                 } else {
@@ -455,7 +459,7 @@ class ForegroundService : Service() {
         val notificationManagerCompat = NotificationManagerCompat.from(MainActivity.instance)
         val areNotificationsEnabled = notificationManagerCompat.areNotificationsEnabled()
         if (!areNotificationsEnabled){
-            AlertDialog.Builder(this)
+            AlertDialog.Builder(MainActivity.instance)
                     .setMessage("Please allow notifications, without this application could not work")
                     .setPositiveButton("Allow")
                     { _, _ ->  }
